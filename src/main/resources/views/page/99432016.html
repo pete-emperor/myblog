@@ -1,0 +1,667 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-4bfa3af0c6.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-c9d2f651cc.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging-e040f0c7c8.css">
+<style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body class="nodata " > 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging-e040f0c7c8.css">
+
+<script type="text/javascript">
+	var NEWS_FEED = function(){}
+</script>
+
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+<div class="main_father clearfix d-flex justify-content-center" style="height:100%;"> 
+    <div class="container clearfix" id="mainBox">
+        <div  class='space_container'></div>
+        <main>
+            <div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article">【Android逆向】小白也能学会的一个小时破解某猫社区VIP会员</h1>
+            </div>
+            <div class="article-info-box">
+                <div class="article-bar-top">
+                    <!--文章类型-->
+                    <span class="article-type type-2 float-left">转载</span>                                                                                                                                            <a class="follow-nickName" href="https://me.csdn.net/weixin_43901866" target="_blank" rel="noopener">Android Developer</a>
+                    <span class="time">最后发布于2019-08-13 15:02:23                    </span>
+                    <span class="read-count">阅读数 3688</span>
+                    <a id='blog_detail_zk_collection' class="un-collection" data-report-click='{"mod":"popu_823"}'>
+                        <svg class="icon">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg>
+                        <span>收藏</span>
+                    </a>
+                                    </div>
+                                <div class="up-time">发布于2019-08-13 15:02:23</div>
+                <div class="slide-content-box">
+                                                                                                                    <div class="article-source-link">
+                            原文链接：<a href="https://github.com/goldze/Anti-Android-KM" target="_blank" rel="noopener">https://github.com/goldze/Anti-Android-KM</a>
+                        </div>
+                                    </div>
+                <div class="operating">
+                                                                <a class="href-article-edit slide-toggle">展开</a>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <article class="baidu_pl">
+        <!--python安装手册开始-->
+                <!--python安装手册结束-->
+                <!--####专栏广告位图文切换开始-->
+                                    <!--####专栏广告位图文切换结束-->
+         <div id="article_content" class="article_content clearfix">
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-833878f763.css" />
+                            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-833878f763.css" />
+                <div class="htmledit_views" id="content_views">
+                                            <blockquote>
+<p>本文来源于github,文末附有项目地址</p>
+</blockquote>
+
+<h2>前言</h2>
+
+<p>不记得是哪一天，忽忽悠悠地就进入了某猫社区（你懂的），从此，每天早上一瓶营养快线。庆幸的是，该社区为了盈利，开启了VIP通道和播放次数限制，不然可以直接喝蛋白质了。不过正值青春、精力旺盛的我们，怎么能让理智控制欲望？那就成为高大上的会员，开启VIP加速通道，无限观看！充钱？充钱是不可能充钱的，这辈子都不可能充钱。作为Android开发者，应该用特殊的手段来搞定特殊的事情，带着我们目标，那就来一次Android的逆向之旅吧！</p>
+
+<p>发布此文的目的，除了分享整个破解过程外，还希望可以帮助你打开Android逆向的大门，体验不一样的Android世界。</p>
+
+<p><strong>此文章仅供技术交流</strong><br /><strong>此文章仅供技术交流</strong><br /><strong>此文章仅供技术交流</strong></p>
+
+<p>...没时间解释了，赶紧上车吧...</p>
+
+<h2>准备工作</h2>
+
+<p>玩逆向的基本工具，这里需要准备Android逆向三件套 <strong><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%3Ftarget%3Dhttps%253A%252F%252Fibotpeaches.github.io%252FApktool%252F" rel="nofollow">apktool</a></strong>、<strong><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%3Ftarget%3Dhttps%253A%252F%252Fsourceforge.net%252Fprojects%252Fdex2jar%252F" rel="nofollow">dex2jar</a></strong>、<strong><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%3Ftarget%3Dhttp%253A%252F%252Fjava-decompiler.github.io%252F" rel="nofollow">jd-gui</a></strong></p>
+
+<p>apktool：反编译apk、重新打包新apk。你可以得到 <strong>smali、res、AndroidManifest.xml</strong>等文件；</p>
+
+<p>dex2jar：把Android执行的 <strong>dex</strong> 文件转成 <strong>jar</strong> 文件；</p>
+
+<p>jd-gui：一款可以方便阅读 <strong>jar</strong> 文件的代码工具。</p>
+
+<p>他们之间的关系，可以参考下图：</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0wZDQ5MzYzMzZjZTJiMDZmLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjkwL2Zvcm1hdC93ZWJw" /></p>
+
+<p><strong><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%3Ftarget%3Dhttps%253A%252F%252Fgithub.com%252Fgoldze%252FAnti-Android-KM" rel="nofollow">工具我已经传到GitHub，但不保证以后是最新版本</a></strong></p>
+
+<blockquote>
+<p>下载好上面三个工具，就可以开启你的逆向之旅了！</p>
+</blockquote>
+
+<h2>逆向开始</h2>
+
+<blockquote>
+<p>提到逆向，可能很多朋友会想到Xposed，用Xposed去Hook参数，绕过if判断。没错，用Xposed确实很容易就能达到目的，但是它的限制比较大，手机需要root，并且安装Xposed模块，或者需要跑在VirtualXposed虚拟环境下，增加了使用者的上手成本。</p>
+</blockquote>
+
+<p>我们这里的破解方式，会直接输出一个破解版Apk，使用者不需要进行任何多余的操作，安装即可使用。</p>
+
+<h3>第一步：将原应用 apk 后缀改成 zip，解压出 classes.dex 文件</h3>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1iZmFkYWFjNTgyN2VmMTExLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvMTcyL2Zvcm1hdC93ZWJw" /></p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1iZWQ1MDQ5MzVmZDczOWE4LnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjYwL2Zvcm1hdC93ZWJw" /></p>
+
+<blockquote>
+<p>其实这一步是最难的，逆向最难的在于脱壳，脱壳分两种，手动脱壳(手脱)和机器脱壳(机脱)。什么是脱壳呢？就是很多App在发布到应用市场之前，会进行加固，即加壳，它会把真正的dex文件给"藏"起来，我们就需要通过脱壳的方式去找到应用里真正的dex，才能拿到里面的源码。只有拿到源码并读懂源码(混淆后连蒙带猜)，才能找到爆破点，才能修改代码重新编译。</p>
+</blockquote>
+
+<blockquote>
+<p>我们这里破解的某猫App，因为它的特殊性质，它上不了市场，也没有加固，最可气的是，它居然不混淆，这让我们破解的难度直线下降。</p>
+</blockquote>
+
+<h3>第二步：使用 dex2jar 将 classes.dex 转成 jar 文件</h3>
+
+<p>cmd到dex2jar文件夹目录，执行</p>
+
+<pre class="has">
+<code>    d2j-dex2jar D://xxx/xxx/classes.dex
+
+</code></pre>
+
+<p>得到 <strong>jar</strong> 文件</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0wZDgyYjE4MzU5YTI3OWNiLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvODc1L2Zvcm1hdC93ZWJw" /></p>
+
+<h2>静态分析</h2>
+
+<p>拿到源码后，首先我们需要找到应用的限制点，绕过App里面的判断。</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1kZmE2MzNhYTVjMWU2NzAyLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNTQwL2Zvcm1hdC93ZWJw" /></p>
+
+<p>然后分析源码，该从哪里开始入手呢？</p>
+
+<p>我们都知道，一个完整Android应用，可能会存在各种第三方，各种依赖库，这些依赖都会被编译到dex里面，所以这个Jar包里面会存在很多不同包名的类文件，为了方便找到破解应用的包名，我们可以借助adb打印栈顶activity的类全路径：</p>
+
+<pre class="has">
+<code>    adb shell dumpsys activity | findstr "mFocusedActivity"
+
+</code></pre>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny03NGZmYWMzMDAyMzIxOTBhLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjczL2Zvcm1hdC93ZWJw" /></p>
+
+<p>activity的包路径已经打印出来了，接下来在 jar 文件里面找到 <strong>PlayLineActivity.java</strong> 的相关代码。</p>
+
+<p>根据页面Toast提示，很轻松就能定位到爆破点。</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0wOWM5M2QyYmI3YThiNWNlLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvODM3L2Zvcm1hdC93ZWJw" /></p>
+
+<pre class="has">
+<code>    UserUtils.getUserInfo().getIs_vip().equals("1")
+
+</code></pre>
+
+<p>可以看出，当会员字段为 1 时，说明是会员用户，就会切换至线路2。</p>
+
+<pre class="has">
+<code>    Hawk.put("line", "2");
+
+</code></pre>
+
+<p>那接下来只需要修改用户实体类 <strong>UserModel</strong> 的 <strong>getIs_vip()</strong> 方法，让它永远返回 <strong>1</strong> 就行了。</p>
+
+<h2>破解</h2>
+
+<p><strong>dex2jar、jd-gui</strong> 都只是分析工具，下面才是真正破解的开始。</p>
+
+<h3>Smali简介</h3>
+
+<blockquote>
+<p>Dalvik虚拟机和Jvm一样，也有自己的一套指令集，类似汇编语言，但是比汇编简单许多。我们编写的Java类，最后都会通过虚拟机转化成Android系统可以解读的smali指令，生成后缀为 .smali 的文件，与Java文件一一对应 （也可能会比Java文件多，典型的比如实现某个接口的匿名内部类），这些smali文件就是Dalvik的寄存器语言。 只要你会java，了解android的相关知识，就能轻松的阅读它，</p>
+</blockquote>
+
+<p>所以，我们真正需要修改的东西，是 java 代码对应的 smali 指令。</p>
+
+<h3>反编译</h3>
+
+<p>我们利用apktool工具，来提取apk里面的 smali文件。</p>
+
+<p>cmd到apktool文件夹下面，执行 （你也可以配置环境变量，这样会方便一些）</p>
+
+<pre class="has">
+<code>    apktool.bat d -f [apk输入路径] [文件夹输出路径]
+
+</code></pre>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny03ZGNlN2ZlNTc2YTFhNjVjLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjk3L2Zvcm1hdC93ZWJw" /></p>
+
+<p>反编译成功后，打开smali文件夹，找到 <strong>UserModel.java</strong> 对应包名下的 <strong>UserModel.smali</strong> 文件。</p>
+
+<h3>爆破</h3>
+
+<p>找到了爆破文件，找到了爆破点，接下来就可以对 <strong>UserModel.smali</strong> 文件进行爆破了（为什么叫爆破，我也不知道，行内都是这样叫的，感觉高大上，其实就是修改文件）。</p>
+
+<p>用编辑器打开 <strong>UserModel.smali</strong> ，找到 <strong>getIs_vip</strong> 方法</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1iY2IyZWIzMTkxZjg2YmY2LnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvOTg4L2Zvcm1hdC93ZWJw" /></p>
+
+<p>可以看到，它返回了成员变量 <strong>is_vip</strong> 的值，我们只需要把它的返回值修改成 <strong>1</strong> 就行了。</p>
+
+<blockquote>
+<p>如果对smali指令不熟悉，你可以花10分钟去了解一下smali的基本语法。</p>
+</blockquote>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0wNjI3NjRhYTQ3YTU4MjgzLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvOTczL2Zvcm1hdC93ZWJw" /></p>
+
+<p>定义一个string类型的常量 <strong>v1</strong>，赋值为 <strong>1</strong>，并将它返回出去。</p>
+
+<h3>动态调试</h3>
+
+<p>破解的这个好像太简单了，都省掉了调试步骤，那就直接</p>
+
+<p><strong>保存，搞定！</strong></p>
+
+<h2>回编</h2>
+
+<p>接下来把反编译生产的文件夹又重新回编成 apk。</p>
+
+<h3>重新打包</h3>
+
+<p>cmd到apktool文件夹下面，执行</p>
+
+<pre class="has">
+<code>    apktool b [文件夹输入路径] -o [apk输出路径]
+
+</code></pre>
+
+<p>如果修改smali文件没有问题的话，就可以正常生成一个新的 apk 文件。</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1lODg4Y2QwOTAwMjRkNmMxLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvMzUyL2Zvcm1hdC93ZWJw" /></p>
+
+<p>这时候直接将重新打包的apk文件拿去安装是不行的，因为之前zip解压的目录中，<strong>META-INF</strong> 文件夹就是存放签名信息，为了防止恶意串改。</p>
+
+<p><strong>所以我们需要对重新打包的apk重新签名。</strong></p>
+
+<h3>重新签名</h3>
+
+<p>首先准备一个 <strong>.jks</strong> 的签名文件，这个开发android的同学应该很熟悉了。</p>
+
+<p>配置了JDK环境变量，直接执行：</p>
+
+<pre class="has">
+<code>    jarsigner -verbose -keystore [签名文件路径] -storepass [签名文件密码] -signedjar [新apk输出路径] -digestalg SHA1 -sigalg MD5withRSA [旧apk输入路径] [签名文件别名]
+
+</code></pre>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny02YmYxZmM0MTEyNGUzNGIwLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjY4L2Zvcm1hdC93ZWJw" /></p>
+
+<p>最后在你的文件夹下面，就可以看到一个 <strong>某猫VIP破解版.apk</strong>。</p>
+
+<p>安装并验证功能</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0xOWU5MzI1ZTA4NmU1MjBjLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNTQwL2Zvcm1hdC93ZWJw" /></p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny05ZWQ4M2JlMTkzMmQ0MWNlLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNTQwL2Zvcm1hdC93ZWJw" /></p>
+
+<h2>总结</h2>
+
+<p>最后来梳理一下破解流程：</p>
+
+<p><strong>1、将原应用 apk 后缀改成 zip，解压出 classes.dex 文件</strong></p>
+
+<p><strong>2、使用 dex2jar 将 classes.dex 转成 jar 文件</strong></p>
+
+<p><strong>3、将 jar 文件用 jd-gui 打开，查看源代码</strong></p>
+
+<p><strong>4、adb定位到类名包路径，找到相关代码</strong></p>
+
+<p><strong>5、apktool 反编译 apk，找到 smali 对应的爆破点</strong></p>
+
+<p><strong>6、修改 smali 文件，调试程序</strong></p>
+
+<p><strong>7、重新打包，重新签名</strong></p>
+
+<p>以上是我对这次破解流程的一个总结，如果有不对或者遗漏的地方，还请各位大佬指正。</p>
+
+<p>最近有点感冒，干咳一个多月了还不好起来，想到小菊花妈妈课堂那句话：<strong>孩子咳嗽老不好，多半是废了</strong>。我也就放弃治疗，待在空荡的房间，干着喜欢干的事_。我也是刚接触Android逆向没多久，一开始以为很复杂，很麻烦，当时只是抱着无聊想试试的心态，反正都放弃治疗了，没想到只花了一个多小时，竟然就成功了，并没有想象中的那么难。</p>
+
+<p>如果你对逆向也感兴趣的话，并且和我一样是初学者，我觉得这个实战过程非常适合你。一是能让你感受到破解的整个过程；二是难度不大，不会打击到你的兴趣，同时还能得到一定的成就感。</p>
+
+<p>原文地址：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%2F%3Ftarget%3Dhttps%253A%252F%252Fgithub.com%252Fgoldze%252FAnti-Android-KM" rel="nofollow">github.com/goldze/Anti…</a></p>
+
+<p>文章写到这里就结束了，如果你觉得文章写得不错就给个赞呗？你的支持是我最大的动力！</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTIzMzUxOC1kNGRiZmEwMjQxMmY1M2Q5LmpwZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvMjU1L2Zvcm1hdC93ZWJw" /></p>
+
+<h2>最后，熟悉的阅读分享环节</h2>
+
+<ul><li><a href="https://blog.csdn.net/weixin_43901866/article/details/88322941">阿里腾讯Android开发十年，到中年危机就只剩下这套移动架构体系了！</a></li>
+	<li><a href="https://blog.csdn.net/weixin_43901866/article/details/88253709">“我在阿里做了5年招聘，给求职者10条建议”</a></li>
+</ul><p> </p>
+                                    </div>
+                                                <div class="more-toolbox">
+                <div class="left-toolbox">
+                    <ul class="toolbox-list">
+                        
+                        <li class="tool-item tool-active is-like "><a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-thumbsup"></use>
+                        </svg><span class="name">点赞</span>
+                        <span class="count"></span>
+                        </a></li>
+                        <li class="tool-item tool-active is-collection "><a href="javascript:;" data-report-click='{"mod":"popu_824"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg><span class="name">收藏</span></a></li>
+                        <li class="tool-item tool-active is-share"><a href="javascript:;" data-report-click='{"mod":"1582594662_002"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-fenxiang"></use>
+                        </svg>分享</a></li>
+                        <!--打赏开始-->
+                                                <!--打赏结束-->
+                                                <li class="tool-item tool-more">
+                            <a>
+                            <svg t="1575545411852" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5717" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style>
+</head>
+<body>
+<div style="width:852px;margin:0 auto;">
+<div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article">【Android逆向】小白也能学会的一个小时破解某猫社区VIP会员</h1>
+            </div>
+            <div class="article-info-box">
+                <div class="article-bar-top">
+                    <!--文章类型-->
+                    <span class="article-type type-2 float-left">转载</span>                                                                                                                                            <a class="follow-nickName" href="https://me.csdn.net/weixin_43901866" target="_blank" rel="noopener">Android Developer</a>
+                    <span class="time">最后发布于2019-08-13 15:02:23                    </span>
+                    <span class="read-count">阅读数 3688</span>
+                    <a id='blog_detail_zk_collection' class="un-collection" data-report-click='{"mod":"popu_823"}'>
+                        <svg class="icon">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg>
+                        <span>收藏</span>
+                    </a>
+                                    </div>
+                                <div class="up-time">发布于2019-08-13 15:02:23</div>
+                <div class="slide-content-box">
+                                                                                                                    <div class="article-source-link">
+                            原文链接：<a href="https://github.com/goldze/Anti-Android-KM" target="_blank" rel="noopener">https://github.com/goldze/Anti-Android-KM</a>
+                        </div>
+                                    </div>
+                <div class="operating">
+                                                                <a class="href-article-edit slide-toggle">展开</a>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <article class="baidu_pl">
+        <!--python安装手册开始-->
+                <!--python安装手册结束-->
+                <!--####专栏广告位图文切换开始-->
+                                    <!--####专栏广告位图文切换结束-->
+         <div id="article_content" class="article_content clearfix">
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-833878f763.css" />
+                            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-833878f763.css" />
+                <div class="htmledit_views" id="content_views">
+                                            <blockquote>
+<p>本文来源于github,文末附有项目地址</p>
+</blockquote>
+
+<h2>前言</h2>
+
+<p>不记得是哪一天，忽忽悠悠地就进入了某猫社区（你懂的），从此，每天早上一瓶营养快线。庆幸的是，该社区为了盈利，开启了VIP通道和播放次数限制，不然可以直接喝蛋白质了。不过正值青春、精力旺盛的我们，怎么能让理智控制欲望？那就成为高大上的会员，开启VIP加速通道，无限观看！充钱？充钱是不可能充钱的，这辈子都不可能充钱。作为Android开发者，应该用特殊的手段来搞定特殊的事情，带着我们目标，那就来一次Android的逆向之旅吧！</p>
+
+<p>发布此文的目的，除了分享整个破解过程外，还希望可以帮助你打开Android逆向的大门，体验不一样的Android世界。</p>
+
+<p><strong>此文章仅供技术交流</strong><br /><strong>此文章仅供技术交流</strong><br /><strong>此文章仅供技术交流</strong></p>
+
+<p>...没时间解释了，赶紧上车吧...</p>
+
+<h2>准备工作</h2>
+
+<p>玩逆向的基本工具，这里需要准备Android逆向三件套 <strong><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%3Ftarget%3Dhttps%253A%252F%252Fibotpeaches.github.io%252FApktool%252F" rel="nofollow">apktool</a></strong>、<strong><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%3Ftarget%3Dhttps%253A%252F%252Fsourceforge.net%252Fprojects%252Fdex2jar%252F" rel="nofollow">dex2jar</a></strong>、<strong><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%3Ftarget%3Dhttp%253A%252F%252Fjava-decompiler.github.io%252F" rel="nofollow">jd-gui</a></strong></p>
+
+<p>apktool：反编译apk、重新打包新apk。你可以得到 <strong>smali、res、AndroidManifest.xml</strong>等文件；</p>
+
+<p>dex2jar：把Android执行的 <strong>dex</strong> 文件转成 <strong>jar</strong> 文件；</p>
+
+<p>jd-gui：一款可以方便阅读 <strong>jar</strong> 文件的代码工具。</p>
+
+<p>他们之间的关系，可以参考下图：</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0wZDQ5MzYzMzZjZTJiMDZmLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjkwL2Zvcm1hdC93ZWJw" /></p>
+
+<p><strong><a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%3Ftarget%3Dhttps%253A%252F%252Fgithub.com%252Fgoldze%252FAnti-Android-KM" rel="nofollow">工具我已经传到GitHub，但不保证以后是最新版本</a></strong></p>
+
+<blockquote>
+<p>下载好上面三个工具，就可以开启你的逆向之旅了！</p>
+</blockquote>
+
+<h2>逆向开始</h2>
+
+<blockquote>
+<p>提到逆向，可能很多朋友会想到Xposed，用Xposed去Hook参数，绕过if判断。没错，用Xposed确实很容易就能达到目的，但是它的限制比较大，手机需要root，并且安装Xposed模块，或者需要跑在VirtualXposed虚拟环境下，增加了使用者的上手成本。</p>
+</blockquote>
+
+<p>我们这里的破解方式，会直接输出一个破解版Apk，使用者不需要进行任何多余的操作，安装即可使用。</p>
+
+<h3>第一步：将原应用 apk 后缀改成 zip，解压出 classes.dex 文件</h3>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1iZmFkYWFjNTgyN2VmMTExLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvMTcyL2Zvcm1hdC93ZWJw" /></p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1iZWQ1MDQ5MzVmZDczOWE4LnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjYwL2Zvcm1hdC93ZWJw" /></p>
+
+<blockquote>
+<p>其实这一步是最难的，逆向最难的在于脱壳，脱壳分两种，手动脱壳(手脱)和机器脱壳(机脱)。什么是脱壳呢？就是很多App在发布到应用市场之前，会进行加固，即加壳，它会把真正的dex文件给"藏"起来，我们就需要通过脱壳的方式去找到应用里真正的dex，才能拿到里面的源码。只有拿到源码并读懂源码(混淆后连蒙带猜)，才能找到爆破点，才能修改代码重新编译。</p>
+</blockquote>
+
+<blockquote>
+<p>我们这里破解的某猫App，因为它的特殊性质，它上不了市场，也没有加固，最可气的是，它居然不混淆，这让我们破解的难度直线下降。</p>
+</blockquote>
+
+<h3>第二步：使用 dex2jar 将 classes.dex 转成 jar 文件</h3>
+
+<p>cmd到dex2jar文件夹目录，执行</p>
+
+<pre class="has">
+<code>    d2j-dex2jar D://xxx/xxx/classes.dex
+
+</code></pre>
+
+<p>得到 <strong>jar</strong> 文件</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0wZDgyYjE4MzU5YTI3OWNiLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvODc1L2Zvcm1hdC93ZWJw" /></p>
+
+<h2>静态分析</h2>
+
+<p>拿到源码后，首先我们需要找到应用的限制点，绕过App里面的判断。</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1kZmE2MzNhYTVjMWU2NzAyLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNTQwL2Zvcm1hdC93ZWJw" /></p>
+
+<p>然后分析源码，该从哪里开始入手呢？</p>
+
+<p>我们都知道，一个完整Android应用，可能会存在各种第三方，各种依赖库，这些依赖都会被编译到dex里面，所以这个Jar包里面会存在很多不同包名的类文件，为了方便找到破解应用的包名，我们可以借助adb打印栈顶activity的类全路径：</p>
+
+<pre class="has">
+<code>    adb shell dumpsys activity | findstr "mFocusedActivity"
+
+</code></pre>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny03NGZmYWMzMDAyMzIxOTBhLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjczL2Zvcm1hdC93ZWJw" /></p>
+
+<p>activity的包路径已经打印出来了，接下来在 jar 文件里面找到 <strong>PlayLineActivity.java</strong> 的相关代码。</p>
+
+<p>根据页面Toast提示，很轻松就能定位到爆破点。</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0wOWM5M2QyYmI3YThiNWNlLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvODM3L2Zvcm1hdC93ZWJw" /></p>
+
+<pre class="has">
+<code>    UserUtils.getUserInfo().getIs_vip().equals("1")
+
+</code></pre>
+
+<p>可以看出，当会员字段为 1 时，说明是会员用户，就会切换至线路2。</p>
+
+<pre class="has">
+<code>    Hawk.put("line", "2");
+
+</code></pre>
+
+<p>那接下来只需要修改用户实体类 <strong>UserModel</strong> 的 <strong>getIs_vip()</strong> 方法，让它永远返回 <strong>1</strong> 就行了。</p>
+
+<h2>破解</h2>
+
+<p><strong>dex2jar、jd-gui</strong> 都只是分析工具，下面才是真正破解的开始。</p>
+
+<h3>Smali简介</h3>
+
+<blockquote>
+<p>Dalvik虚拟机和Jvm一样，也有自己的一套指令集，类似汇编语言，但是比汇编简单许多。我们编写的Java类，最后都会通过虚拟机转化成Android系统可以解读的smali指令，生成后缀为 .smali 的文件，与Java文件一一对应 （也可能会比Java文件多，典型的比如实现某个接口的匿名内部类），这些smali文件就是Dalvik的寄存器语言。 只要你会java，了解android的相关知识，就能轻松的阅读它，</p>
+</blockquote>
+
+<p>所以，我们真正需要修改的东西，是 java 代码对应的 smali 指令。</p>
+
+<h3>反编译</h3>
+
+<p>我们利用apktool工具，来提取apk里面的 smali文件。</p>
+
+<p>cmd到apktool文件夹下面，执行 （你也可以配置环境变量，这样会方便一些）</p>
+
+<pre class="has">
+<code>    apktool.bat d -f [apk输入路径] [文件夹输出路径]
+
+</code></pre>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny03ZGNlN2ZlNTc2YTFhNjVjLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjk3L2Zvcm1hdC93ZWJw" /></p>
+
+<p>反编译成功后，打开smali文件夹，找到 <strong>UserModel.java</strong> 对应包名下的 <strong>UserModel.smali</strong> 文件。</p>
+
+<h3>爆破</h3>
+
+<p>找到了爆破文件，找到了爆破点，接下来就可以对 <strong>UserModel.smali</strong> 文件进行爆破了（为什么叫爆破，我也不知道，行内都是这样叫的，感觉高大上，其实就是修改文件）。</p>
+
+<p>用编辑器打开 <strong>UserModel.smali</strong> ，找到 <strong>getIs_vip</strong> 方法</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1iY2IyZWIzMTkxZjg2YmY2LnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvOTg4L2Zvcm1hdC93ZWJw" /></p>
+
+<p>可以看到，它返回了成员变量 <strong>is_vip</strong> 的值，我们只需要把它的返回值修改成 <strong>1</strong> 就行了。</p>
+
+<blockquote>
+<p>如果对smali指令不熟悉，你可以花10分钟去了解一下smali的基本语法。</p>
+</blockquote>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0wNjI3NjRhYTQ3YTU4MjgzLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvOTczL2Zvcm1hdC93ZWJw" /></p>
+
+<p>定义一个string类型的常量 <strong>v1</strong>，赋值为 <strong>1</strong>，并将它返回出去。</p>
+
+<h3>动态调试</h3>
+
+<p>破解的这个好像太简单了，都省掉了调试步骤，那就直接</p>
+
+<p><strong>保存，搞定！</strong></p>
+
+<h2>回编</h2>
+
+<p>接下来把反编译生产的文件夹又重新回编成 apk。</p>
+
+<h3>重新打包</h3>
+
+<p>cmd到apktool文件夹下面，执行</p>
+
+<pre class="has">
+<code>    apktool b [文件夹输入路径] -o [apk输出路径]
+
+</code></pre>
+
+<p>如果修改smali文件没有问题的话，就可以正常生成一个新的 apk 文件。</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny1lODg4Y2QwOTAwMjRkNmMxLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvMzUyL2Zvcm1hdC93ZWJw" /></p>
+
+<p>这时候直接将重新打包的apk文件拿去安装是不行的，因为之前zip解压的目录中，<strong>META-INF</strong> 文件夹就是存放签名信息，为了防止恶意串改。</p>
+
+<p><strong>所以我们需要对重新打包的apk重新签名。</strong></p>
+
+<h3>重新签名</h3>
+
+<p>首先准备一个 <strong>.jks</strong> 的签名文件，这个开发android的同学应该很熟悉了。</p>
+
+<p>配置了JDK环境变量，直接执行：</p>
+
+<pre class="has">
+<code>    jarsigner -verbose -keystore [签名文件路径] -storepass [签名文件密码] -signedjar [新apk输出路径] -digestalg SHA1 -sigalg MD5withRSA [旧apk输入路径] [签名文件别名]
+
+</code></pre>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny02YmYxZmM0MTEyNGUzNGIwLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNjY4L2Zvcm1hdC93ZWJw" /></p>
+
+<p>最后在你的文件夹下面，就可以看到一个 <strong>某猫VIP破解版.apk</strong>。</p>
+
+<p>安装并验证功能</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny0xOWU5MzI1ZTA4NmU1MjBjLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNTQwL2Zvcm1hdC93ZWJw" /></p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODYxNzQ5Ny05ZWQ4M2JlMTkzMmQ0MWNlLnBuZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvNTQwL2Zvcm1hdC93ZWJw" /></p>
+
+<h2>总结</h2>
+
+<p>最后来梳理一下破解流程：</p>
+
+<p><strong>1、将原应用 apk 后缀改成 zip，解压出 classes.dex 文件</strong></p>
+
+<p><strong>2、使用 dex2jar 将 classes.dex 转成 jar 文件</strong></p>
+
+<p><strong>3、将 jar 文件用 jd-gui 打开，查看源代码</strong></p>
+
+<p><strong>4、adb定位到类名包路径，找到相关代码</strong></p>
+
+<p><strong>5、apktool 反编译 apk，找到 smali 对应的爆破点</strong></p>
+
+<p><strong>6、修改 smali 文件，调试程序</strong></p>
+
+<p><strong>7、重新打包，重新签名</strong></p>
+
+<p>以上是我对这次破解流程的一个总结，如果有不对或者遗漏的地方，还请各位大佬指正。</p>
+
+<p>最近有点感冒，干咳一个多月了还不好起来，想到小菊花妈妈课堂那句话：<strong>孩子咳嗽老不好，多半是废了</strong>。我也就放弃治疗，待在空荡的房间，干着喜欢干的事_。我也是刚接触Android逆向没多久，一开始以为很复杂，很麻烦，当时只是抱着无聊想试试的心态，反正都放弃治疗了，没想到只花了一个多小时，竟然就成功了，并没有想象中的那么难。</p>
+
+<p>如果你对逆向也感兴趣的话，并且和我一样是初学者，我觉得这个实战过程非常适合你。一是能让你感受到破解的整个过程；二是难度不大，不会打击到你的兴趣，同时还能得到一定的成就感。</p>
+
+<p>原文地址：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.im%2F%3Ftarget%3Dhttps%253A%252F%252Fgithub.com%252Fgoldze%252FAnti-Android-KM" rel="nofollow">github.com/goldze/Anti…</a></p>
+
+<p>文章写到这里就结束了，如果你觉得文章写得不错就给个赞呗？你的支持是我最大的动力！</p>
+
+<p><img alt="" class="has" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTIzMzUxOC1kNGRiZmEwMjQxMmY1M2Q5LmpwZz9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwJTdDaW1hZ2VWaWV3Mi8yL3cvMjU1L2Zvcm1hdC93ZWJw" /></p>
+
+<h2>最后，熟悉的阅读分享环节</h2>
+
+<ul><li><a href="https://blog.csdn.net/weixin_43901866/article/details/88322941">阿里腾讯Android开发十年，到中年危机就只剩下这套移动架构体系了！</a></li>
+	<li><a href="https://blog.csdn.net/weixin_43901866/article/details/88253709">“我在阿里做了5年招聘，给求职者10条建议”</a></li>
+</ul><p> </p>
+                                    </div>
+                                                <div class="more-toolbox">
+                <div class="left-toolbox">
+                    <ul class="toolbox-list">
+                        
+                        <li class="tool-item tool-active is-like "><a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-thumbsup"></use>
+                        </svg><span class="name">点赞</span>
+                        <span class="count"></span>
+                        </a></li>
+                        <li class="tool-item tool-active is-collection "><a href="javascript:;" data-report-click='{"mod":"popu_824"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg><span class="name">收藏</span></a></li>
+                        <li class="tool-item tool-active is-share"><a href="javascript:;" data-report-click='{"mod":"1582594662_002"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-fenxiang"></use>
+                        </svg>分享</a></li>
+                        <!--打赏开始-->
+                                                <!--打赏结束-->
+                                                <li class="tool-item tool-more">
+                            <a>
+                            <svg t="1575545411852" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5717" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M179.176 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5718"></path><path d="M509.684 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5719"></path><path d="M846.175 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5720"></path></svg>
+                            </a>
+                            <ul class="more-box">
+                                <li class="item"><a class="article-report">文章举报</a></li>
+                            </ul>
+                        </li>
+                                            </ul>
+                </div>
+                            </div>
+            <div class="person-messagebox">
+                <div class="left-message"><a href="https://blog.csdn.net/weixin_43901866">
+                    <img src="https://profile.csdnimg.cn/8/2/E/3_weixin_43901866" class="avatar_pic" username='weixin_43901866'>
+                                            <img src="https://g.csdnimg.cn/static/user-reg-year/1x/1.png" class="user-years">
+                                    </a></div>
+                <div class="middle-message">
+                                        <div class="title"><span class="tit"><a href="https://blog.csdn.net/weixin_43901866" data-report-click='{"mod":"popu_379"}' target="_blank">Android Developer</a></span>
+                                            </div>
+                    <div class="text"><span>发布了450 篇原创文章</span> · <span>获赞 730</span> · <span>访问量 20万+</span></div>
+                </div>
+                                <div class="right-message">
+                                            <a href="https://bbs.csdn.net/topics/395532450" target="_blank"
+                        class="btn btn-sm btn-red-hollow bt-button personal-messageboard">他的留言板
+                        </a>
+                                                            <a class="btn btn-sm  bt-button personal-watch" data-report-click='{"mod":"popu_379"}'>关注</a>
+                                    </div>
+                            </div>
+                    </div>
+    </article>
+</div>
+</div>
+</body>
+</html>

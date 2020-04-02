@@ -1,0 +1,1059 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-4bfa3af0c6.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-c9d2f651cc.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging-e040f0c7c8.css">
+<style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body class="nodata " > 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging-e040f0c7c8.css">
+
+<script type="text/javascript">
+	var NEWS_FEED = function(){}
+</script>
+
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+<div class="main_father clearfix d-flex justify-content-center" style="height:100%;"> 
+    <div class="container clearfix" id="mainBox">
+        <div  class='space_container'></div>
+        <main>
+            <div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article">Android开发项目实战：实现折叠式布局</h1>
+            </div>
+            <div class="article-info-box">
+                <div class="article-bar-top">
+                    <!--文章类型-->
+                    <span class="article-type type-1 float-left">原创</span>                                                                                                                                            <a class="follow-nickName" href="https://me.csdn.net/weixin_43901866" target="_blank" rel="noopener">Android Developer</a>
+                    <span class="time">最后发布于2020-02-13 10:25:25                    </span>
+                    <span class="read-count">阅读数 45</span>
+                    <a id='blog_detail_zk_collection' class="un-collection" data-report-click='{"mod":"popu_823"}'>
+                        <svg class="icon">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg>
+                        <span>收藏</span>
+                    </a>
+                                    </div>
+                                <div class="up-time">发布于2020-02-13 10:25:25</div>
+                <div class="slide-content-box">
+                                                                                                                        <div class="article-copyright">
+                        <span class="creativecommons">
+                            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"></a>
+                            <span>
+                                版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。                            </span>
+                            <div class="article-source-link2222">
+                                本文链接：<a href="https://blog.csdn.net/weixin_43901866/article/details/104291452">https://blog.csdn.net/weixin_43901866/article/details/104291452</a>
+                            </div>
+                        </span> 
+                        </div>
+                                                                                </div>
+                <div class="operating">
+                                                                <a class="href-article-edit slide-toggle">展开</a>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <article class="baidu_pl">
+        <!--python安装手册开始-->
+                <!--python安装手册结束-->
+                <!--####专栏广告位图文切换开始-->
+                                    <!--####专栏广告位图文切换结束-->
+         <div id="article_content" class="article_content clearfix">
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-833878f763.css" />
+                            <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <!-- flowchart 箭头图标 勿删 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                                            <p>首先实现一个<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fmenxindiaolong.blog.csdn.net%2Farticle%2Fdetails%2F102763631" rel="nofollow">头部固定的ExpandedListView</a>,然后在它的基础上实现：在头部加一个背景图片，默认状态下他处于展开状态，往上滑的时候背景图片逐渐的折叠起来，往下滑的时候背景图片慢慢的展开效果图如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS1hMWExNjRhYTgzNTllNTJjLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<h2><a id="CoordinateLayout_4"></a>通过CoordinateLayout实现的折叠式布局</h2>
+<p>有人可能会说这不就是折叠式布局吗？是的，这就是Android 5.0给我们提供的材料设计库中的CoordinateLayout就是解决这个问题的，使用CoordinateLayout来协调ScrollView，NestedScrollView，ListView，RecycleView和顶部的背景图片、ToolBar之间的滚动关系、在很多的手机应用中，时不时会看到关于折叠布局的效果，现在我们先看看CoordinateLayout是怎么实现的然后在讲我们自定义实现一个折叠式布局，直接上代码：</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+
+    &lt;android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"&gt;
+
+        &lt;android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false"&gt;
+
+            &lt;ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/homepage_pic_banner"
+                app:layout_collapseMode="parallax" /&gt;
+
+            &lt;android.support.v7.widget.Toolbar
+                android:id="@+id/view_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"&gt;
+
+                &lt;TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="新闻详情" /&gt;
+            &lt;/android.support.v7.widget.Toolbar&gt;
+        &lt;/android.support.design.widget.CollapsingToolbarLayout&gt;
+    &lt;/android.support.design.widget.AppBarLayout&gt;
+
+    &lt;android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"&gt;
+
+        &lt;LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"&gt;
+
+            &lt;TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="hello world" /&gt;
+            ...
+            ...
+        &lt;/LinearLayout&gt;
+    &lt;/android.support.v4.widget.NestedScrollView&gt;
+&lt;/android.support.design.widget.CoordinatorLayout&gt;
+
+</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS03Njc1YWE5YzY3MTg2NWMzLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt="image"></p>
+<p>以上就是实现一个折叠式布局的典型模板布局代码，一个简简单单的布局就实现了这样的效果，但是必须要注意在AndroidMnifest.xml必须要给Activity指定它的theme为NoActionBar的样式代码如下：</p>
+<pre><code> &lt;activity
+            android:name=".test.CoordinatorLayoutTestActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/&gt;
+
+</code></pre>
+<p>否则会出现ActionBar和ToolBar共存的情况，的显示效果如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS0yNTY3NWVlNmU4NGMwYmFiLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>另外还需要把自己自定义的ToolBar告诉给系统,即第9行的setSupportActionBar(toolbar)，否则我们的ToolBar会作为一个普通的View而存在</p>
+<pre><code>public class CoordinatorLayoutTestActivity extends AppCompatActivity {
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_coordinator_layout_test);
+        Toolbar toolbar = findViewById(R.id.view_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.mipmap.callback_white_icon);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+}
+
+</code></pre>
+<p>如果只指定了 setSupportActionBar(toolbar)，没有AndroidMnifest.xml在指定Activity的theme为NoActionBar,那就运行就直接崩溃了，会报错如下：</p>
+<pre><code> Caused by: java.lang.IllegalStateException: This Activity already has an action bar supplied by the window decor. Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.
+        at android.support.v7.app.AppCompatDelegateImpl.setSupportActionBar(AppCompatDelegateImpl.java:345)
+        at android.support.v7.app.AppCompatActivity.setSupportActionBar(AppCompatActivity.java:130)
+
+</code></pre>
+<p>意思是说Activity已经有一个ActionBar了，请在你的样式中使用ToolBar替代</p>
+<p>在上面的布局文件代码中，根布局CoordinatorLayout 就是用来协调AppBarLayout和NestedScrollView之间滚动的，40行的NestedScrollView是我们要滚动的内容，在11行的CollapsingToolbarLayout标签的内部就是要折叠的内容</p>
+<ul>
+<li>
+<p>其中43行的 app:layout_behavior不配置的效果：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS0wODNjNDhmMWM5OWRkNTk2LmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>NestedScrollView的内容在ToolBar之上滚动</p>
+</li>
+<li>
+<p>其中13行app:layout_scrollFlags="scroll|exitUntilCollapsed"如果不配置效果图如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS02MTlhZThjOTQyZWEwODBkLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>如果没有配置则CollapsingToolbarLayout包裹内容内容就会固定在顶部，不会滚动</p>
+</li>
+<li>
+<p>28行 app:layout_collapseMode="pin"不配置，效果图：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS1kN2NkMGM1NWEyYmNiYmUyLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>ToolBar会跟随NestedScrollView的滚动而滚动，而不会固定在布局顶部位置</p>
+</li>
+<li>
+<p>14行app:titleEnabled="false"不配置，效果图：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS03MmUyNzEwMGYxY2U4MmU2LmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt="image"></p>
+<p>即使33行的TextView配置了android:layout_gravity=“center”，title也不会居中显示</p>
+</li>
+</ul>
+<p>我们感觉折叠式布局就是给我们的View设置相关的属性配置，不需要进行任何编码就能完成我们的折叠效果，我们不得的赞叹android 5.0给我们提供这一强大的功能</p>
+<p>我们来总结一下：<br>
+CoordinatorLayout+AppBarLayout+CollapsingToolbarLayout结合起来才能产生这么神奇的效果,不要幻想使用其中的一个控件就能完成这样的效果</p>
+<h3><a id="ToolBar_152"></a>ToolBar的设置</h3>
+<p>系统默认使用的就是系统自带的ActionBar，如果我们要使用自定义的ToolBar，就必须明确的告诉Activity不需要使用系统自带的ActionBar即要给activity设置NoActionBar的样式，另外必须调用setSupportActionBar(toolbar)将自己定义的ToolBar设置给Activity。</p>
+<h3><a id="CoordinatorLayout_156"></a>CoordinatorLayout下可滑动控件的设置</h3>
+<p>CoordinatorLayout作为整个布局的父布局容器。给你的可以滑动的控件例如RecyclerView设置如下属性：app:layout_behavior=@string/appbar_scrolling_view_behavior<br>
+CoordinatorLayout还提供了layout_anchor 和 layout_anchorGravity属性一起配合使用，可以用于设置FloatingActionButton的位置，此处我是放在appBar的右下角。<br>
+app:layout_anchor="@id/appbar"<br>
+app:layout_anchorGravity=“bottom|right|end”</p>
+<h3><a id="CollapsingToolbarLayoutlayout_scrollFlags_163"></a>CollapsingToolbarLayout的layout_scrollFlags属性</h3>
+<p>AppBarLayout里面定义的子view只要设置了app:layout_scrollFlags属性，就可以在RecyclerView滚动事件发生的时候被触发某种行为<br>
+例如我给CollapsingToolbarLayout控件设置了 app:layout_scrollFlags="scroll|exitUntilCollapsed"此刻如果没有这个属性，CollapsingToolbarLayout是不会折叠的那么问题来了，layout_scrollFlags中的属性值除了可以触发折叠的行为，还有其它的属性值吗？并且各个属性的意义是什么？scroll至少有一个scroll，即可滚动。</p>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scroll</td>
+<td>必须要给其至少有设置一个scroll，即可滚动</td>
+</tr>
+<tr>
+<td>enterAlways</td>
+<td>向下滚动即可见。例如下拉时，立即显示Toolbar</td>
+</tr>
+<tr>
+<td>exitUntilCollapsed</td>
+<td>这个flag是定义何时收缩。当你定义了一个minHeight，这个view将在滚动到达这个最小高度的时候消失</td>
+</tr>
+<tr>
+<td>enterAlwaysCollapsed</td>
+<td>这个flag是定义何时展开。当你定义了一个最小高度minHeight， 同时enterAlways也定义了，那么view将在到达这个最小高度的时候开始展示</td>
+</tr>
+<tr>
+<td>snap</td>
+<td>当一个滚动事件结束，它将根据显示百分比的大小自动滚动到收缩或展开。</td>
+</tr>
+</tbody>
+</table><p>如果不设置该属性,则该布局不能滑动</p>
+<h3><a id="CollapsingToolbarLayout_178"></a>CollapsingToolbarLayout的其他属性</h3>
+<p>另外还可以给CollapsingToolbarLayout设置以下属性：</p>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>contentScrim</td>
+<td>设置当完全折叠(收缩)后的背景颜色。</td>
+</tr>
+<tr>
+<td>expandedTitleMarginEnd</td>
+<td>没有扩张的时候标题显示的位置</td>
+</tr>
+<tr>
+<td>expandedTitleMarginStart</td>
+<td>扩张的时候标题向左填充的距离。</td>
+</tr>
+<tr>
+<td>statusBarScrim</td>
+<td>设置折叠时状态栏的颜色</td>
+</tr>
+</tbody>
+</table><h3><a id="CollapsingToolbarLayoutviewlayout_collapseMode_189"></a>CollapsingToolbarLayout下的view的layout_collapseMode属性</h3>
+<p>CollapsingToolbarLayout里面定义的view只要设置了app:layout_collapseMode属性，就可以控制子视图的折叠模式。<br>
+折叠模式分为两种：</p>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pin</td>
+<td>固定模式。在收缩的时候最后固定在顶端（例如向上滚动的时候就固定toolBar）</td>
+</tr>
+<tr>
+<td>parallax</td>
+<td>视差模式，在折叠的时候会有个视差折叠的效果。（例如向下滚动的时候就展开ImageView）</td>
+</tr>
+</tbody>
+</table><h3><a id="CoordinatorLayout_fitsSystemWindows_199"></a>CoordinatorLayout 的fitsSystemWindows属性</h3>
+<p>fitsSystemWindows属性可以让view根据系统窗口来调整自己的布局，简单点说就是我们在设置应用布局时是否考虑系统窗口布局，这里系统窗口包括系统状态栏、导航栏、输入法等，包括一些手机系统带有的底部虚拟按键。android:fitsSystemWindows=”true” （触发View的padding属性来给系统窗口留出空间） 这个属性可以给任何view设置,只要设置了这个属性此view的其他所有padding属性失效，同时该属性的生效条件是只有在设置了透明状态栏(StatusBar)或者导航栏(NavigationBar)此属性才会生效</p>
+<h3><a id="CollapsingToolbarLayout_203"></a>如何监听CollapsingToolbarLayout的展开与折叠</h3>
+<p>使用官方提供的 AppBarLayout.OnOffsetChangedListener就能实现了，不过要封装一下才好用，自定义一个继承了 AppBarLayout.OnOffsetChangedListener的类这里命名为AppBarStateChangeListener</p>
+<pre><code>public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+
+    public enum State {
+        EXPANDED,
+        COLLAPSED,
+        IDLE
+    }
+    private State mCurrentState = State.IDLE;
+
+    @Override
+    public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        if (i == 0) {
+            if (mCurrentState != State.EXPANDED) {
+                onStateChanged(appBarLayout, State.EXPANDED);
+            }
+            mCurrentState = State.EXPANDED;
+        } else if (Math.abs(i) &gt;= appBarLayout.getTotalScrollRange()) {
+            if (mCurrentState != State.COLLAPSED) {
+                onStateChanged(appBarLayout, State.COLLAPSED);
+            }
+            mCurrentState = State.COLLAPSED;
+        } else {
+            if (mCurrentState != State.IDLE) {
+                onStateChanged(appBarLayout, State.IDLE);
+            }
+            mCurrentState = State.IDLE;
+        }
+    }
+    public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
+}
+
+</code></pre>
+<p>然后我们这样使用它：</p>
+<pre><code> mAppBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) {
+                Log.d("STATE", state.name());
+                if( state == State.EXPANDED ) {
+                     //展开状态                    
+                }else if(state == State.COLLAPSED){
+                    //折叠状态                     
+                }else {                
+                    //中间状态                
+                }
+            }
+        });
+
+</code></pre>
+<p>这样就可以在不同的状态下根据自己的业务需求去实现相关的逻辑了</p>
+<h3><a id="StickyLayout_262"></a>StickyLayout自定折叠式布局的实现</h3>
+<p>好了，上面就是关于通过CoordinateLayout实现的折叠式布局所有的知识点，如果说前面只是开胃菜，现在我们就开始上主菜了，我们能不能自己实现这样一个折叠式的布局，利用上一篇我们所讲的头部固定的ExpandedListView，把它作为具有滑动功能的主View，在它的顶部添加具有背景图片Header，随着ExpandedListView的滑动header实现扩展和收缩的效果，效果如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS1iZjVmMTE5MTJhMDdjZjQzLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<h3><a id="_268"></a>功能分析</h3>
+<p>其实这个效果图在文章的一开始就展示过了，整个布局分为上下两部分：上分部分为可折叠的Header，下半部分就是我们头部固定的ExpandedListView，他们公共父view就是今天我们要实现的折叠式布局StickyLayout，ExpandedListView是自身所具备滑动功能的，而我们在整个屏幕上，往上滑动的时候如果header处于展开状态则Header慢慢的要折叠起来，往下滑动的时候如果ExpandedListView顶部数据都显示出来的情况下再往下拉的时候Header就慢慢的展开，其他的状态就是我们的ExpandedListView在上下滑动，也就是说我们的Header在折叠和展开的状态下的这些事件被StickyLayout拦截了，其他的事件就交给ExpandedListView进行处理从而实现了他的上下滑动，这就属于典型的滑动冲突问题，简言之就是我们在上下滑动的过程中的有些事件需要被StickyLayout拦截消掉来实现Header的折叠和展开效果，其他的事件就交给ExpandedListView来实现它的滑动效果<br>
+现在我们要思考的是哪些情况下被拦截：</p>
+<ul>
+<li>左右滑动的不需要处理，只处理上下滑动的事件</li>
+<li>在展开的状态下，上滑事件需要拦截</li>
+<li>ExpandedListView的第0个元素处于可见状态，此时的下滑事件需要拦截</li>
+</ul>
+<h3><a id="_277"></a>在事件拦截方法中处理滑动冲突</h3>
+<pre><code>public class StickyLayout extends LinearLayout {
+    ...
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        boolean intercept = false;
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                mLastInterceptX = x;
+                mLastInterceptY = y;
+                intercept = false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int dx = x - mLastInterceptX;
+                int dy = y - mLastInterceptY;
+                if(y &lt;= mCurrHeaderHeight){
+                    intercept = false;
+                }else if(Math.abs(dx) &gt; Math.abs(dy)){
+                    intercept = false;
+                }else if(mState == mStateExpand &amp;&amp; dy &lt;= - mScaledTouchSlop){
+                    //上滑
+                    intercept = true;
+                }else if(mGiveUpTouchEventListener.giveUpTouchEvent() &amp;&amp; dy &gt; mScaledTouchSlop){
+                    //下滑
+                    intercept = true;
+                }else{
+                    intercept = false;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                mLastInterceptX = 0;
+                mLastInterceptY = 0;
+                intercept = false;
+                break;
+        }
+        return intercept;
+    }
+    ...
+}
+
+</code></pre>
+<p>上面就是关于事件拦截的核心代码,首先我们看17行：y &lt;= mCurrHeaderHeight 如果触摸事件是在Header之上也就不拦截了，再看19行Math.abs(dx) &gt; Math.abs(dy)，如果是横向滑动也不是我们所需要的事件也不拦截，否则上就是上下滑动的事件了，在这个状态下状态Header处于展开状态且是上滑那就需要拦截处理，也就是21行：mState == mStateExpand &amp;&amp; dy &lt;= - mScaledTouchSlop所处理的逻辑，在看24行：mGiveUpTouchEventListener.giveUpTouchEvent() &amp;&amp; dy &gt; mScaledTouchSlop，giveUpTouchEvent方法表示如果ExpandedListView的第一个可见元素是0且dy &gt; mScaledTouchSlop（表示是上滑）此时的事件也是需要拦截的</p>
+<h3><a id="ViewTouchSlop_325"></a>View滑动距离常量TouchSlop</h3>
+<p>在21行细心的同学可能会看到这么一句dy &lt;= - mScaledTouchSlop，dy指的是滑动的距离，mScaledTouchSlop到底是什么？其实他是Android系统给我们提供的View滑动最小距离常量TouchSlop，也就是说两个Move事件之间的滑动距离如果小于这个常量就系统不认为他是滑动，因为滑动距离太短，反之就认为它是滑动，这个常量值和设备有关，不同的设置上这个值可能是不相同的，我们可以通过如下方式即可获取这个常量：</p>
+<pre><code>int mScaledTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+
+</code></pre>
+<h3><a id="_334"></a>折叠展开的事件消费</h3>
+<p>上面的17到29行就是处理事件拦截的核心处理逻辑，事件拦截完毕，事件就交给TouchEvent方法进行消费了，下面看看Header到底具体是怎么折叠的？其实很简单就是不用重置Header的height就OK了，我们看看代码：</p>
+<pre><code>public class StickyLayout extends LinearLayout {
+    ...
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int dx = x - mLastX;
+                int dy = y - mLastY;
+                mCurrHeaderHeight += dy;
+                setHeaderHeight(mCurrHeaderHeight);
+                break;
+            case MotionEvent.ACTION_UP:
+                int dest = 0;
+                if(mCurrHeaderHeight &lt;= mOriginHeaderHeight * 0.5){
+                    dest = 0;
+                    mState = mStateCollapsed;
+                }else{
+                    dest = mOriginHeaderHeight;
+                    mState = mStateExpand;
+                }
+                smoothSetHeaderHeight(mCurrHeaderHeight,dest,500);
+                break;
+        }
+        mLastX = x;
+        mLastY = y;
+        return super.onTouchEvent(event);
+    }
+    ...
+}
+
+</code></pre>
+<p>其中12行到13行就是手指拖动状态下的核心逻辑 ，12行计算两次Move事件所移动的距离，13行根据手指滑动的距离来计算Header当前的高度，计算完毕就可以调用setHeaderHeight设置Header的高了</p>
+<h3><a id="Header_377"></a>设置Header的高来实现折叠效果</h3>
+<pre><code>private void setHeaderHeight(int height) {
+        if(height &lt;= 0){
+            height = 0;
+        }else if(height &gt;= mOriginHeaderHeight){
+            height = mOriginHeaderHeight;
+        }
+        if(height == 0 ){
+            mState = mStateCollapsed;
+        }else{
+            mState = mStateExpand;
+        }
+        headerView.getLayoutParams().height = height;
+        headerView.requestLayout();
+    }
+
+</code></pre>
+<p>其中第2行到第6行对Header高度的越界处理，第7行到11行是设置Header的状态，第12行到13行给Header的高赋值并刷新Header来变它的位置与大小</p>
+<h3><a id="_399"></a>手指抬起的自动回弹折叠展开效果</h3>
+<p>如果当前Header的高小于原始高度的一半手指抬起的时候Header进行收缩，反之就进行展开操作，核心代码在上面的onTouchEvent(MotionEvent event)方法的的17行到25行：</p>
+<pre><code>  int dest = 0;
+  if(mCurrHeaderHeight &lt;= mOriginHeaderHeight * 0.5){
+        dest = 0;
+        mState = mStateCollapsed;
+  }else{
+        dest = mOriginHeaderHeight;
+        mState = mStateExpand;
+   }
+  smoothSetHeaderHeight(mCurrHeaderHeight,dest,500);
+
+</code></pre>
+<p>最后在调用smoothSetHeaderHeight实现弹性展开，折叠</p>
+<pre><code>    private void smoothSetHeaderHeight(int from,int to,int duration) {
+       ValueAnimator valueAnimator = ValueAnimator.ofInt(from, to).setDuration(duration);
+       valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+           @Override
+           public void onAnimationUpdate(ValueAnimator animation) {
+               setHeaderHeight((Integer) animation.getAnimatedValue());
+           }
+       });
+       valueAnimator.start();
+   }
+
+</code></pre>
+<h3><a id="_432"></a>总结</h3>
+<p>截止目前整个折叠式自定义View就全部讲完了，事件拦截这块的判断逻辑是整个代码的核心，找到了判断折叠、展开的的算法那么其他的问题也就不是什么大问题了，解决滑动冲突问题也是我们在自定义View开发过程中的常见问题，也是难点问题，只要多练习，多思考就能孰能生巧最后我将整个测试代码传到了github上，欢迎学习下载<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fmxdldev%2Fandroid-custom-view%2F" rel="nofollow">https://github.com/mxdldev/android-custom-view/</a>,其中StickyLayout.java就是我们本例中的自定义View的全部代码实现，下载完整项目后直接运行安装完毕，点击StickyLayout按钮就进入了我们的测试页面，效果图如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS01ZTk4NjM3MDdhYzdkZWNjLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>作者：门心叼龙<br>
+链接：https://www.jianshu.com/p/1ba947bc0a98</p>
+
+                                    </div>
+                <link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-60ecaf1f42.css" rel="stylesheet">
+                                                <div class="more-toolbox">
+                <div class="left-toolbox">
+                    <ul class="toolbox-list">
+                        
+                        <li class="tool-item tool-active is-like "><a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-thumbsup"></use>
+                        </svg><span class="name">点赞</span>
+                        <span class="count"></span>
+                        </a></li>
+                        <li class="tool-item tool-active is-collection "><a href="javascript:;" data-report-click='{"mod":"popu_824"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg><span class="name">收藏</span></a></li>
+                        <li class="tool-item tool-active is-share"><a href="javascript:;" data-report-click='{"mod":"1582594662_002"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-fenxiang"></use>
+                        </svg>分享</a></li>
+                        <!--打赏开始-->
+                                                <!--打赏结束-->
+                                                <li class="tool-item tool-more">
+                            <a>
+                            <svg t="1575545411852" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5717" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style>
+</head>
+<body>
+<div style="width:852px;margin:0 auto;">
+<div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article">Android开发项目实战：实现折叠式布局</h1>
+            </div>
+            <div class="article-info-box">
+                <div class="article-bar-top">
+                    <!--文章类型-->
+                    <span class="article-type type-1 float-left">原创</span>                                                                                                                                            <a class="follow-nickName" href="https://me.csdn.net/weixin_43901866" target="_blank" rel="noopener">Android Developer</a>
+                    <span class="time">最后发布于2020-02-13 10:25:25                    </span>
+                    <span class="read-count">阅读数 45</span>
+                    <a id='blog_detail_zk_collection' class="un-collection" data-report-click='{"mod":"popu_823"}'>
+                        <svg class="icon">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg>
+                        <span>收藏</span>
+                    </a>
+                                    </div>
+                                <div class="up-time">发布于2020-02-13 10:25:25</div>
+                <div class="slide-content-box">
+                                                                                                                        <div class="article-copyright">
+                        <span class="creativecommons">
+                            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"></a>
+                            <span>
+                                版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。                            </span>
+                            <div class="article-source-link2222">
+                                本文链接：<a href="https://blog.csdn.net/weixin_43901866/article/details/104291452">https://blog.csdn.net/weixin_43901866/article/details/104291452</a>
+                            </div>
+                        </span> 
+                        </div>
+                                                                                </div>
+                <div class="operating">
+                                                                <a class="href-article-edit slide-toggle">展开</a>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <article class="baidu_pl">
+        <!--python安装手册开始-->
+                <!--python安装手册结束-->
+                <!--####专栏广告位图文切换开始-->
+                                    <!--####专栏广告位图文切换结束-->
+         <div id="article_content" class="article_content clearfix">
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-833878f763.css" />
+                            <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <!-- flowchart 箭头图标 勿删 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                                            <p>首先实现一个<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fmenxindiaolong.blog.csdn.net%2Farticle%2Fdetails%2F102763631" rel="nofollow">头部固定的ExpandedListView</a>,然后在它的基础上实现：在头部加一个背景图片，默认状态下他处于展开状态，往上滑的时候背景图片逐渐的折叠起来，往下滑的时候背景图片慢慢的展开效果图如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS1hMWExNjRhYTgzNTllNTJjLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<h2><a id="CoordinateLayout_4"></a>通过CoordinateLayout实现的折叠式布局</h2>
+<p>有人可能会说这不就是折叠式布局吗？是的，这就是Android 5.0给我们提供的材料设计库中的CoordinateLayout就是解决这个问题的，使用CoordinateLayout来协调ScrollView，NestedScrollView，ListView，RecycleView和顶部的背景图片、ToolBar之间的滚动关系、在很多的手机应用中，时不时会看到关于折叠布局的效果，现在我们先看看CoordinateLayout是怎么实现的然后在讲我们自定义实现一个折叠式布局，直接上代码：</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+
+    &lt;android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"&gt;
+
+        &lt;android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false"&gt;
+
+            &lt;ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/homepage_pic_banner"
+                app:layout_collapseMode="parallax" /&gt;
+
+            &lt;android.support.v7.widget.Toolbar
+                android:id="@+id/view_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"&gt;
+
+                &lt;TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="新闻详情" /&gt;
+            &lt;/android.support.v7.widget.Toolbar&gt;
+        &lt;/android.support.design.widget.CollapsingToolbarLayout&gt;
+    &lt;/android.support.design.widget.AppBarLayout&gt;
+
+    &lt;android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"&gt;
+
+        &lt;LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"&gt;
+
+            &lt;TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="hello world" /&gt;
+            ...
+            ...
+        &lt;/LinearLayout&gt;
+    &lt;/android.support.v4.widget.NestedScrollView&gt;
+&lt;/android.support.design.widget.CoordinatorLayout&gt;
+
+</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS03Njc1YWE5YzY3MTg2NWMzLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt="image"></p>
+<p>以上就是实现一个折叠式布局的典型模板布局代码，一个简简单单的布局就实现了这样的效果，但是必须要注意在AndroidMnifest.xml必须要给Activity指定它的theme为NoActionBar的样式代码如下：</p>
+<pre><code> &lt;activity
+            android:name=".test.CoordinatorLayoutTestActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/&gt;
+
+</code></pre>
+<p>否则会出现ActionBar和ToolBar共存的情况，的显示效果如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS0yNTY3NWVlNmU4NGMwYmFiLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>另外还需要把自己自定义的ToolBar告诉给系统,即第9行的setSupportActionBar(toolbar)，否则我们的ToolBar会作为一个普通的View而存在</p>
+<pre><code>public class CoordinatorLayoutTestActivity extends AppCompatActivity {
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_coordinator_layout_test);
+        Toolbar toolbar = findViewById(R.id.view_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.mipmap.callback_white_icon);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+}
+
+</code></pre>
+<p>如果只指定了 setSupportActionBar(toolbar)，没有AndroidMnifest.xml在指定Activity的theme为NoActionBar,那就运行就直接崩溃了，会报错如下：</p>
+<pre><code> Caused by: java.lang.IllegalStateException: This Activity already has an action bar supplied by the window decor. Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.
+        at android.support.v7.app.AppCompatDelegateImpl.setSupportActionBar(AppCompatDelegateImpl.java:345)
+        at android.support.v7.app.AppCompatActivity.setSupportActionBar(AppCompatActivity.java:130)
+
+</code></pre>
+<p>意思是说Activity已经有一个ActionBar了，请在你的样式中使用ToolBar替代</p>
+<p>在上面的布局文件代码中，根布局CoordinatorLayout 就是用来协调AppBarLayout和NestedScrollView之间滚动的，40行的NestedScrollView是我们要滚动的内容，在11行的CollapsingToolbarLayout标签的内部就是要折叠的内容</p>
+<ul>
+<li>
+<p>其中43行的 app:layout_behavior不配置的效果：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS0wODNjNDhmMWM5OWRkNTk2LmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>NestedScrollView的内容在ToolBar之上滚动</p>
+</li>
+<li>
+<p>其中13行app:layout_scrollFlags="scroll|exitUntilCollapsed"如果不配置效果图如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS02MTlhZThjOTQyZWEwODBkLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>如果没有配置则CollapsingToolbarLayout包裹内容内容就会固定在顶部，不会滚动</p>
+</li>
+<li>
+<p>28行 app:layout_collapseMode="pin"不配置，效果图：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS1kN2NkMGM1NWEyYmNiYmUyLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>ToolBar会跟随NestedScrollView的滚动而滚动，而不会固定在布局顶部位置</p>
+</li>
+<li>
+<p>14行app:titleEnabled="false"不配置，效果图：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS03MmUyNzEwMGYxY2U4MmU2LmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt="image"></p>
+<p>即使33行的TextView配置了android:layout_gravity=“center”，title也不会居中显示</p>
+</li>
+</ul>
+<p>我们感觉折叠式布局就是给我们的View设置相关的属性配置，不需要进行任何编码就能完成我们的折叠效果，我们不得的赞叹android 5.0给我们提供这一强大的功能</p>
+<p>我们来总结一下：<br>
+CoordinatorLayout+AppBarLayout+CollapsingToolbarLayout结合起来才能产生这么神奇的效果,不要幻想使用其中的一个控件就能完成这样的效果</p>
+<h3><a id="ToolBar_152"></a>ToolBar的设置</h3>
+<p>系统默认使用的就是系统自带的ActionBar，如果我们要使用自定义的ToolBar，就必须明确的告诉Activity不需要使用系统自带的ActionBar即要给activity设置NoActionBar的样式，另外必须调用setSupportActionBar(toolbar)将自己定义的ToolBar设置给Activity。</p>
+<h3><a id="CoordinatorLayout_156"></a>CoordinatorLayout下可滑动控件的设置</h3>
+<p>CoordinatorLayout作为整个布局的父布局容器。给你的可以滑动的控件例如RecyclerView设置如下属性：app:layout_behavior=@string/appbar_scrolling_view_behavior<br>
+CoordinatorLayout还提供了layout_anchor 和 layout_anchorGravity属性一起配合使用，可以用于设置FloatingActionButton的位置，此处我是放在appBar的右下角。<br>
+app:layout_anchor="@id/appbar"<br>
+app:layout_anchorGravity=“bottom|right|end”</p>
+<h3><a id="CollapsingToolbarLayoutlayout_scrollFlags_163"></a>CollapsingToolbarLayout的layout_scrollFlags属性</h3>
+<p>AppBarLayout里面定义的子view只要设置了app:layout_scrollFlags属性，就可以在RecyclerView滚动事件发生的时候被触发某种行为<br>
+例如我给CollapsingToolbarLayout控件设置了 app:layout_scrollFlags="scroll|exitUntilCollapsed"此刻如果没有这个属性，CollapsingToolbarLayout是不会折叠的那么问题来了，layout_scrollFlags中的属性值除了可以触发折叠的行为，还有其它的属性值吗？并且各个属性的意义是什么？scroll至少有一个scroll，即可滚动。</p>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scroll</td>
+<td>必须要给其至少有设置一个scroll，即可滚动</td>
+</tr>
+<tr>
+<td>enterAlways</td>
+<td>向下滚动即可见。例如下拉时，立即显示Toolbar</td>
+</tr>
+<tr>
+<td>exitUntilCollapsed</td>
+<td>这个flag是定义何时收缩。当你定义了一个minHeight，这个view将在滚动到达这个最小高度的时候消失</td>
+</tr>
+<tr>
+<td>enterAlwaysCollapsed</td>
+<td>这个flag是定义何时展开。当你定义了一个最小高度minHeight， 同时enterAlways也定义了，那么view将在到达这个最小高度的时候开始展示</td>
+</tr>
+<tr>
+<td>snap</td>
+<td>当一个滚动事件结束，它将根据显示百分比的大小自动滚动到收缩或展开。</td>
+</tr>
+</tbody>
+</table><p>如果不设置该属性,则该布局不能滑动</p>
+<h3><a id="CollapsingToolbarLayout_178"></a>CollapsingToolbarLayout的其他属性</h3>
+<p>另外还可以给CollapsingToolbarLayout设置以下属性：</p>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>contentScrim</td>
+<td>设置当完全折叠(收缩)后的背景颜色。</td>
+</tr>
+<tr>
+<td>expandedTitleMarginEnd</td>
+<td>没有扩张的时候标题显示的位置</td>
+</tr>
+<tr>
+<td>expandedTitleMarginStart</td>
+<td>扩张的时候标题向左填充的距离。</td>
+</tr>
+<tr>
+<td>statusBarScrim</td>
+<td>设置折叠时状态栏的颜色</td>
+</tr>
+</tbody>
+</table><h3><a id="CollapsingToolbarLayoutviewlayout_collapseMode_189"></a>CollapsingToolbarLayout下的view的layout_collapseMode属性</h3>
+<p>CollapsingToolbarLayout里面定义的view只要设置了app:layout_collapseMode属性，就可以控制子视图的折叠模式。<br>
+折叠模式分为两种：</p>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pin</td>
+<td>固定模式。在收缩的时候最后固定在顶端（例如向上滚动的时候就固定toolBar）</td>
+</tr>
+<tr>
+<td>parallax</td>
+<td>视差模式，在折叠的时候会有个视差折叠的效果。（例如向下滚动的时候就展开ImageView）</td>
+</tr>
+</tbody>
+</table><h3><a id="CoordinatorLayout_fitsSystemWindows_199"></a>CoordinatorLayout 的fitsSystemWindows属性</h3>
+<p>fitsSystemWindows属性可以让view根据系统窗口来调整自己的布局，简单点说就是我们在设置应用布局时是否考虑系统窗口布局，这里系统窗口包括系统状态栏、导航栏、输入法等，包括一些手机系统带有的底部虚拟按键。android:fitsSystemWindows=”true” （触发View的padding属性来给系统窗口留出空间） 这个属性可以给任何view设置,只要设置了这个属性此view的其他所有padding属性失效，同时该属性的生效条件是只有在设置了透明状态栏(StatusBar)或者导航栏(NavigationBar)此属性才会生效</p>
+<h3><a id="CollapsingToolbarLayout_203"></a>如何监听CollapsingToolbarLayout的展开与折叠</h3>
+<p>使用官方提供的 AppBarLayout.OnOffsetChangedListener就能实现了，不过要封装一下才好用，自定义一个继承了 AppBarLayout.OnOffsetChangedListener的类这里命名为AppBarStateChangeListener</p>
+<pre><code>public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {
+
+    public enum State {
+        EXPANDED,
+        COLLAPSED,
+        IDLE
+    }
+    private State mCurrentState = State.IDLE;
+
+    @Override
+    public final void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        if (i == 0) {
+            if (mCurrentState != State.EXPANDED) {
+                onStateChanged(appBarLayout, State.EXPANDED);
+            }
+            mCurrentState = State.EXPANDED;
+        } else if (Math.abs(i) &gt;= appBarLayout.getTotalScrollRange()) {
+            if (mCurrentState != State.COLLAPSED) {
+                onStateChanged(appBarLayout, State.COLLAPSED);
+            }
+            mCurrentState = State.COLLAPSED;
+        } else {
+            if (mCurrentState != State.IDLE) {
+                onStateChanged(appBarLayout, State.IDLE);
+            }
+            mCurrentState = State.IDLE;
+        }
+    }
+    public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
+}
+
+</code></pre>
+<p>然后我们这样使用它：</p>
+<pre><code> mAppBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) {
+                Log.d("STATE", state.name());
+                if( state == State.EXPANDED ) {
+                     //展开状态                    
+                }else if(state == State.COLLAPSED){
+                    //折叠状态                     
+                }else {                
+                    //中间状态                
+                }
+            }
+        });
+
+</code></pre>
+<p>这样就可以在不同的状态下根据自己的业务需求去实现相关的逻辑了</p>
+<h3><a id="StickyLayout_262"></a>StickyLayout自定折叠式布局的实现</h3>
+<p>好了，上面就是关于通过CoordinateLayout实现的折叠式布局所有的知识点，如果说前面只是开胃菜，现在我们就开始上主菜了，我们能不能自己实现这样一个折叠式的布局，利用上一篇我们所讲的头部固定的ExpandedListView，把它作为具有滑动功能的主View，在它的顶部添加具有背景图片Header，随着ExpandedListView的滑动header实现扩展和收缩的效果，效果如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS1iZjVmMTE5MTJhMDdjZjQzLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<h3><a id="_268"></a>功能分析</h3>
+<p>其实这个效果图在文章的一开始就展示过了，整个布局分为上下两部分：上分部分为可折叠的Header，下半部分就是我们头部固定的ExpandedListView，他们公共父view就是今天我们要实现的折叠式布局StickyLayout，ExpandedListView是自身所具备滑动功能的，而我们在整个屏幕上，往上滑动的时候如果header处于展开状态则Header慢慢的要折叠起来，往下滑动的时候如果ExpandedListView顶部数据都显示出来的情况下再往下拉的时候Header就慢慢的展开，其他的状态就是我们的ExpandedListView在上下滑动，也就是说我们的Header在折叠和展开的状态下的这些事件被StickyLayout拦截了，其他的事件就交给ExpandedListView进行处理从而实现了他的上下滑动，这就属于典型的滑动冲突问题，简言之就是我们在上下滑动的过程中的有些事件需要被StickyLayout拦截消掉来实现Header的折叠和展开效果，其他的事件就交给ExpandedListView来实现它的滑动效果<br>
+现在我们要思考的是哪些情况下被拦截：</p>
+<ul>
+<li>左右滑动的不需要处理，只处理上下滑动的事件</li>
+<li>在展开的状态下，上滑事件需要拦截</li>
+<li>ExpandedListView的第0个元素处于可见状态，此时的下滑事件需要拦截</li>
+</ul>
+<h3><a id="_277"></a>在事件拦截方法中处理滑动冲突</h3>
+<pre><code>public class StickyLayout extends LinearLayout {
+    ...
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        boolean intercept = false;
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                mLastInterceptX = x;
+                mLastInterceptY = y;
+                intercept = false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int dx = x - mLastInterceptX;
+                int dy = y - mLastInterceptY;
+                if(y &lt;= mCurrHeaderHeight){
+                    intercept = false;
+                }else if(Math.abs(dx) &gt; Math.abs(dy)){
+                    intercept = false;
+                }else if(mState == mStateExpand &amp;&amp; dy &lt;= - mScaledTouchSlop){
+                    //上滑
+                    intercept = true;
+                }else if(mGiveUpTouchEventListener.giveUpTouchEvent() &amp;&amp; dy &gt; mScaledTouchSlop){
+                    //下滑
+                    intercept = true;
+                }else{
+                    intercept = false;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                mLastInterceptX = 0;
+                mLastInterceptY = 0;
+                intercept = false;
+                break;
+        }
+        return intercept;
+    }
+    ...
+}
+
+</code></pre>
+<p>上面就是关于事件拦截的核心代码,首先我们看17行：y &lt;= mCurrHeaderHeight 如果触摸事件是在Header之上也就不拦截了，再看19行Math.abs(dx) &gt; Math.abs(dy)，如果是横向滑动也不是我们所需要的事件也不拦截，否则上就是上下滑动的事件了，在这个状态下状态Header处于展开状态且是上滑那就需要拦截处理，也就是21行：mState == mStateExpand &amp;&amp; dy &lt;= - mScaledTouchSlop所处理的逻辑，在看24行：mGiveUpTouchEventListener.giveUpTouchEvent() &amp;&amp; dy &gt; mScaledTouchSlop，giveUpTouchEvent方法表示如果ExpandedListView的第一个可见元素是0且dy &gt; mScaledTouchSlop（表示是上滑）此时的事件也是需要拦截的</p>
+<h3><a id="ViewTouchSlop_325"></a>View滑动距离常量TouchSlop</h3>
+<p>在21行细心的同学可能会看到这么一句dy &lt;= - mScaledTouchSlop，dy指的是滑动的距离，mScaledTouchSlop到底是什么？其实他是Android系统给我们提供的View滑动最小距离常量TouchSlop，也就是说两个Move事件之间的滑动距离如果小于这个常量就系统不认为他是滑动，因为滑动距离太短，反之就认为它是滑动，这个常量值和设备有关，不同的设置上这个值可能是不相同的，我们可以通过如下方式即可获取这个常量：</p>
+<pre><code>int mScaledTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+
+</code></pre>
+<h3><a id="_334"></a>折叠展开的事件消费</h3>
+<p>上面的17到29行就是处理事件拦截的核心处理逻辑，事件拦截完毕，事件就交给TouchEvent方法进行消费了，下面看看Header到底具体是怎么折叠的？其实很简单就是不用重置Header的height就OK了，我们看看代码：</p>
+<pre><code>public class StickyLayout extends LinearLayout {
+    ...
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int dx = x - mLastX;
+                int dy = y - mLastY;
+                mCurrHeaderHeight += dy;
+                setHeaderHeight(mCurrHeaderHeight);
+                break;
+            case MotionEvent.ACTION_UP:
+                int dest = 0;
+                if(mCurrHeaderHeight &lt;= mOriginHeaderHeight * 0.5){
+                    dest = 0;
+                    mState = mStateCollapsed;
+                }else{
+                    dest = mOriginHeaderHeight;
+                    mState = mStateExpand;
+                }
+                smoothSetHeaderHeight(mCurrHeaderHeight,dest,500);
+                break;
+        }
+        mLastX = x;
+        mLastY = y;
+        return super.onTouchEvent(event);
+    }
+    ...
+}
+
+</code></pre>
+<p>其中12行到13行就是手指拖动状态下的核心逻辑 ，12行计算两次Move事件所移动的距离，13行根据手指滑动的距离来计算Header当前的高度，计算完毕就可以调用setHeaderHeight设置Header的高了</p>
+<h3><a id="Header_377"></a>设置Header的高来实现折叠效果</h3>
+<pre><code>private void setHeaderHeight(int height) {
+        if(height &lt;= 0){
+            height = 0;
+        }else if(height &gt;= mOriginHeaderHeight){
+            height = mOriginHeaderHeight;
+        }
+        if(height == 0 ){
+            mState = mStateCollapsed;
+        }else{
+            mState = mStateExpand;
+        }
+        headerView.getLayoutParams().height = height;
+        headerView.requestLayout();
+    }
+
+</code></pre>
+<p>其中第2行到第6行对Header高度的越界处理，第7行到11行是设置Header的状态，第12行到13行给Header的高赋值并刷新Header来变它的位置与大小</p>
+<h3><a id="_399"></a>手指抬起的自动回弹折叠展开效果</h3>
+<p>如果当前Header的高小于原始高度的一半手指抬起的时候Header进行收缩，反之就进行展开操作，核心代码在上面的onTouchEvent(MotionEvent event)方法的的17行到25行：</p>
+<pre><code>  int dest = 0;
+  if(mCurrHeaderHeight &lt;= mOriginHeaderHeight * 0.5){
+        dest = 0;
+        mState = mStateCollapsed;
+  }else{
+        dest = mOriginHeaderHeight;
+        mState = mStateExpand;
+   }
+  smoothSetHeaderHeight(mCurrHeaderHeight,dest,500);
+
+</code></pre>
+<p>最后在调用smoothSetHeaderHeight实现弹性展开，折叠</p>
+<pre><code>    private void smoothSetHeaderHeight(int from,int to,int duration) {
+       ValueAnimator valueAnimator = ValueAnimator.ofInt(from, to).setDuration(duration);
+       valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+           @Override
+           public void onAnimationUpdate(ValueAnimator animation) {
+               setHeaderHeight((Integer) animation.getAnimatedValue());
+           }
+       });
+       valueAnimator.start();
+   }
+
+</code></pre>
+<h3><a id="_432"></a>总结</h3>
+<p>截止目前整个折叠式自定义View就全部讲完了，事件拦截这块的判断逻辑是整个代码的核心，找到了判断折叠、展开的的算法那么其他的问题也就不是什么大问题了，解决滑动冲突问题也是我们在自定义View开发过程中的常见问题，也是难点问题，只要多练习，多思考就能孰能生巧最后我将整个测试代码传到了github上，欢迎学习下载<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fmxdldev%2Fandroid-custom-view%2F" rel="nofollow">https://github.com/mxdldev/android-custom-view/</a>,其中StickyLayout.java就是我们本例中的自定义View的全部代码实现，下载完整项目后直接运行安装完毕，点击StickyLayout按钮就进入了我们的测试页面，效果图如下：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNTM0MjU0MS01ZTk4NjM3MDdhYzdkZWNjLmdpZj9pbWFnZU1vZ3IyL2F1dG8tb3JpZW50L3N0cmlwfGltYWdlVmlldzIvMi93LzM2MC9mb3JtYXQvd2VicA" alt=""></p>
+<p>作者：门心叼龙<br>
+链接：https://www.jianshu.com/p/1ba947bc0a98</p>
+
+                                    </div>
+                <link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-60ecaf1f42.css" rel="stylesheet">
+                                                <div class="more-toolbox">
+                <div class="left-toolbox">
+                    <ul class="toolbox-list">
+                        
+                        <li class="tool-item tool-active is-like "><a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-thumbsup"></use>
+                        </svg><span class="name">点赞</span>
+                        <span class="count"></span>
+                        </a></li>
+                        <li class="tool-item tool-active is-collection "><a href="javascript:;" data-report-click='{"mod":"popu_824"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg><span class="name">收藏</span></a></li>
+                        <li class="tool-item tool-active is-share"><a href="javascript:;" data-report-click='{"mod":"1582594662_002"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-fenxiang"></use>
+                        </svg>分享</a></li>
+                        <!--打赏开始-->
+                                                <!--打赏结束-->
+                                                <li class="tool-item tool-more">
+                            <a>
+                            <svg t="1575545411852" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5717" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M179.176 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5718"></path><path d="M509.684 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5719"></path><path d="M846.175 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5720"></path></svg>
+                            </a>
+                            <ul class="more-box">
+                                <li class="item"><a class="article-report">文章举报</a></li>
+                            </ul>
+                        </li>
+                                            </ul>
+                </div>
+                            </div>
+            <div class="person-messagebox">
+                <div class="left-message"><a href="https://blog.csdn.net/weixin_43901866">
+                    <img src="https://profile.csdnimg.cn/8/2/E/3_weixin_43901866" class="avatar_pic" username='weixin_43901866'>
+                                            <img src="https://g.csdnimg.cn/static/user-reg-year/1x/1.png" class="user-years">
+                                    </a></div>
+                <div class="middle-message">
+                                        <div class="title"><span class="tit"><a href="https://blog.csdn.net/weixin_43901866" data-report-click='{"mod":"popu_379"}' target="_blank">Android Developer</a></span>
+                                            </div>
+                    <div class="text"><span>发布了450 篇原创文章</span> · <span>获赞 730</span> · <span>访问量 20万+</span></div>
+                </div>
+                                <div class="right-message">
+                                            <a href="https://bbs.csdn.net/topics/395532450" target="_blank"
+                        class="btn btn-sm btn-red-hollow bt-button personal-messageboard">他的留言板
+                        </a>
+                                                            <a class="btn btn-sm  bt-button personal-watch" data-report-click='{"mod":"popu_379"}'>关注</a>
+                                    </div>
+                            </div>
+                    </div>
+    </article>
+</div>
+</div>
+</body>
+</html>

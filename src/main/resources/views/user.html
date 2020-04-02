@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+             $.ajax({
+                 url:"./getUser",
+                 data:null,
+                 type:"get",
+                 success:function(data){
+                    alert(data);
+                 }
+             });
+        });
+    </script>
+<body>
+<h1>hello world</h1>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-4bfa3af0c6.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-c9d2f651cc.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging-e040f0c7c8.css">
+<style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body class="nodata " > 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging-e040f0c7c8.css">
+
+<script type="text/javascript">
+	var NEWS_FEED = function(){}
+</script>
+
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+<div class="main_father clearfix d-flex justify-content-center" style="height:100%;"> 
+    <div class="container clearfix" id="mainBox">
+        <div  class='space_container'></div>
+        <main>
+            <div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article">阿里基于Flutter+FaaS的业务框架思考与实践</h1>
+            </div>
+            <div class="article-info-box">
+                <div class="article-bar-top">
+                    <!--文章类型-->
+                    <span class="article-type type-2 float-left">转载</span>                                                                                                                                            <a class="follow-nickName" href="https://me.csdn.net/weixin_43901866" target="_blank" rel="noopener">Android Developer</a>
+                    <span class="time">最后发布于2020-02-13 10:14:42                    </span>
+                    <span class="read-count">阅读数 66</span>
+                    <a id='blog_detail_zk_collection' class="un-collection" data-report-click='{"mod":"popu_823"}'>
+                        <svg class="icon">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg>
+                        <span>收藏</span>
+                    </a>
+                                    </div>
+                                <div class="up-time">发布于2020-02-13 10:14:42</div>
+                <div class="slide-content-box">
+                                                        <div class="tags-box artic-tag-box">
+                           <span class="label">分类专栏：</span>
+                                                                                             <a class="tag-link" target="_blank" rel="noopener"
+                                      href="https://blog.csdn.net/weixin_43901866/category_9337526.html">
+                                       阿里                                   </a>
+                                                                                                                            <a class="tag-link" target="_blank" rel="noopener"
+                                      href="https://blog.csdn.net/weixin_43901866/category_9415988.html">
+                                       面试                                   </a>
+                                                                                                                            <a class="tag-link" target="_blank" rel="noopener"
+                                      href="https://blog.csdn.net/weixin_43901866/category_9416379.html">
+                                       Android                                   </a>
+                                                                                  </div>
+                                                                                                       <div class="article-source-link">
+                            原文链接：<a href="https://zhuanlan.zhihu.com/p/101406753" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/101406753</a>
+                        </div>
+                                    </div>
+                <div class="operating">
+                                                                <a class="href-article-edit slide-toggle">展开</a>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <article class="baidu_pl">
+        <!--python安装手册开始-->
+                <!--python安装手册结束-->
+                <!--####专栏广告位图文切换开始-->
+                                    <!--####专栏广告位图文切换结束-->
+         <div id="article_content" class="article_content clearfix">
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-833878f763.css" />
+                            <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <!-- flowchart 箭头图标 勿删 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                                            <p>作者：闲鱼技术-匠修</p>
+<p>原文链接：<a href="https://zhuanlan.zhihu.com/p/101406753" rel="nofollow">闲鱼技术：基于Flutter+FaaS的业务框架思考与实践</a></p>
+<p>来源：知乎</p>
+<p>闲鱼将使用Flutter和FaaS来建设未来的技术开发体系，这是一项长期的规划，新的技术在现在看来犹如雾里看花，需要我们不断的思考，探索，实践才能渐渐描绘出它的轮廓。本文对此提供一种思考角度，对未来基于FaaS+Flutter之上的编程形态做思考，并介绍自己的初步实践。</p>
+<h3><a id="Flutter_FaaS__8"></a>Flutter, FaaS, 与闲鱼的一体化</h3>
+<p>闲鱼长期在做技术一体化的探索与实践：我们希望使用一门语言，一套技术栈，能让开发工程师在任何场景完成业务开发，实现开发模式和技术栈的统一。这是对开发效率的极致追求，也是对开发人员的深度赋能，更好的释放人员价值，驱动业务成长。</p>
+<p>闲鱼已经借助Flutter良好的跨栈能力来对App上的技术栈做统一，并取得了初步的成果。因此想更近一步的整合前后端，结合Flutter来建立统一的技术栈。FaaS的兴起给我们带来了新的视角和机会，在后端开发场景中，FaaS将运行环境和部署运维从日常开发中剥离出来，让开发者更聚焦于业务，降低了后端开发准入门槛，闲鱼基于此已经在做Flutter+FaaS的一体化开发体系建设。</p>
+<p>技术在发展中会对当前的解决方案不断的抽象，总结和提炼，逐渐分离出其中的变化的部分与不变的部分，让原来的问题变得收敛，开发的关注点会变的更聚焦，开发效率得以提升。这样会出现分层，进而沉淀出基础设施，这也是技术体系演进的一般规律，如图 1-1。</p>
+<p>图 1-1</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS1jYWI4YWU2NTE4M2U3MTgzLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<p>Flutter+FaaS的技术方案也是如此，我们在当前的中台的基础设施之上建设用于一体化开发的新的基础设施层，让业务开发更加聚焦。由此需要思考两个基本的问题：</p>
+<ul>
+<li>Flutter+FaaS的技术体系作为支撑一体化开发的基础设施该提供什么样的能力？</li>
+<li>基于新的一体化基础设施的业务开发是什么样的形态？</li>
+</ul>
+<p>图 2-1</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS0xNDFkMDIyMDQ2N2U2NTczLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<p>这是一体两面的两个问题，只要回答其中一个问题，另一个问题的答案也会变得清晰起来。本文是思考和探索第二个问题。</p>
+<h3><a id="FlutterFaaS_31"></a>Flutter+FaaS一体化技术体系下的开发形态思考</h3>
+<p>也许只有到了最后一刻我们才能最终回答这个问题，但是技术总是带着疑问前行，我们先从尝试做顶层做抽象定义开始，然后落地实践，在实践后总结提炼，完善顶层抽象，迭代往复，最终将概念变清晰。</p>
+<p>先来看看当前的业务开发形态，如图 2-1，当前在业务开发中几个主要的关注点我大概的归纳为：数据处理，网络通信，状态管理和界面绘制。从这4个点出发，逐一思考，在新的一体化的场景下会有什么变化：</p>
+<p>图 2-1</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS00YmI0MjJkOWZkZjI2OWViLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<ul>
+<li>**数据处理：**泛指传统的服务端REST API这部分，在一体化的场景下，这部分会由FaaS函数来实现，其实这一部分的职责和定位并没有改变，只是开发的组织沟通形式变了。传统开发页面会由服务端和客户端同学合力完成，后面可能由一位同学前后一体化开发完成。康威定律指出，软件的设计和开发人员的组织沟通结构是息息相关的，所以这一部分可能有较大的变化，但首先是他与客户端的交互方式上的变化，即网络通信。</li>
+<li>**网络通信：**在一体化场景下，前后端都由一人实现，代码也会是一个工程中的同种语言，网络通信会加轻量安全，使用起来也会更加自然，接近于普通的函数调用。一个可能的变化是，通信模式可能会突破CS模式，在一次通信“会话”中，Client端和Server端能更加自然的相互调用，实现“对等对话”，而不是传统的客户端请求，服务端响应。随着网络硬件升级，网速在变快，通信成本在下降，创新的空间很大。</li>
+<li>**状态管理：**应用状态很大程度上是缓存在客户端上的数据，受技术体系隔离，开发沟通成本，网络通信成本的影响，在客户端上缓存状态是有必要的。但在一体化的场景中，这些因素的影响在减小和消失，所以我们想进一步的消灭状态，将状态管理将至最小，尽可能的由底层管理。</li>
+<li>**界面绘制：**也许是受Flutter的影响，响应式风格结合数据驱动的UI理念非常契合我们的思路，这也是业界UI开发框架的潮流。</li>
+</ul>
+<p>Flutter+FaaS一体化技术体系下，应用开发应该会更加简单，前后端之间的差异变小，通信更加轻量自然，职责更加聚焦,如图 2-2。</p>
+<p>图 2-2</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS04Y2EzNDljNjFkNWVkNmE3LmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<h3><a id="_52"></a>一体化框架设计实践</h3>
+<p>在一体化的场景下，业务可以由一个同学负责前后端的开发，最大限度的减小沟通协作成本。当然，大体量的业务必然需要协作的，但协作的方式有所改变，工作的划分可以由传统的前后端的横向划分，变成前后一体的垂直划分，如图 3-1，协作方式的改变也会影响到我们设计的思路。</p>
+<p>图 3-1</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS02NTEwMGViZmUxN2VjNjkzLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<p>基于前面的讨论，我们尝试做了框架设计：首先我们将要开发的业务命名为一个Story，即一个Story代表一个产品业务，Story会按照上面垂直划分的方式，将业务划分为一系列的Scene。Scene对应于传统意义上的"页面"的概念，但和产品设计上的页面不强求一一对应，如图 3-2-(1)。Scene是个前后一体的虚拟概念，运行时并没有实体。它由3部分组成，如图 3-2-(2), Model部分处理业务数据（RawData）,Converter将业务数据转换成渲染所使用的数据(State), 最后Render使用渲染数据绘制界面。Model和Converter部署在后端，在FaaS函数中运行，Render运行在客户端，他们之间的数据流是单向的。在实现逻辑处理的时候，统一使用事件，事件优先在本端处理，本端不处理则路由到另一端，如果另一端也不处理，则丢弃，如图 3-2-(3)。</p>
+<p>图 3-2</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS1iNDlhNmYwYmMwNjM0NGZmLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<p>Story已经开始在闲鱼的业务中落地实践，后期带来实践效果的分享。</p>
+<h3><a id="_68"></a>实践中的挑战和借鉴</h3>
+<p>要建设完善一体化技术体系不是容易的事情，实践中肯定会有诸多挑战。好消息是FaaS和它背后的Serverless理念已经是业内潮流了，实践也在如火如荼的进行中。其中，阿里的前端同学集中力量，对Serverless已经实践的很深入了，虽然并不是一体化的理念，但实践上很多的思路可以做相互印证和借鉴：</p>
+<ul>
+<li>**开发部署工具链：**闲鱼一体化工程依赖于底层开发部署工具链的支持，是基础设施的一部分，部署也是Serverless体系中关键一环，从前端同学的实践中看，工具，插件和平台都有。闲鱼有直接使用的平台，也会有自建的工具插件，长远会做一步的体系标准化建设。</li>
+<li>**全链路追踪监控：**这是工程化必须的系统，闲鱼直接受益于集团的平台，但也会建设自己特殊场景的工具，比如借鉴Flutter的函数热更新，本地一体化调试等。</li>
+</ul>
+<p>当然，闲鱼也有自己感兴趣探索的方向：</p>
+<ul>
+<li>**网络通信：**我们的很多设想对网络通信有着很高的要求，诚然，网络质量会越来越好，成本也会也来越低，但弱网场景总会存在，如何保证服务的稳定可用依然是挑战。一体化会弱化开发对网络的感知，提供新的网络使用方式。</li>
+<li>**组件分治：**在闲鱼的业务中，复杂页面是始终要考虑的问题。在前面的设计中，我们对此做了预留(Converter部分)，但前后一体化的组件该怎么抽象，又如何组合复用，我们还在探索中。</li>
+</ul>
+<h2><a id="_79"></a>学习分享，共勉</h2>
+<p>题外话，毕竟我在三星小米工作多年，深知技术改革和创新的方向，Flutter作为跨平台开发技术、Flutter以其美观、快速、高效、开放等优势迅速俘获人心，但很多FLutter兴趣爱好者进阶学习确实资料，今天我把我搜集和整理的这份学习资料分享给有需要的人，若有关Flutter学习进阶可以与我在Flutter跨平台开发终极之选交流群一起讨论交流。下载地址：<strong><a href="https://shimo.im/docs/yTD3t8Pjq3XJtGv8" rel="nofollow">https://shimo.im/docs/yTD3t8Pjq3XJtGv8</a></strong><br>
+<img src="https://img-blog.csdnimg.cn/20200213101158631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzkwMTg2Ng==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/20200213101124315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzkwMTg2Ng==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+                                    </div>
+                <link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-60ecaf1f42.css" rel="stylesheet">
+                                                <div class="more-toolbox">
+                <div class="left-toolbox">
+                    <ul class="toolbox-list">
+                        
+                        <li class="tool-item tool-active is-like "><a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-thumbsup"></use>
+                        </svg><span class="name">点赞</span>
+                        <span class="count"></span>
+                        </a></li>
+                        <li class="tool-item tool-active is-collection "><a href="javascript:;" data-report-click='{"mod":"popu_824"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg><span class="name">收藏</span></a></li>
+                        <li class="tool-item tool-active is-share"><a href="javascript:;" data-report-click='{"mod":"1582594662_002"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-fenxiang"></use>
+                        </svg>分享</a></li>
+                        <!--打赏开始-->
+                                                <!--打赏结束-->
+                                                <li class="tool-item tool-more">
+                            <a>
+                            <svg t="1575545411852" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5717" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style>
+</head>
+<body>
+<div style="width:852px;margin:0 auto;">
+<div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article">阿里基于Flutter+FaaS的业务框架思考与实践</h1>
+            </div>
+            <div class="article-info-box">
+                <div class="article-bar-top">
+                    <!--文章类型-->
+                    <span class="article-type type-2 float-left">转载</span>                                                                                                                                            <a class="follow-nickName" href="https://me.csdn.net/weixin_43901866" target="_blank" rel="noopener">Android Developer</a>
+                    <span class="time">最后发布于2020-02-13 10:14:42                    </span>
+                    <span class="read-count">阅读数 66</span>
+                    <a id='blog_detail_zk_collection' class="un-collection" data-report-click='{"mod":"popu_823"}'>
+                        <svg class="icon">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg>
+                        <span>收藏</span>
+                    </a>
+                                    </div>
+                                <div class="up-time">发布于2020-02-13 10:14:42</div>
+                <div class="slide-content-box">
+                                                        <div class="tags-box artic-tag-box">
+                           <span class="label">分类专栏：</span>
+                                                                                             <a class="tag-link" target="_blank" rel="noopener"
+                                      href="https://blog.csdn.net/weixin_43901866/category_9337526.html">
+                                       阿里                                   </a>
+                                                                                                                            <a class="tag-link" target="_blank" rel="noopener"
+                                      href="https://blog.csdn.net/weixin_43901866/category_9415988.html">
+                                       面试                                   </a>
+                                                                                                                            <a class="tag-link" target="_blank" rel="noopener"
+                                      href="https://blog.csdn.net/weixin_43901866/category_9416379.html">
+                                       Android                                   </a>
+                                                                                  </div>
+                                                                                                       <div class="article-source-link">
+                            原文链接：<a href="https://zhuanlan.zhihu.com/p/101406753" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/101406753</a>
+                        </div>
+                                    </div>
+                <div class="operating">
+                                                                <a class="href-article-edit slide-toggle">展开</a>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <article class="baidu_pl">
+        <!--python安装手册开始-->
+                <!--python安装手册结束-->
+                <!--####专栏广告位图文切换开始-->
+                                    <!--####专栏广告位图文切换结束-->
+         <div id="article_content" class="article_content clearfix">
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-833878f763.css" />
+                            <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <!-- flowchart 箭头图标 勿删 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                                            <p>作者：闲鱼技术-匠修</p>
+<p>原文链接：<a href="https://zhuanlan.zhihu.com/p/101406753" rel="nofollow">闲鱼技术：基于Flutter+FaaS的业务框架思考与实践</a></p>
+<p>来源：知乎</p>
+<p>闲鱼将使用Flutter和FaaS来建设未来的技术开发体系，这是一项长期的规划，新的技术在现在看来犹如雾里看花，需要我们不断的思考，探索，实践才能渐渐描绘出它的轮廓。本文对此提供一种思考角度，对未来基于FaaS+Flutter之上的编程形态做思考，并介绍自己的初步实践。</p>
+<h3><a id="Flutter_FaaS__8"></a>Flutter, FaaS, 与闲鱼的一体化</h3>
+<p>闲鱼长期在做技术一体化的探索与实践：我们希望使用一门语言，一套技术栈，能让开发工程师在任何场景完成业务开发，实现开发模式和技术栈的统一。这是对开发效率的极致追求，也是对开发人员的深度赋能，更好的释放人员价值，驱动业务成长。</p>
+<p>闲鱼已经借助Flutter良好的跨栈能力来对App上的技术栈做统一，并取得了初步的成果。因此想更近一步的整合前后端，结合Flutter来建立统一的技术栈。FaaS的兴起给我们带来了新的视角和机会，在后端开发场景中，FaaS将运行环境和部署运维从日常开发中剥离出来，让开发者更聚焦于业务，降低了后端开发准入门槛，闲鱼基于此已经在做Flutter+FaaS的一体化开发体系建设。</p>
+<p>技术在发展中会对当前的解决方案不断的抽象，总结和提炼，逐渐分离出其中的变化的部分与不变的部分，让原来的问题变得收敛，开发的关注点会变的更聚焦，开发效率得以提升。这样会出现分层，进而沉淀出基础设施，这也是技术体系演进的一般规律，如图 1-1。</p>
+<p>图 1-1</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS1jYWI4YWU2NTE4M2U3MTgzLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<p>Flutter+FaaS的技术方案也是如此，我们在当前的中台的基础设施之上建设用于一体化开发的新的基础设施层，让业务开发更加聚焦。由此需要思考两个基本的问题：</p>
+<ul>
+<li>Flutter+FaaS的技术体系作为支撑一体化开发的基础设施该提供什么样的能力？</li>
+<li>基于新的一体化基础设施的业务开发是什么样的形态？</li>
+</ul>
+<p>图 2-1</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS0xNDFkMDIyMDQ2N2U2NTczLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<p>这是一体两面的两个问题，只要回答其中一个问题，另一个问题的答案也会变得清晰起来。本文是思考和探索第二个问题。</p>
+<h3><a id="FlutterFaaS_31"></a>Flutter+FaaS一体化技术体系下的开发形态思考</h3>
+<p>也许只有到了最后一刻我们才能最终回答这个问题，但是技术总是带着疑问前行，我们先从尝试做顶层做抽象定义开始，然后落地实践，在实践后总结提炼，完善顶层抽象，迭代往复，最终将概念变清晰。</p>
+<p>先来看看当前的业务开发形态，如图 2-1，当前在业务开发中几个主要的关注点我大概的归纳为：数据处理，网络通信，状态管理和界面绘制。从这4个点出发，逐一思考，在新的一体化的场景下会有什么变化：</p>
+<p>图 2-1</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS00YmI0MjJkOWZkZjI2OWViLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<ul>
+<li>**数据处理：**泛指传统的服务端REST API这部分，在一体化的场景下，这部分会由FaaS函数来实现，其实这一部分的职责和定位并没有改变，只是开发的组织沟通形式变了。传统开发页面会由服务端和客户端同学合力完成，后面可能由一位同学前后一体化开发完成。康威定律指出，软件的设计和开发人员的组织沟通结构是息息相关的，所以这一部分可能有较大的变化，但首先是他与客户端的交互方式上的变化，即网络通信。</li>
+<li>**网络通信：**在一体化场景下，前后端都由一人实现，代码也会是一个工程中的同种语言，网络通信会加轻量安全，使用起来也会更加自然，接近于普通的函数调用。一个可能的变化是，通信模式可能会突破CS模式，在一次通信“会话”中，Client端和Server端能更加自然的相互调用，实现“对等对话”，而不是传统的客户端请求，服务端响应。随着网络硬件升级，网速在变快，通信成本在下降，创新的空间很大。</li>
+<li>**状态管理：**应用状态很大程度上是缓存在客户端上的数据，受技术体系隔离，开发沟通成本，网络通信成本的影响，在客户端上缓存状态是有必要的。但在一体化的场景中，这些因素的影响在减小和消失，所以我们想进一步的消灭状态，将状态管理将至最小，尽可能的由底层管理。</li>
+<li>**界面绘制：**也许是受Flutter的影响，响应式风格结合数据驱动的UI理念非常契合我们的思路，这也是业界UI开发框架的潮流。</li>
+</ul>
+<p>Flutter+FaaS一体化技术体系下，应用开发应该会更加简单，前后端之间的差异变小，通信更加轻量自然，职责更加聚焦,如图 2-2。</p>
+<p>图 2-2</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS04Y2EzNDljNjFkNWVkNmE3LmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<h3><a id="_52"></a>一体化框架设计实践</h3>
+<p>在一体化的场景下，业务可以由一个同学负责前后端的开发，最大限度的减小沟通协作成本。当然，大体量的业务必然需要协作的，但协作的方式有所改变，工作的划分可以由传统的前后端的横向划分，变成前后一体的垂直划分，如图 3-1，协作方式的改变也会影响到我们设计的思路。</p>
+<p>图 3-1</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS02NTEwMGViZmUxN2VjNjkzLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<p>基于前面的讨论，我们尝试做了框架设计：首先我们将要开发的业务命名为一个Story，即一个Story代表一个产品业务，Story会按照上面垂直划分的方式，将业务划分为一系列的Scene。Scene对应于传统意义上的"页面"的概念，但和产品设计上的页面不强求一一对应，如图 3-2-(1)。Scene是个前后一体的虚拟概念，运行时并没有实体。它由3部分组成，如图 3-2-(2), Model部分处理业务数据（RawData）,Converter将业务数据转换成渲染所使用的数据(State), 最后Render使用渲染数据绘制界面。Model和Converter部署在后端，在FaaS函数中运行，Render运行在客户端，他们之间的数据流是单向的。在实现逻辑处理的时候，统一使用事件，事件优先在本端处理，本端不处理则路由到另一端，如果另一端也不处理，则丢弃，如图 3-2-(3)。</p>
+<p>图 3-2</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8yMDI3Mzc1NS1iNDlhNmYwYmMwNjM0NGZmLmpwZw?x-oss-process=image/format,png" alt="image"></p>
+<p>Story已经开始在闲鱼的业务中落地实践，后期带来实践效果的分享。</p>
+<h3><a id="_68"></a>实践中的挑战和借鉴</h3>
+<p>要建设完善一体化技术体系不是容易的事情，实践中肯定会有诸多挑战。好消息是FaaS和它背后的Serverless理念已经是业内潮流了，实践也在如火如荼的进行中。其中，阿里的前端同学集中力量，对Serverless已经实践的很深入了，虽然并不是一体化的理念，但实践上很多的思路可以做相互印证和借鉴：</p>
+<ul>
+<li>**开发部署工具链：**闲鱼一体化工程依赖于底层开发部署工具链的支持，是基础设施的一部分，部署也是Serverless体系中关键一环，从前端同学的实践中看，工具，插件和平台都有。闲鱼有直接使用的平台，也会有自建的工具插件，长远会做一步的体系标准化建设。</li>
+<li>**全链路追踪监控：**这是工程化必须的系统，闲鱼直接受益于集团的平台，但也会建设自己特殊场景的工具，比如借鉴Flutter的函数热更新，本地一体化调试等。</li>
+</ul>
+<p>当然，闲鱼也有自己感兴趣探索的方向：</p>
+<ul>
+<li>**网络通信：**我们的很多设想对网络通信有着很高的要求，诚然，网络质量会越来越好，成本也会也来越低，但弱网场景总会存在，如何保证服务的稳定可用依然是挑战。一体化会弱化开发对网络的感知，提供新的网络使用方式。</li>
+<li>**组件分治：**在闲鱼的业务中，复杂页面是始终要考虑的问题。在前面的设计中，我们对此做了预留(Converter部分)，但前后一体化的组件该怎么抽象，又如何组合复用，我们还在探索中。</li>
+</ul>
+<h2><a id="_79"></a>学习分享，共勉</h2>
+<p>题外话，毕竟我在三星小米工作多年，深知技术改革和创新的方向，Flutter作为跨平台开发技术、Flutter以其美观、快速、高效、开放等优势迅速俘获人心，但很多FLutter兴趣爱好者进阶学习确实资料，今天我把我搜集和整理的这份学习资料分享给有需要的人，若有关Flutter学习进阶可以与我在Flutter跨平台开发终极之选交流群一起讨论交流。下载地址：<strong><a href="https://shimo.im/docs/yTD3t8Pjq3XJtGv8" rel="nofollow">https://shimo.im/docs/yTD3t8Pjq3XJtGv8</a></strong><br>
+<img src="https://img-blog.csdnimg.cn/20200213101158631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzkwMTg2Ng==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/20200213101124315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzkwMTg2Ng==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+                                    </div>
+                <link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-60ecaf1f42.css" rel="stylesheet">
+                                                <div class="more-toolbox">
+                <div class="left-toolbox">
+                    <ul class="toolbox-list">
+                        
+                        <li class="tool-item tool-active is-like "><a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-thumbsup"></use>
+                        </svg><span class="name">点赞</span>
+                        <span class="count"></span>
+                        </a></li>
+                        <li class="tool-item tool-active is-collection "><a href="javascript:;" data-report-click='{"mod":"popu_824"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-Collection-G" ></use>
+                        </svg><span class="name">收藏</span></a></li>
+                        <li class="tool-item tool-active is-share"><a href="javascript:;" data-report-click='{"mod":"1582594662_002"}'><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-csdnc-fenxiang"></use>
+                        </svg>分享</a></li>
+                        <!--打赏开始-->
+                                                <!--打赏结束-->
+                                                <li class="tool-item tool-more">
+                            <a>
+                            <svg t="1575545411852" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5717" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M179.176 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5718"></path><path d="M509.684 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5719"></path><path d="M846.175 499.222m-113.245 0a113.245 113.245 0 1 0 226.49 0 113.245 113.245 0 1 0-226.49 0Z" p-id="5720"></path></svg>
+                            </a>
+                            <ul class="more-box">
+                                <li class="item"><a class="article-report">文章举报</a></li>
+                            </ul>
+                        </li>
+                                            </ul>
+                </div>
+                            </div>
+            <div class="person-messagebox">
+                <div class="left-message"><a href="https://blog.csdn.net/weixin_43901866">
+                    <img src="https://profile.csdnimg.cn/8/2/E/3_weixin_43901866" class="avatar_pic" username='weixin_43901866'>
+                                            <img src="https://g.csdnimg.cn/static/user-reg-year/1x/1.png" class="user-years">
+                                    </a></div>
+                <div class="middle-message">
+                                        <div class="title"><span class="tit"><a href="https://blog.csdn.net/weixin_43901866" data-report-click='{"mod":"popu_379"}' target="_blank">Android Developer</a></span>
+                                            </div>
+                    <div class="text"><span>发布了450 篇原创文章</span> · <span>获赞 730</span> · <span>访问量 20万+</span></div>
+                </div>
+                                <div class="right-message">
+                                            <a href="https://bbs.csdn.net/topics/395532450" target="_blank"
+                        class="btn btn-sm btn-red-hollow bt-button personal-messageboard">他的留言板
+                        </a>
+                                                            <a class="btn btn-sm  bt-button personal-watch" data-report-click='{"mod":"popu_379"}'>关注</a>
+                                    </div>
+                            </div>
+                    </div>
+    </article>
+</div>
+</div>
+</body>
+</html>

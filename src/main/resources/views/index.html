@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript">
+        function toTargetpage(ht){
+           // window.location.href="./toTargetPage?html="+ht;
+            window.open('./toTargetPage?html='+ht);
+        }
+        $(document).ready(function(){
+             $.ajax({
+                 url:"./getBlogList",
+                 data:null,
+                 type:"get",
+                 success:function(data){
+                    for(var i=0;i<data.length;i++){
+                        $("#tab").append('<tr><td>'+i+'</td><td><a href="#" onclick="toTargetpage(\''+data[i].url+'\')">'+data[i].url+'</a></td></tr>');
+                    }
+                 }
+             });
+        });
+    </script>
+<body>
+<div>
+    <table id="tab">
+
+    </table>
+
+</div>
+</body>
+</html>
