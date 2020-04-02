@@ -13,4 +13,5 @@ import java.util.List;
 @Component
 public interface BlogDao {
     public List<Blog> getBlogList(Blog blog);
+    public void insertBlog(Blog blog);
 }
