@@ -27,10 +27,11 @@ public class BasicTask {
     private TaskService taskService;
 
     public  void run(){
-        Task task = taskService.getTask(null);
-        if(null != task){
-            QueueUtils.taskQueue.offer(task);
-        }
+            Task task = taskService.getTask(null);
+            if(null != task){
+                QueueUtils.taskQueue.offer(task);
+                taskService.updateTask(task);
+            }
     }
 
     @Scheduled(cron = "${task.cron}") //每分钟执行一次statusCheck方法

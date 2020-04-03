@@ -5,4 +5,7 @@
     <select id="getBlogList" parameterType="com.pyt.bean.Blog" resultType="com.pyt.bean.Blog">
         select * from blog
     </select>
+    <insert id="insertBlog" parameterType="com.pyt.bean.Blog">
+        insert into blog (title,url) values(#{title},#{url})
+    </insert>
 </mapper>
