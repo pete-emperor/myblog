@@ -18,8 +18,10 @@ public class BlogService {
     @Autowired
     private BlogDao blogDao;
 
-
     public List<Blog> getBlogList(Blog blog){
         return blogDao.getBlogList(blog);
+    }
+    public void insertBlog(Blog blog){
+        blogDao.insertBlog(blog);
     }
 }
