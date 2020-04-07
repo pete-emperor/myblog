@@ -45,7 +45,7 @@ public class BlogController {
             pageSize = Integer.valueOf(pageSize2);
         }
         Integer pageCount = blogService.getBlogCount(null);
-        map.put("pageCount",pageCount%10==0?pageCount:((pageCount/pageSize)+1));
+        map.put("pageCount",pageCount%10==0?(pageCount/pageSize):((pageCount/pageSize)+1));
         return map;
     }
 

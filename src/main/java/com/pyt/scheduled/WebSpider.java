@@ -1,5 +1,6 @@
 package com.pyt.scheduled;
 
+
 import com.pyt.MyblogApplication;
 import com.pyt.bean.Blog;
 import com.pyt.bean.Task;
@@ -84,7 +85,12 @@ public class WebSpider implements ApplicationRunner {
 							urlMap.put(m2e.group(0), m2e.group(0));
 							pageHtml = m2e.group(0).substring(m2e.group(0).lastIndexOf('/') + 1, m2e.group(0).length()) + ".html";
 							String path = ClassUtils.getDefaultClassLoader().getResource("views/page").getPath();
-							path = path.substring(1, path.length());
+
+							String osName = System.getProperties().getProperty("os.name");
+							if(!osName.contains("Linux"))
+							{
+								path = path.substring(1, path.length());
+							}
 							//String path = "F:\\spider\\page";
 							String fileName = path + "/" + pageHtml;
 							urlList.add(pageHtml);

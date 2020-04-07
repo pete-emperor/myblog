@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @EnableAutoConfiguration
 @ComponentScan(value = "com.pyt")
-@PropertySource("application.properties")
+@PropertySource("classpath:application.properties")
 @SpringBootApplication
 public class MyblogApplication {
 
