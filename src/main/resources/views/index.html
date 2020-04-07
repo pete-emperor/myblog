@@ -3,31 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../jquery/jquery.page.css">
     <script type="text/javascript" src="../jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../jquery/jquery.page.js"></script>
     <script type="text/javascript">
         function toTargetpage(ht){
            // window.location.href="./toTargetPage?html="+ht;
             window.open('./toTargetPage?html='+ht);
         }
-        $(document).ready(function(){
-             $.ajax({
-                 url:"./getBlogList",
-                 data:null,
-                 type:"get",
-                 success:function(data){
+        function getBlogList(pageIndex,pageSize){
+            $.ajax({
+                url:"./getBlogList",
+                data:{"pageIndex":pageIndex,"pageSize":pageSize},
+                type:"post",
+                success:function(data){
+                    $("#tab").html("");
                     for(var i=0;i<data.length;i++){
-                        $("#tab").append('<tr><td>'+i+'</td><td><a href="#" onclick="toTargetpage(\''+data[i].url+'\')">'+data[i].url+'</a></td></tr>');
+                        $("#tab").append('<tr><td>'+(i+(pageIndex-1)*pageSize+1)+'</td><td><a href="#" onclick="toTargetpage(\''+data[i].url+'\')">'+data[i].title+'</a></td></tr>');
                     }
-                 }
-             });
-        });
+                }
+            });
+        }
+
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var pageSize = 20;
+            $.ajax({
+                url:"./getBlogPage",
+                data:{"pageSize":pageSize},
+                type:"post",
+                success:function(data){
+                    var liNums = 7;
+                    if(liNums>data.pageCount){
+                        liNums = data.pageCount;
+                    }
+                    getBlogList(1,pageSize);
+                    $("#page").Page({
+                        totalPages: data.pageCount,//分页总数
+                        liNums: liNums,//分页的数字按钮数(建议取奇数)
+                        activeClass: 'activP', //active 类样式定义
+                        callBack : function(pageIndex){
+                            getBlogList(pageIndex,pageSize);
+                        }
+                    });
+                }
+            });
+        })
     </script>
 <body>
 <div>
     <table id="tab">
 
     </table>
-
+    <div id="page"></div>
 </div>
 </body>
 </html>

@@ -3,7 +3,7 @@ package com.pyt.bean;
 /**
  * Created by peter on 2020/4/2.
  */
-public class Blog {
+public class Blog extends PageInfo{
 
     private Integer id;
     private String title;

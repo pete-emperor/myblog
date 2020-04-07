@@ -14,4 +14,5 @@ import java.util.List;
 public interface BlogDao {
     public List<Blog> getBlogList(Blog blog);
     public void insertBlog(Blog blog);
+    public Integer getBlogCount(Blog blog);
 }

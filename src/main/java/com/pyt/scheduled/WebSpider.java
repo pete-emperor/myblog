@@ -55,7 +55,7 @@ public class WebSpider implements ApplicationRunner {
 		String regex = urlStr + "/article/details/\\d{8,}";
 		String regexe = "<div class=\"blog-content-box\">[\\s\\S]*</article>";
 		String regexee = "<link rel=\"stylesheet\" [\\s\\S]*.css\">";
-		String regexcss = "<style[\\s\\S]*</style>";
+		String regexcss = "<head[\\s\\S]*</head>";
 		String regexes = "<span class=\"article-type type-(1|2) float-none\">[\\s\\SS]*</a>";
 		Pattern pree = Pattern.compile(regexes);
 		Pattern p = Pattern.compile(regex);
@@ -93,22 +93,19 @@ public class WebSpider implements ApplicationRunner {
 							BufferedReader bre = new BufferedReader(new InputStreamReader(urlconne.getInputStream(), "UTF-8"));
 							String bufe = null;
 							String bufee = "";
-							OutputStream out=new FileOutputStream(new File(fileName));
-							BufferedWriter   pw2   =   new BufferedWriter(new OutputStreamWriter(out,"utf-8"));
-
-
+							FileOutputStream fos = new FileOutputStream(fileName);
+							OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
+							BufferedWriter pw2 = new BufferedWriter(osw);
 							pw2.write("<html>");
 							pw2.newLine();
 							pw2.write("<head>");
 							pw2.newLine();
-							pw2.write("<meta charset=\"UTF-8\">");
-							pw2.newLine();
-
 							while ((bufe = bre.readLine()) != null) {
 								Pattern pre1 = Pattern.compile(regexee);
 								Matcher mre1 = pre1.matcher(bufe);
 								if (mre1.find()) {
 									pw2.write(mre1.group(0));
+									pw2.newLine();
 								}
 								bufee += "\n" + bufe;
 								Pattern pre = Pattern.compile(regexe);
@@ -118,9 +115,8 @@ public class WebSpider implements ApplicationRunner {
 									Matcher mrecss1 = precss1.matcher(bufee);
 									while (mrecss1.find()) {
 										pw2.write(mrecss1.group(0));
+										pw2.newLine();
 									}
-									pw2.write("</head>");
-									pw2.newLine();
 									pw2.write("<body>");
 									pw2.newLine();
 									pw2.write("<div style=\"width:852px;margin:0 auto;\">");
@@ -131,16 +127,16 @@ public class WebSpider implements ApplicationRunner {
 									pw2.newLine();
 									break;
 								}
+								;
 							}
 							pw2.write("</div>");
 							pw2.newLine();
 							pw2.write("</body>");
 							pw2.newLine();
 							pw2.write("</html>");
+							pw2.newLine();
 							pw2.close();
 							bre.close();
-
-
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

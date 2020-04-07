@@ -21,6 +21,9 @@ public class BlogService {
     public List<Blog> getBlogList(Blog blog){
         return blogDao.getBlogList(blog);
     }
+    public Integer getBlogCount(Blog blog){
+        return blogDao.getBlogCount(blog);
+    }
     public void insertBlog(Blog blog){
         blogDao.insertBlog(blog);
     }
