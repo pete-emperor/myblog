@@ -80,10 +80,10 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -139,10 +139,6 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>org.apache.commons.logging</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -188,7 +184,7 @@
 				<directory>src/main/resources</directory>
 				<filtering>false</filtering>
 				<excludes>
-					<exclude>**/*.sh</exclude>
+					<exclude>**/**</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -213,7 +209,7 @@
 							    <mainClass>com.pyt.MyblogApplication</mainClass>
 						 </manifest>
 						 <manifestEntries>
-							 <Class-Path>config/</Class-Path>
+							 <Class-Path>resources/</Class-Path>
 						 </manifestEntries>
 					 </archive>
 					<excludes><exclude>**/*.properties</exclude></excludes>
@@ -251,12 +247,12 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/config</outputDirectory>
+							<outputDirectory>${project.build.directory}/resources</outputDirectory>
 							<resources>
 								<resource>
 									<directory>src/main/resources</directory>
 									<includes>
-										<include>**/*.properties</include>
+										<include>**</include>
 									</includes>
 									<filtering>false</filtering>
 								</resource>
