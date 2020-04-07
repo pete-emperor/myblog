@@ -93,15 +93,22 @@ public class WebSpider implements ApplicationRunner {
 							BufferedReader bre = new BufferedReader(new InputStreamReader(urlconne.getInputStream(), "UTF-8"));
 							String bufe = null;
 							String bufee = "";
-							PrintWriter pw2 = new PrintWriter(new FileWriter(fileName), true);
-							pw2.println("<html>");
-							pw2.println("<head>");
+							OutputStream out=new FileOutputStream(new File(fileName));
+							BufferedWriter   pw2   =   new BufferedWriter(new OutputStreamWriter(out,"utf-8"));
+
+
+							pw2.write("<html>");
+							pw2.newLine();
+							pw2.write("<head>");
+							pw2.newLine();
+							pw2.write("<meta charset=\"UTF-8\">");
+							pw2.newLine();
 
 							while ((bufe = bre.readLine()) != null) {
 								Pattern pre1 = Pattern.compile(regexee);
 								Matcher mre1 = pre1.matcher(bufe);
 								if (mre1.find()) {
-									pw2.println(mre1.group(0));
+									pw2.write(mre1.group(0));
 								}
 								bufee += "\n" + bufe;
 								Pattern pre = Pattern.compile(regexe);
@@ -110,20 +117,26 @@ public class WebSpider implements ApplicationRunner {
 									Pattern precss1 = Pattern.compile(regexcss);
 									Matcher mrecss1 = precss1.matcher(bufee);
 									while (mrecss1.find()) {
-										pw2.println(mrecss1.group(0));
+										pw2.write(mrecss1.group(0));
 									}
-									pw2.println("</head>");
-									pw2.println("<body>");
-									pw2.println("<div style=\"width:852px;margin:0 auto;\">");
-									pw2.println(mre.group(0).replace("src=\"//", "src=\"https://"));
-									pw2.println("</div>");
+									pw2.write("</head>");
+									pw2.newLine();
+									pw2.write("<body>");
+									pw2.newLine();
+									pw2.write("<div style=\"width:852px;margin:0 auto;\">");
+									pw2.newLine();
+									pw2.write(mre.group(0).replace("src=\"//", "src=\"https://"));
+									pw2.newLine();
+									pw2.write("</div>");
+									pw2.newLine();
 									break;
 								}
-								;
 							}
-							pw2.println("</div>");
-							pw2.println("</body>");
-							pw2.println("</html>");
+							pw2.write("</div>");
+							pw2.newLine();
+							pw2.write("</body>");
+							pw2.newLine();
+							pw2.write("</html>");
 							pw2.close();
 							bre.close();
 
