@@ -80,10 +80,10 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-		</dependency>-->
+        <!--<dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>-->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -184,6 +184,10 @@
 				<directory>src/main/resources</directory>
 				<filtering>false</filtering>
 				<excludes>
+					<exclude>mapper/*</exclude>
+					<exclude>static/**</exclude>
+					<exclude>views/**</exclude>
+					<exclude>*.sh</exclude>
 					<exclude>**/**</exclude>
 				</excludes>
 			</resource>
@@ -192,7 +196,7 @@
 				<directory>src/main/resources</directory>
 				<filtering>false</filtering>
 				<includes>
-					<include>**/*.sh</include>
+					<include>*</include>
 				</includes>
 			</resource>
 		</resources>
@@ -252,8 +256,14 @@
 								<resource>
 									<directory>src/main/resources</directory>
 									<includes>
+										<include>**/*.properties</include>
+										<include>mapper/*</include>
+										<include>static/**</include>
+										<include>views/page</include>
+										<include>views/**</include>
 										<include>**</include>
 									</includes>
+
 									<filtering>false</filtering>
 								</resource>
 							</resources>

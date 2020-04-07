@@ -93,13 +93,17 @@ public class WebSpider implements ApplicationRunner {
 							BufferedReader bre = new BufferedReader(new InputStreamReader(urlconne.getInputStream(), "UTF-8"));
 							String bufe = null;
 							String bufee = "";
-							FileOutputStream fos = new FileOutputStream(fileName);
-							OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
-							BufferedWriter pw2 = new BufferedWriter(osw);
+							OutputStream out=new FileOutputStream(new File(fileName));
+							BufferedWriter   pw2   =   new BufferedWriter(new OutputStreamWriter(out,"utf-8"));
+
+
 							pw2.write("<html>");
 							pw2.newLine();
 							pw2.write("<head>");
 							pw2.newLine();
+							pw2.write("<meta charset=\"UTF-8\">");
+							pw2.newLine();
+
 							while ((bufe = bre.readLine()) != null) {
 								Pattern pre1 = Pattern.compile(regexee);
 								Matcher mre1 = pre1.matcher(bufe);
