@@ -6,6 +6,7 @@ import com.pyt.bean.Blog;
 import com.pyt.bean.Task;
 import com.pyt.service.BlogService;
 import com.pyt.util.QueueUtils;
+import com.pyt.util.RedisUtil;
 import com.pyt.util.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -14,6 +15,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,6 +30,9 @@ import java.util.regex.Pattern;
 @Component
 @Order(value = 1)
 public class WebSpider implements ApplicationRunner {
+
+	@Resource
+	private RedisUtil redisUtil;
 
 	private BlogService blogService = SpringUtils.getBean(BlogService.class);
 
@@ -96,6 +101,23 @@ public class WebSpider implements ApplicationRunner {
 							urlList.add(pageHtml);
 							URL urle = new URL(m2e.group(0));
 							URLConnection urlconne = urle.openConnection();
+							urlconne.setConnectTimeout(4*1000) ;
+							urlconne.setRequestProperty(
+									"Accept",
+									"image/gif, image/jpeg, image/pjpeg, image/pjpeg, " +
+											"application/x-shockwave-flash, application/xaml+xml, " +
+											"application/vnd.ms-xpsdocument, application/x-ms-xbap, " +
+											"application/x-ms-application, application/vnd.ms-excel, " +
+											"application/vnd.ms-powerpoint, application/msword, */*");
+							urlconne.setRequestProperty("Accept-Language", "zh-CN");
+							urlconne.setRequestProperty("Charset", "UTF-8");
+							//设置浏览器类型和版本、操作系统，使用语言等信息
+							urlconne.setRequestProperty(
+									"User-Agent",
+									"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.2; Trident/4.0; " +
+											".NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; " +
+											".NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)");
+							urlconne.setRequestProperty("Connection", "Keep-Alive");
 							BufferedReader bre = new BufferedReader(new InputStreamReader(urlconne.getInputStream(), "UTF-8"));
 							String bufe = null;
 							String bufee = "";
@@ -162,7 +184,10 @@ public class WebSpider implements ApplicationRunner {
 					blogService.insertBlog(blog);
 				}
 			}
-
+			if(redisUtil.hasKey("page")){
+				String page = redisUtil.get("page").toString();
+				redisUtil.del(page);
+			}
 			System.out.println("task结束");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
