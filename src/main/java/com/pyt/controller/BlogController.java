@@ -65,15 +65,17 @@ public class BlogController {
         if(null != pageSize2 && "" != pageSize2){
             pageSize = Integer.valueOf(pageSize2);
         }
-        Integer pageCount = blogService.getBlogCount(null);
+        Integer pageCount = 0;
+        if(redisUtil.hasKey("pageCount")){
+            pageCount = (Integer) redisUtil.get("pageCount");
+        }else{
+            pageCount = blogService.getBlogCount(null);
+            redisUtil.set("pageCount",pageCount);
+        }
         map.put("pageCount",pageCount%10==0?(pageCount/pageSize):((pageCount/pageSize)+1));
         return map;
     }
 
-    public static void main(String[] args) {
-        String path = ClassUtils.getDefaultClassLoader().getResource("views/page").getPath();
-        System.out.println(path.substring(1,path.length()));
-    }
 
 
 }
