@@ -188,6 +188,7 @@ public class WebSpider implements ApplicationRunner {
 				String page = redisUtil.get("page").toString();
 				redisUtil.del(page);
 			}
+            redisUtil.del("pageCount");
 			System.out.println("task结束");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
