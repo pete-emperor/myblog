@@ -1,9 +1,11 @@
 package com.pyt.scheduled;
 
 
+import com.pyt.bean.Article;
 import com.pyt.bean.Blog;
 import com.pyt.bean.Task;
 import com.pyt.bean.ArticleTask;
+import com.pyt.service.ArticleService;
 import com.pyt.service.BlogService;
 import com.pyt.util.QueueUtils;
 import com.pyt.util.RedisUtil;
@@ -35,7 +37,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 	private static List<String> urlList = new ArrayList<String>();
 
-	private BlogService blogService = SpringUtils.getBean(BlogService.class);
+	private ArticleService articleService = SpringUtils.getBean(ArticleService.class);
 
 	@Override
 	public void run(ApplicationArguments applicationArguments) throws Exception {
@@ -53,6 +55,25 @@ public class ArticleWebSpider implements ApplicationRunner {
 		}
 	}
 
+
+	public static void main(String args[]){
+        ArticleTask articleTask = new ArticleTask();
+        articleTask.setId(1);
+        articleTask.setIndexUrl("https://blog.csdn.net/qq_38963960");
+        articleTask.setFirstUrlRegex("0000999000099900009990000");
+        articleTask.setSecondUrlRegex("https://blog.csdn.net/qq_38963960/article/details/\\d{8,}999000099900009990000");
+        articleTask.setTitleRegex("<h1 class=\"title-article\">[\\s\\S]*</h1>9990000999<h1 class=\"title-article\">999</h1>");
+        articleTask.setContentRegex("<div class=\"htmledit_views\" id=\"content_views\">[\\s\\S]*<div class=\"more-toolbox\">99900009990000999<div class=\"more-toolbox\">");
+        articleTask.setIgnoreStr("0000");
+        articleTask.setSplitStr("999");
+
+        //getPageContent(articleTask.getIndexUrl());
+
+        //ScanSpider(articleTask);
+    }
+
+
+
 	public void ScanSpider(ArticleTask articleTask) {
 		Integer id = articleTask.getId();
 		String indexUrl = articleTask.getIndexUrl();
@@ -60,16 +81,8 @@ public class ArticleWebSpider implements ApplicationRunner {
 		String ignoreStr = articleTask.getIgnoreStr();
 
 		String firstUrlRegex = articleTask.getFirstUrlRegex();
-		String firstUrlRegex0 = firstUrlRegex.split(splitStr)[0];
-		String firstUrlRegex1 = firstUrlRegex.split(splitStr)[1];
-		String firstUrlRegex2 = firstUrlRegex.split(splitStr)[2];
-		String firstUrlRegex3 = firstUrlRegex.split(splitStr)[3];
-
 		String secondUrlRegex = articleTask.getSecondUrlRegex();
-		String secondUrlRegex0 = secondUrlRegex.split(splitStr)[0];
-		String secondUrlRegex1 = secondUrlRegex.split(splitStr)[1];
-		String secondUrlRegex2 = secondUrlRegex.split(splitStr)[2];
-		String secondUrlRegex3 = secondUrlRegex.split(splitStr)[3];
+
 
 		String titleRegex = articleTask.getTitleRegex();
 		String titleRegex0 = titleRegex.split(splitStr)[0];
@@ -84,79 +97,111 @@ public class ArticleWebSpider implements ApplicationRunner {
 		String contentRegex3 =  contentRegex.split(splitStr)[3];
 		Integer type = articleTask.getType();
 
+		System.out.println();
+
+
 		List<String> firstUrlList = new ArrayList<String>();
 		List<String> secondUrlList = new ArrayList<String>();
-		firstUrlList = getPageUrl(firstUrlList,secondUrlList,indexUrl,ignoreStr,firstUrlRegex,secondUrlRegex);
+		getPageUrl(firstUrlList,secondUrlList,splitStr,indexUrl,ignoreStr,firstUrlRegex,secondUrlRegex);
 
+		for(int i = 0;i<secondUrlList.size();i++){
+			String pageUrl = secondUrlList.get(i);
+			Article article = new Article();
+			StringBuffer sbPage = getPageContent(pageUrl);
+
+			Pattern titlePre = Pattern.compile(titleRegex0);
+			Matcher mreTitle = titlePre.matcher(sbPage);
+
+			while(mreTitle.find()){
+				String title = getRegContent(mreTitle.group(0),ignoreStr,titleRegex1,titleRegex2,titleRegex3,splitStr);
+				article.setTitle(title);
+			}
+
+			Pattern contentPre = Pattern.compile(contentRegex0);
+			Matcher mreContent = contentPre.matcher(sbPage);
+
+			while(mreContent.find()){
+				String content = getRegContent(mreContent.group(0),ignoreStr,contentRegex1,contentRegex2,contentRegex3,splitStr);
+				article.setContent(content);
+			}
+			articleService.insertArticle(article);
+		}
 
 
 
 
 	}
 
-	//爬取分页url
-	public static List<String> getPageUrl(List <String> firstUrlList,List<String> secondUrlList,String splitStr,String indexUrl,String ignoreStr,String firstUrlRegex,String secondUrlRegex){
+	public static StringBuffer getPageContent(String pageUrl){
 
-
-
-
-
-		String secondUrlRegex0 = secondUrlRegex.split(splitStr)[0];
-		String secondUrlRegex1 = secondUrlRegex.split(splitStr)[1];
-		String secondUrlRegex2 = secondUrlRegex.split(splitStr)[2];
-		String secondUrlRegex3 = secondUrlRegex.split(splitStr)[3];
-
-		URLConnection urlconn = null;
+		URLConnection pageUrlConn = null;
 		BufferedReader br = null;
 		URL url = null;
+		StringBuffer sbPage = new StringBuffer();
 		try {
-			url = new URL(indexUrl);
-			urlconn = url.openConnection();
-			urlconn.setConnectTimeout(10000);
-			br = new BufferedReader(new InputStreamReader(urlconn.getInputStream(), "UTF-8"));
-
-			StringBuffer sbPage = new StringBuffer();
+			url = new URL(pageUrl);
+			pageUrlConn = url.openConnection();
+			pageUrlConn.setConnectTimeout(10000);
+			br = new BufferedReader(new InputStreamReader(pageUrlConn.getInputStream(), "UTF-8"));
 			String strTemp = "";
-			while((strTemp = br.readLine()) != null){
+			while ((strTemp = br.readLine()) != null) {
 				sbPage.append(strTemp);
 			}
 			br.close();
 
+		}catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				if(null != br) br.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return sbPage;
+	}
 
+	//爬取分页url
+	public static void getPageUrl(List <String> firstUrlList,List<String> secondUrlList,String splitStr,String indexUrl,String ignoreStr,String firstUrlRegex,String secondUrlRegex){
+
+            StringBuffer sbPage = getPageContent(indexUrl);
+			String secondUrlRegex0 = secondUrlRegex.split(splitStr)[0];
+			String secondUrlRegex1 = secondUrlRegex.split(splitStr)[1];
+			String secondUrlRegex2 = secondUrlRegex.split(splitStr)[2];
+			String secondUrlRegex3 = secondUrlRegex.split(splitStr)[3];
 
 			Pattern preSecondUrl = Pattern.compile(secondUrlRegex0);
-			Matcher mreSecondUrl = preSecondUrl.matcher(sbPage.toString());
+			Matcher mreSecondUrl = preSecondUrl.matcher(sbPage);
 
-
-
-
-			while (mreFirstUrl.find()) {
-				String indexUrlTemp = getRegContent(ignoreStr,firstUrlRegex,);
-				if(!firstUrlList.contains(indexUrlTemp)){
-					firstUrlList.add(indexUrlTemp);
-					getPageUrl(firstUrlList,secondUrlList,indexUrlTemp,ignoreStr,Regex0,Regex1,Regex2,Regex3);
+			while (mreSecondUrl.find()) {
+				String indexUrlTemp = getRegContent(mreSecondUrl.group(0),ignoreStr,secondUrlRegex1,secondUrlRegex2,secondUrlRegex3,splitStr);
+				if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !secondUrlList.contains(indexUrlTemp)){
+					secondUrlList.add(indexUrlTemp);
 				}
 			}
 
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return urlList;
+			String firstUrlRegex0 = firstUrlRegex.split(splitStr)[0];
+			String firstUrlRegex1 = firstUrlRegex.split(splitStr)[1];
+			String firstUrlRegex2 = firstUrlRegex.split(splitStr)[2];
+			String firstUrlRegex3 = firstUrlRegex.split(splitStr)[3];
+
+			if(!firstUrlRegex0.equals(ignoreStr)){
+				Pattern preFirstUrl = Pattern.compile(firstUrlRegex0);
+				Matcher mreFirstUrl = preFirstUrl.matcher(sbPage);
+
+				while (mreFirstUrl.find()) {
+					String indexUrlTemp = getRegContent(mreFirstUrl.group(0),ignoreStr,firstUrlRegex1,firstUrlRegex2,firstUrlRegex3,splitStr);
+					if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !firstUrlList.contains(indexUrlTemp)){
+						firstUrlList.add(indexUrlTemp);
+						getPageUrl(firstUrlList,secondUrlList,splitStr,indexUrlTemp,ignoreStr,firstUrlRegex,secondUrlRegex);
+					}
+				}
+			}
 
 	}
 
-	public static String getRegContent(String ignoreStr,String urlRegex,String splitStr,String sbPage){
+	public static String getRegContent(String temp,String ignoreStr,String urlRegex1,String urlRegex2,String urlRegex3,String splitStr){
 
-		String urlRegex0 = urlRegex.split(splitStr)[0];
-		String urlRegex1 = urlRegex.split(splitStr)[1];
-		String urlRegex2 = urlRegex.split(splitStr)[2];
-		String urlRegex3 = urlRegex.split(splitStr)[3];
-
-		Pattern pre = Pattern.compile(urlRegex0);
-		Matcher mre = pre.matcher(sbPage.toString());
-		String temp = mre.group(0);
 		if(urlRegex2.equals(ignoreStr)){
 			if(!urlRegex3.equals(ignoreStr)){
 				temp = temp.substring(0,temp.lastIndexOf(urlRegex3));
@@ -171,10 +216,9 @@ public class ArticleWebSpider implements ApplicationRunner {
 		String urlTemp = "";
 		if(!urlRegex1.equals(ignoreStr)){
 			urlTemp = urlRegex1 + temp;
-		}else{
+		}else {
 			urlTemp = temp;
 		}
-
 		return  urlTemp;
 	}
 

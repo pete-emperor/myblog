@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
 /**
  * Created by PC on 2020/4/1.
  */
-@PropertySource("classpath:scheduled.properties")
-@Component
-@EnableScheduling
+//@PropertySource("classpath:scheduled.properties")
+//@Component
+//@EnableScheduling
 public class BasicTask {
 
     private static Logger logger = LoggerFactory.getLogger(BasicTask.class);
