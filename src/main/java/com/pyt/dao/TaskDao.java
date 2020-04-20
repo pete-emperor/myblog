@@ -1,6 +1,7 @@
 package com.pyt.dao;
 
 import com.pyt.bean.Task;
+import com.pyt.bean.ArticleTask;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -15,4 +16,7 @@ public interface TaskDao {
 
     public void updateTask(Task task);
 
+    public ArticleTask getArticleTask(ArticleTask articleTask);
+
+    public void updateArticleTask(ArticleTask articleTask);
 }

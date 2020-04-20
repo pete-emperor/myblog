@@ -1,6 +1,7 @@
 package com.pyt.service;
 
 import com.pyt.bean.Task;
+import com.pyt.bean.ArticleTask;
 import com.pyt.bean.UserInfo;
 import com.pyt.dao.TaskDao;
 import com.pyt.dao.UserDao;
@@ -23,6 +24,16 @@ public class TaskService {
     public void updateTask(Task task){
         taskDao.updateTask(task);
     }
+
+    public ArticleTask getArticleTask(ArticleTask ArticleTask){
+        return taskDao.getArticleTask(ArticleTask);
+    }
+
+    public void updateArticleTask(ArticleTask ArticleTask){
+        taskDao.updateArticleTask(ArticleTask);
+    }
+
+
 
 
 

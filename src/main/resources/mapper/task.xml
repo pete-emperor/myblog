@@ -3,7 +3,7 @@
 
 <mapper namespace="com.pyt.dao.TaskDao">
     <select id="getTask" parameterType="com.pyt.bean.Task" resultType="com.pyt.bean.Task">
-        select * from task where type = 0 limit 0,1
+        select * from task where type = 0 limit 0,1 for update
     </select>
 
     <update id="updateTask" parameterType="com.pyt.bean.Task">
