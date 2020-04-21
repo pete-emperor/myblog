@@ -219,17 +219,10 @@ public class ArticleWebSpider implements ApplicationRunner {
 		}else {
 			urlTemp = temp;
 		}
+		System.out.println(urlTemp);
+
 		return  urlTemp;
 	}
 
-	//获取每页各个文章的url
-	public void getPageArticleUrl(){
-
-	}
-
-	//获取文章页面的标题和内容
-	public void getArticleTitleContent(){
-
-	}
 
 }  

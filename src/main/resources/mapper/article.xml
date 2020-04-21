@@ -10,6 +10,6 @@
     </select>
 
     <insert id="insertArticle" parameterType="com.pyt.bean.Article">
-        insert into article (title,content) values(#{title},#{content})
+        insert into article (title,content,status,created,modified) values(#{title},#{content},'normal',sysdate(),sysdate())
     </insert>
 </mapper>
