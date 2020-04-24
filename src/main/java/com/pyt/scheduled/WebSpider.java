@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-@Order(value = 1)
+@Order(value = 3)
 public class WebSpider implements ApplicationRunner {
 
 	@Resource

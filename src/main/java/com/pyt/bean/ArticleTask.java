@@ -14,6 +14,7 @@ public class ArticleTask {
    private Integer type;
    private String splitStr;
    private String ignoreStr;
+   private String pageCharSet;
 
     public Integer getId() {
         return id;
@@ -85,5 +86,13 @@ public class ArticleTask {
 
     public void setIgnoreStr(String ignoreStr) {
         this.ignoreStr = ignoreStr;
+    }
+
+    public String getPageCharSet() {
+        return pageCharSet;
+    }
+
+    public void setPageCharSet(String pageCharSet) {
+        this.pageCharSet = pageCharSet;
     }
 }

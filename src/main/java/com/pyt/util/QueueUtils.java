@@ -3,6 +3,7 @@ package com.pyt.util;
 import com.pyt.bean.ArticleTask;
 import com.pyt.bean.Task;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -13,4 +14,8 @@ public class QueueUtils {
     public static ConcurrentLinkedQueue<Task> taskQueue = new ConcurrentLinkedQueue<Task>();
 
     public static ConcurrentLinkedQueue<ArticleTask> articleTaskQueue = new ConcurrentLinkedQueue<ArticleTask>();
+
+    public static ConcurrentLinkedQueue<Map<String,Object>> secondUrlQueue = new ConcurrentLinkedQueue<Map<String,Object>>();
+
+
 }

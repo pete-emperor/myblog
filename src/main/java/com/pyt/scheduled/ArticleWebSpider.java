@@ -72,13 +72,12 @@ public class ArticleWebSpider implements ApplicationRunner {
         //ScanSpider(articleTask);
     }
 
-
-
 	public void ScanSpider(ArticleTask articleTask) {
 		Integer id = articleTask.getId();
 		String indexUrl = articleTask.getIndexUrl();
 		String splitStr = articleTask.getSplitStr();
 		String ignoreStr = articleTask.getIgnoreStr();
+		String pageCharSet = articleTask.getPageCharSet();
 
 		String firstUrlRegex = articleTask.getFirstUrlRegex();
 		String secondUrlRegex = articleTask.getSecondUrlRegex();
@@ -97,17 +96,15 @@ public class ArticleWebSpider implements ApplicationRunner {
 		String contentRegex3 =  contentRegex.split(splitStr)[3];
 		Integer type = articleTask.getType();
 
-		System.out.println();
-
 
 		List<String> firstUrlList = new ArrayList<String>();
 		List<String> secondUrlList = new ArrayList<String>();
-		getPageUrl(firstUrlList,secondUrlList,splitStr,indexUrl,ignoreStr,firstUrlRegex,secondUrlRegex);
-
+		getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrl,ignoreStr,firstUrlRegex,secondUrlRegex);
+		System.out.println("secondUrlList.size:"+secondUrlList.size());
 		for(int i = 0;i<secondUrlList.size();i++){
 			String pageUrl = secondUrlList.get(i);
 			Article article = new Article();
-			StringBuffer sbPage = getPageContent(pageUrl);
+			StringBuffer sbPage = getPageContent(pageCharSet,pageUrl);
 
 			Pattern titlePre = Pattern.compile(titleRegex0);
 			Matcher mreTitle = titlePre.matcher(sbPage);
@@ -127,12 +124,9 @@ public class ArticleWebSpider implements ApplicationRunner {
 			articleService.insertArticle(article);
 		}
 
-
-
-
 	}
 
-	public static StringBuffer getPageContent(String pageUrl){
+	public static StringBuffer getPageContent(String pageCharSet,String pageUrl){
 
 		URLConnection pageUrlConn = null;
 		BufferedReader br = null;
@@ -142,7 +136,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 			url = new URL(pageUrl);
 			pageUrlConn = url.openConnection();
 			pageUrlConn.setConnectTimeout(10000);
-			br = new BufferedReader(new InputStreamReader(pageUrlConn.getInputStream(), "UTF-8"));
+			br = new BufferedReader(new InputStreamReader(pageUrlConn.getInputStream(), pageCharSet));
 			String strTemp = "";
 			while ((strTemp = br.readLine()) != null) {
 				sbPage.append(strTemp);
@@ -162,9 +156,9 @@ public class ArticleWebSpider implements ApplicationRunner {
 	}
 
 	//爬取分页url
-	public static void getPageUrl(List <String> firstUrlList,List<String> secondUrlList,String splitStr,String indexUrl,String ignoreStr,String firstUrlRegex,String secondUrlRegex){
+	public static void getPageUrl(ArticleTask articleTask,List <String> firstUrlList,List<String> secondUrlList,String splitStr,String indexUrl,String ignoreStr,String firstUrlRegex,String secondUrlRegex){
 
-            StringBuffer sbPage = getPageContent(indexUrl);
+            StringBuffer sbPage = getPageContent(articleTask.getPageCharSet(),indexUrl);
 			String secondUrlRegex0 = secondUrlRegex.split(splitStr)[0];
 			String secondUrlRegex1 = secondUrlRegex.split(splitStr)[1];
 			String secondUrlRegex2 = secondUrlRegex.split(splitStr)[2];
@@ -176,7 +170,12 @@ public class ArticleWebSpider implements ApplicationRunner {
 			while (mreSecondUrl.find()) {
 				String indexUrlTemp = getRegContent(mreSecondUrl.group(0),ignoreStr,secondUrlRegex1,secondUrlRegex2,secondUrlRegex3,splitStr);
 				if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !secondUrlList.contains(indexUrlTemp)){
+					System.out.println(indexUrlTemp);
 					secondUrlList.add(indexUrlTemp);
+					/*Map<String,Object> map = new HashMap<String,Object>();
+					map.put("indexUrl",indexUrlTemp);
+					map.put("articleTask",articleTask);
+					QueueUtils.secondUrlQueue.add(map);*/
 				}
 			}
 
@@ -193,7 +192,9 @@ public class ArticleWebSpider implements ApplicationRunner {
 					String indexUrlTemp = getRegContent(mreFirstUrl.group(0),ignoreStr,firstUrlRegex1,firstUrlRegex2,firstUrlRegex3,splitStr);
 					if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !firstUrlList.contains(indexUrlTemp)){
 						firstUrlList.add(indexUrlTemp);
-						getPageUrl(firstUrlList,secondUrlList,splitStr,indexUrlTemp,ignoreStr,firstUrlRegex,secondUrlRegex);
+						System.out.println(indexUrlTemp);
+						//if(firstUrlList.size()>2000) break;
+						getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrlTemp,ignoreStr,firstUrlRegex,secondUrlRegex);
 					}
 				}
 			}
@@ -219,7 +220,6 @@ public class ArticleWebSpider implements ApplicationRunner {
 		}else {
 			urlTemp = temp;
 		}
-		System.out.println(urlTemp);
 
 		return  urlTemp;
 	}
