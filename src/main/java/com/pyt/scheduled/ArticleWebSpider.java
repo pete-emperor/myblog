@@ -106,6 +106,10 @@ public class ArticleWebSpider implements ApplicationRunner {
 			Article article = new Article();
 			StringBuffer sbPage = getPageContent(pageCharSet,pageUrl);
 
+			List<String> jpgList = getPicUrl(sbPage);
+			for(String jpg:jpgList){
+				downLoadPic(jpg,"e:/spider/");
+			}
 			Pattern titlePre = Pattern.compile(titleRegex0);
 			Matcher mreTitle = titlePre.matcher(sbPage);
 
@@ -224,11 +228,11 @@ public class ArticleWebSpider implements ApplicationRunner {
 		return  urlTemp;
 	}
 
-	private static List<String> getPicUrl(String s){
+	private static List<String> getPicUrl(StringBuffer s){
 		String rg = "http://(?!(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp))."
 				+ "+?(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp)";
 
-		Pattern pt = Pattern.compile(s);
+		Pattern pt = Pattern.compile(rg);
 
 		Matcher ma = pt.matcher(s);
 
