@@ -224,5 +224,41 @@ public class ArticleWebSpider implements ApplicationRunner {
 		return  urlTemp;
 	}
 
+	private static List<String> getPicUrl(String s){
+		String rg = "http://(?!(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp))."
+				+ "+?(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp)";
 
+		Pattern pt = Pattern.compile(s);
+
+		Matcher ma = pt.matcher(s);
+
+		List<String> list = new ArrayList<String>();
+
+		while(ma.find()) {
+			list.add(ma.group(0));
+		}
+		return list;
+	}
+
+	private static void downLoadPic(String picUrl,String path) {
+		try {
+			URL url = new URL(picUrl);
+			URLConnection urc =  url.openConnection();
+			FileOutputStream fos = new FileOutputStream(path+picUrl.split("/")[picUrl.split("/").length-1]);
+			InputStream is = urc.getInputStream();
+			byte [] b = new byte[1024];
+			int i = 0;
+			while((i = is.read(b) )!= -1) {
+				fos.write(b);
+			}
+			is.close();
+			fos.close();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }  
