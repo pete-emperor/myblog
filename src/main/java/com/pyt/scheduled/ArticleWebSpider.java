@@ -105,6 +105,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 			String pageUrl = secondUrlList.get(i);
 			Article article = new Article();
 			StringBuffer sbPage = getPageContent(pageCharSet,pageUrl);
+			System.out.println(sbPage);
 
 			List<String> jpgList = getPicUrl(sbPage);
 			for(String jpg:jpgList){
@@ -125,7 +126,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 				String content = getRegContent(mreContent.group(0),ignoreStr,contentRegex1,contentRegex2,contentRegex3,splitStr);
 				article.setContent(content);
 			}
-			articleService.insertArticle(article);
+			//articleService.insertArticle(article);
 		}
 
 	}
@@ -229,33 +230,54 @@ public class ArticleWebSpider implements ApplicationRunner {
 	}
 
 	private static List<String> getPicUrl(StringBuffer s){
-		String rg = "http://(?!(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp))."
-				+ "+?(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp)";
 
-		Pattern pt = Pattern.compile(rg);
-
-		Matcher ma = pt.matcher(s);
-
+		Pattern p = Pattern.compile("<img\\b[^>]*\\bsrc\\b\\s*=\\s*('|\")?([^'\"\n\r\f>]+(\\.jpg|\\.bmp|\\.eps|\\.gif|\\.mif|\\.miff|\\.png|\\.tif|\\.tiff|\\.svg|\\.wmf|\\.jpe|\\.jpeg|\\.dib|\\.ico|\\.tga|\\.cut|\\.pic)\\b)[^>]*>", Pattern.CASE_INSENSITIVE);
+		Matcher ma = p.matcher(s);
 		List<String> list = new ArrayList<String>();
-
+		String rg = "(https|http)://(?!(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp))."
+				+ "+?(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp)";
+		Pattern p1 = Pattern.compile(rg);
 		while(ma.find()) {
-			list.add(ma.group(0));
+			Matcher ma1 = p1.matcher(ma.group(0));
+			while(ma1.find()) {
+				if(!list.contains(ma1.group(0)))
+					list.add(ma1.group(0));
+			}
 		}
 		return list;
 	}
 
+
 	private static void downLoadPic(String picUrl,String path) {
 		try {
+			System.out.println("-----------------------------------");
+			System.out.println(picUrl);
+			System.out.println("-----------------------------------");
 			URL url = new URL(picUrl);
 			URLConnection urc =  url.openConnection();
-			FileOutputStream fos = new FileOutputStream(path+picUrl.split("/")[picUrl.split("/").length-1]);
-			InputStream is = urc.getInputStream();
+
+			InputStream inputStream = urc.getInputStream();
+
+			ByteArrayOutputStream data = new ByteArrayOutputStream();
+			//设置接收附件最大20MB
+			byte [] fileByte = new byte[15*1024*1024];
+			int len =0;
+
+			while((len=inputStream.read(fileByte))!=-1) {
+				data.write(fileByte,0,len);
+			}
+
+
+			FileOutputStream fos = new FileOutputStream(path+picUrl.split("/")[(picUrl.split("/").length-1)]);
+			fos.write(data.toByteArray());
+			/*InputStream is = urc.getInputStream();
 			byte [] b = new byte[1024];
 			int i = 0;
 			while((i = is.read(b) )!= -1) {
 				fos.write(b);
-			}
-			is.close();
+			}*/
+			fos.flush();
+			//is.close();
 			fos.close();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
