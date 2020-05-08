@@ -39,6 +39,7 @@ public class BasicArticleTask {
         this.run();
         Long endTime = System.currentTimeMillis();
         Long costTime = endTime - startTime;
+        logger.error("本次加载基础数据耗时："+costTime+"毫秒");
         logger.info("本次加载基础数据耗时："+costTime+"毫秒");
     }
 
