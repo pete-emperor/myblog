@@ -12,4 +12,8 @@
     <insert id="insertArticle" parameterType="com.pyt.bean.Article">
         insert into article (title,content,status,created,modified) values(#{title},#{content},'normal',sysdate(),sysdate())
     </insert>
+
+    <select id="getWordsReplaceList" parameterType="com.pyt.bean.WordsReplace" resultType="com.pyt.bean.WordsReplace">
+        select * from  wordsReplace
+    </select>
 </mapper>

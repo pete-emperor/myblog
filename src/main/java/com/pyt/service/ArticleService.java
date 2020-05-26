@@ -2,6 +2,7 @@ package com.pyt.service;
 
 import com.pyt.bean.Article;
 import com.pyt.bean.Article;
+import com.pyt.bean.WordsReplace;
 import com.pyt.dao.ArticleDao;
 import com.pyt.dao.ArticleDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,8 @@ public class ArticleService {
     }
     public void insertArticle(Article article){
         articleDao.insertArticle(article);
+    }
+    public List<WordsReplace> getWordsReplaceList(WordsReplace wordsReplace){
+        return articleDao.getWordsReplaceList(wordsReplace);
     }
 }

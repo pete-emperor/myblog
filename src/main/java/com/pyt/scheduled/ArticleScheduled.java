@@ -30,7 +30,8 @@ public class ArticleScheduled /*implements ApplicationRunner */{
 	//@Override
 	public void run(ApplicationArguments applicationArguments) throws Exception {
 		while (true) {
-			if (!QueueUtils.secondUrlQueue.isEmpty()) {
+			if (!QueueUtils.secondUrlQueue.isEmpty() && null != BasicData.wordsReplaceList &&
+					BasicData.wordsReplaceList.size() > 0) {
 				Map<String,Object> map = QueueUtils.secondUrlQueue.poll();
 				this.InsertArticle(map);
 			} else {

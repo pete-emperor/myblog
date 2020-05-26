@@ -1,10 +1,7 @@
 package com.pyt.scheduled;
 
 
-import com.pyt.bean.Article;
-import com.pyt.bean.Blog;
-import com.pyt.bean.Task;
-import com.pyt.bean.ArticleTask;
+import com.pyt.bean.*;
 import com.pyt.service.ArticleService;
 import com.pyt.service.BlogService;
 import com.pyt.util.QueueUtils;
@@ -29,7 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-@Order(value = 1)
+@Order(value = 2)
 public class ArticleWebSpider implements ApplicationRunner {
 
 	@Resource
@@ -42,7 +39,8 @@ public class ArticleWebSpider implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments applicationArguments) throws Exception {
 		while (true) {
-			if (!QueueUtils.articleTaskQueue.isEmpty()) {
+			if (!QueueUtils.articleTaskQueue.isEmpty() && null != BasicData.wordsReplaceList &&
+					BasicData.wordsReplaceList.size() > 0) {
 				ArticleTask articleTask = QueueUtils.articleTaskQueue.poll();
 				this.ScanSpider(articleTask);
 			} else {
@@ -105,17 +103,26 @@ public class ArticleWebSpider implements ApplicationRunner {
 			String pageUrl = secondUrlList.get(i);
 			Article article = new Article();
 			StringBuffer sbPage = getPageContent(pageCharSet,pageUrl);
-			System.out.println(sbPage);
+			//System.out.println(sbPage);
 
-			List<String> jpgList = getPicUrl(sbPage);
+			/*List<String> jpgList = getPicUrl(sbPage);
 			for(String jpg:jpgList){
 				downLoadPic(jpg,"e:/spider/");
-			}
+				int le = jpg.split("/").length;
+				sbPage = new StringBuffer(sbPage.toString().replace(jpg,"e:/spider/"+jpg.split("/")[le-1]));
+			}*/
 			Pattern titlePre = Pattern.compile(titleRegex0);
 			Matcher mreTitle = titlePre.matcher(sbPage);
 
 			while(mreTitle.find()){
 				String title = getRegContent(mreTitle.group(0),ignoreStr,titleRegex1,titleRegex2,titleRegex3,splitStr);
+				for(WordsReplace wp:BasicData.wordsReplaceList){
+					if(title.indexOf(wp.getOldWord()) != -1){
+						title = title.replace(wp.getOldWord(),wp.getNewWord());
+					}else if(title.indexOf(wp.getNewWord()) != -1){
+						title = title.replace(wp.getOldWord(),wp.getNewWord());
+					}
+				}
 				article.setTitle(title);
 			}
 
@@ -124,9 +131,16 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 			while(mreContent.find()){
 				String content = getRegContent(mreContent.group(0),ignoreStr,contentRegex1,contentRegex2,contentRegex3,splitStr);
+				for(WordsReplace wp:BasicData.wordsReplaceList){
+					if(content.indexOf(wp.getOldWord()) != -1){
+						content = content.replace(wp.getOldWord(),wp.getNewWord());
+					}else if(content.indexOf(wp.getNewWord()) != -1){
+						content = content.replace(wp.getOldWord(),wp.getNewWord());
+					}
+				}
 				article.setContent(content);
 			}
-			//articleService.insertArticle(article);
+			articleService.insertArticle(article);
 		}
 
 	}
@@ -170,6 +184,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 			String secondUrlRegex3 = secondUrlRegex.split(splitStr)[3];
 
 			Pattern preSecondUrl = Pattern.compile(secondUrlRegex0);
+			System.out.println(sbPage);
 			Matcher mreSecondUrl = preSecondUrl.matcher(sbPage);
 
 			while (mreSecondUrl.find()) {

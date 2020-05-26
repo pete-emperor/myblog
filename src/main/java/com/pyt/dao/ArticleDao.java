@@ -2,6 +2,7 @@ package com.pyt.dao;
 
 import com.pyt.bean.Article;
 import com.pyt.bean.Blog;
+import com.pyt.bean.WordsReplace;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -17,4 +18,5 @@ public interface ArticleDao {
     public List<Article> getArticleList(Article article);
     public void insertArticle(Article article);
     public Integer getArticleCount(Article article);
+    public List<WordsReplace> getWordsReplaceList(WordsReplace wordsReplace);
 }
