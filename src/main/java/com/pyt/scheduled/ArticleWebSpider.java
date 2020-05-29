@@ -65,9 +65,9 @@ public class ArticleWebSpider implements ApplicationRunner {
         articleTask.setIgnoreStr("0000");
         articleTask.setSplitStr("999");
 
-        //getPageContent(articleTask.getIndexUrl());
-
-        //ScanSpider(articleTask);
+        StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
+		System.out.println(buffer);
+		//ScanSpider(articleTask);
     }
 
 	public void ScanSpider(ArticleTask articleTask) {
@@ -141,6 +141,18 @@ public class ArticleWebSpider implements ApplicationRunner {
 				article.setContent(content);
 			}
 			articleService.insertArticle(article);
+			Integer articleId = article.getId();
+			String articleCategory = articleTask.getArticleCategory();
+			if(null != articleCategory && !articleCategory.equals("")){
+				String typeArray []  =  articleCategory.split(",");
+				for(int a = 0; a<typeArray.length;a++){
+					ArticleCategoryMapping acm = new ArticleCategoryMapping();
+					acm.setArticle_id(articleId);
+					acm.setCategory_id(Integer.valueOf(typeArray[a]));
+					articleService.insertArCaMa(acm);
+				}
+			}
+
 		}
 
 	}

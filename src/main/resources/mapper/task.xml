@@ -11,11 +11,11 @@
     </update>
 
     <select id="getArticleTask" parameterType="com.pyt.bean.ArticleTask" resultType="com.pyt.bean.ArticleTask">
-        select * from articleTask where type = 0 limit 0,1 for update
+        select * from articletask where type = 0 limit 0,1 for update
     </select>
 
     <update id="updateArticleTask" parameterType="com.pyt.bean.ArticleTask">
-        update articleTask set type = 1 where id = #{id}
+        update articletask set type = 1 where id = #{id}
     </update>
 
 

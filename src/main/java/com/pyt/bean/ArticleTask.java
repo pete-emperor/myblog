@@ -14,7 +14,8 @@ public class ArticleTask {
    private Integer type;
    private String splitStr;
    private String ignoreStr;
-   private String pageCharSet;
+   private String pageCharSet = "UTF-8";
+   private String articleCategory = "12";
 
     public Integer getId() {
         return id;
@@ -94,5 +95,13 @@ public class ArticleTask {
 
     public void setPageCharSet(String pageCharSet) {
         this.pageCharSet = pageCharSet;
+    }
+
+    public String getArticleCategory() {
+        return articleCategory;
+    }
+
+    public void setArticleCategory(String articleCategory) {
+        this.articleCategory = articleCategory;
     }
 }

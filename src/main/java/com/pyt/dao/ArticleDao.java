@@ -1,6 +1,7 @@
 package com.pyt.dao;
 
 import com.pyt.bean.Article;
+import com.pyt.bean.ArticleCategoryMapping;
 import com.pyt.bean.Blog;
 import com.pyt.bean.WordsReplace;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +17,8 @@ import java.util.List;
 @Component
 public interface ArticleDao {
     public List<Article> getArticleList(Article article);
-    public void insertArticle(Article article);
+    public Integer insertArticle(Article article);
+    public void insertArCaMa(ArticleCategoryMapping arCaMa);
     public Integer getArticleCount(Article article);
     public List<WordsReplace> getWordsReplaceList(WordsReplace wordsReplace);
 }

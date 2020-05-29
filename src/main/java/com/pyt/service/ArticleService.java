@@ -2,6 +2,7 @@ package com.pyt.service;
 
 import com.pyt.bean.Article;
 import com.pyt.bean.Article;
+import com.pyt.bean.ArticleCategoryMapping;
 import com.pyt.bean.WordsReplace;
 import com.pyt.dao.ArticleDao;
 import com.pyt.dao.ArticleDao;
@@ -25,8 +26,11 @@ public class ArticleService {
     public Integer getArticleCount(Article article){
         return articleDao.getArticleCount(article);
     }
-    public void insertArticle(Article article){
-        articleDao.insertArticle(article);
+    public Integer insertArticle(Article article){
+        return articleDao.insertArticle(article);
+    }
+    public void insertArCaMa(ArticleCategoryMapping arCaMa){
+        articleDao.insertArCaMa(arCaMa);
     }
     public List<WordsReplace> getWordsReplaceList(WordsReplace wordsReplace){
         return articleDao.getWordsReplaceList(wordsReplace);

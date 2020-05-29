@@ -9,11 +9,15 @@
         select count(1) from article
     </select>
 
-    <insert id="insertArticle" parameterType="com.pyt.bean.Article">
-        insert into article (title,content,status,created,modified) values(#{title},#{content},'normal',sysdate(),sysdate())
+    <insert id="insertArticle" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.pyt.bean.Article" >
+        insert into article (title,content,status,summary,meta_keywords,meta_description,created,modified) values(#{title},#{content},'normal',#{title},#{title},#{title},sysdate(),sysdate())
+    </insert>
+
+    <insert id="insertArCaMa" parameterType="com.pyt.bean.ArticleCategoryMapping" >
+        insert into article_category_mapping (article_id,category_id) values (#{article_id},#{category_id})
     </insert>
 
     <select id="getWordsReplaceList" parameterType="com.pyt.bean.WordsReplace" resultType="com.pyt.bean.WordsReplace">
-        select * from  wordsReplace
+        select * from  wordsreplace
     </select>
 </mapper>
