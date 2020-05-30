@@ -125,36 +125,40 @@ public class ArticleWebSpider implements ApplicationRunner {
 				}
 				article.setTitle(title);
 			}
-
-			Pattern contentPre = Pattern.compile(contentRegex0);
-			Matcher mreContent = contentPre.matcher(sbPage);
-
-			while(mreContent.find()){
-				String content = getRegContent(mreContent.group(0),ignoreStr,contentRegex1,contentRegex2,contentRegex3,splitStr);
-				for(WordsReplace wp:BasicData.wordsReplaceList){
-					if(content.indexOf(wp.getOldWord()) != -1){
-						content = content.replace(wp.getOldWord(),wp.getNewWord());
-					}else if(content.indexOf(wp.getNewWord()) != -1){
-						content = content.replace(wp.getOldWord(),wp.getNewWord());
+			List<Article> existA = articleService.getArticleList(article);
+			if(!(null != existA && existA.size() > 0)){
+					Pattern contentPre = Pattern.compile(contentRegex0);
+					Matcher mreContent = contentPre.matcher(sbPage);
+					while(mreContent.find()){
+						String content = getRegContent(mreContent.group(0),ignoreStr,contentRegex1,contentRegex2,contentRegex3,splitStr);
+						for(WordsReplace wp:BasicData.wordsReplaceList){
+							if(content.indexOf(wp.getOldWord()) != -1){
+								content = content.replace(wp.getOldWord(),wp.getNewWord());
+							}else if(content.indexOf(wp.getNewWord()) != -1){
+								content = content.replace(wp.getOldWord(),wp.getNewWord());
+							}
+						}
+						article.setContent(content);
 					}
+					articleService.insertArticle(article);
+					Integer articleId = article.getId();
+					String articleCategory = articleTask.getArticleCategory();
+					if(null != articleCategory && !articleCategory.equals("")){
+						String typeArray []  =  articleCategory.split(",");
+						for(int a = 0; a<typeArray.length;a++){
+							ArticleCategoryMapping acm = new ArticleCategoryMapping();
+							acm.setArticle_id(articleId);
+							acm.setCategory_id(Integer.valueOf(typeArray[a]));
+							articleService.insertArCaMa(acm);
+						}
 				}
-				article.setContent(content);
+			}else{
+				System.out.println("=======================================");
+				System.out.println(article.getTitle());
+				System.out.println("该文章已存在，将不再收录！！");
+				System.out.println("=======================================");
 			}
-			articleService.insertArticle(article);
-			Integer articleId = article.getId();
-			String articleCategory = articleTask.getArticleCategory();
-			if(null != articleCategory && !articleCategory.equals("")){
-				String typeArray []  =  articleCategory.split(",");
-				for(int a = 0; a<typeArray.length;a++){
-					ArticleCategoryMapping acm = new ArticleCategoryMapping();
-					acm.setArticle_id(articleId);
-					acm.setCategory_id(Integer.valueOf(typeArray[a]));
-					articleService.insertArCaMa(acm);
-				}
-			}
-
 		}
-
 	}
 
 	public static StringBuffer getPageContent(String pageCharSet,String pageUrl){

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.pyt.dao.UserDao">
     <select id="getUserInfo" parameterType="com.pyt.bean.UserInfo" resultType="com.pyt.bean.UserInfo">
-        select * from Userinfo
+        select * from userinfo
         where name = #{name} and password = #{password} limit 0,1
     </select>
 </mapper>

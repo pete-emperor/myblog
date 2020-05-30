@@ -28,6 +28,8 @@ public class Article {
     private String meta_keywords;//SEO关键字
     private String meta_description;//SEO描述信息
     private String remarks;//备注信息
+    private Integer start = 0;
+    private Integer pageSize = 10;
 
     public Integer getId() {
         return id;
@@ -211,5 +213,21 @@ public class Article {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

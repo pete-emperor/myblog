@@ -3,7 +3,13 @@
 
 <mapper namespace="com.pyt.dao.ArticleDao">
     <select id="getArticleList" parameterType="com.pyt.bean.Article" resultType="com.pyt.bean.Article">
-        select * from article limit #{start},#{pageSize}
+        select * from article
+        <where>
+            <if test="title != null and title != ''">
+                title = #{title}
+            </if>
+        </where>
+        limit #{start},#{pageSize}
     </select>
     <select id="getArticleCount" parameterType="com.pyt.bean.Article" resultType="java.lang.Integer">
         select count(1) from article
