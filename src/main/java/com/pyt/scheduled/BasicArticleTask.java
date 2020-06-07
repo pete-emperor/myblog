@@ -29,7 +29,7 @@ public class BasicArticleTask {
             ArticleTask articleTask = taskService.getArticleTask(null);
             if(null != articleTask){
                 QueueUtils.articleTaskQueue.offer(articleTask);
-                taskService.updateArticleTask(articleTask);
+                //taskService.updateArticleTask(articleTask);
             }
     }
 

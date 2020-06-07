@@ -16,6 +16,13 @@ public class ArticleTask {
    private String ignoreStr;
    private String pageCharSet = "UTF-8";
    private String articleCategory = "12";
+   private String imgPre = "";
+   private String pathPre = "";
+   private Integer pageSize = 10;
+
+   private Integer maxRepeat = 500;
+
+    private Integer repeat = 0;
 
     public Integer getId() {
         return id;
@@ -103,5 +110,45 @@ public class ArticleTask {
 
     public void setArticleCategory(String articleCategory) {
         this.articleCategory = articleCategory;
+    }
+
+    public String getImgPre() {
+        return imgPre;
+    }
+
+    public void setImgPre(String imgPre) {
+        this.imgPre = imgPre;
+    }
+
+    public String getPathPre() {
+        return pathPre;
+    }
+
+    public void setPathPre(String pathPre) {
+        this.pathPre = pathPre;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getMaxRepeat() {
+        return maxRepeat;
+    }
+
+    public void setMaxRepeat(Integer maxRepeat) {
+        this.maxRepeat = maxRepeat;
+    }
+
+    public Integer getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(Integer repeat) {
+        this.repeat = repeat;
     }
 }

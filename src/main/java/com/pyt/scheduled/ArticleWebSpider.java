@@ -7,6 +7,8 @@ import com.pyt.service.BlogService;
 import com.pyt.util.QueueUtils;
 import com.pyt.util.RedisUtil;
 import com.pyt.util.SpringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -18,16 +20,16 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
 @Order(value = 2)
 public class ArticleWebSpider implements ApplicationRunner {
+
+	private static Logger logger = LoggerFactory.getLogger(ArticleWebSpider.class);
 
 	@Resource
 	private RedisUtil redisUtil;
@@ -66,7 +68,7 @@ public class ArticleWebSpider implements ApplicationRunner {
         articleTask.setSplitStr("999");
 
         StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
-		System.out.println(buffer);
+		//logger.info(buffer);
 		//ScanSpider(articleTask);
     }
 
@@ -98,19 +100,13 @@ public class ArticleWebSpider implements ApplicationRunner {
 		List<String> firstUrlList = new ArrayList<String>();
 		List<String> secondUrlList = new ArrayList<String>();
 		getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrl,ignoreStr,firstUrlRegex,secondUrlRegex);
-		System.out.println("secondUrlList.size:"+secondUrlList.size());
+		logger.info("secondUrlList.size:"+secondUrlList.size());
 		for(int i = 0;i<secondUrlList.size();i++){
 			String pageUrl = secondUrlList.get(i);
 			Article article = new Article();
 			StringBuffer sbPage = getPageContent(pageCharSet,pageUrl);
-			//System.out.println(sbPage);
+			//logger.info(sbPage);
 
-			/*List<String> jpgList = getPicUrl(sbPage);
-			for(String jpg:jpgList){
-				downLoadPic(jpg,"e:/spider/");
-				int le = jpg.split("/").length;
-				sbPage = new StringBuffer(sbPage.toString().replace(jpg,"e:/spider/"+jpg.split("/")[le-1]));
-			}*/
 			Pattern titlePre = Pattern.compile(titleRegex0);
 			Matcher mreTitle = titlePre.matcher(sbPage);
 
@@ -127,6 +123,21 @@ public class ArticleWebSpider implements ApplicationRunner {
 			}
 			List<Article> existA = articleService.getArticleList(article);
 			if(!(null != existA && existA.size() > 0)){
+
+					List<String> jpgList = getPicUrl(sbPage);
+					for(String jpg:jpgList){
+						String tempJpg = "";
+						if(!jpg.startsWith("http")){
+							tempJpg = articleTask.getImgPre() + jpg;
+						}
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+						String replacePath = File.separator + "attachment" + File.separator + sdf.format(new Date())  + File.separator;
+						String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
+						downLoadPic(tempJpg,filePath);
+						int le = jpg.split("/").length;
+						sbPage = new StringBuffer(sbPage.toString().replace(jpg,replacePath+jpg.split("/")[le-1]));
+					}
+
 					Pattern contentPre = Pattern.compile(contentRegex0);
 					Matcher mreContent = contentPre.matcher(sbPage);
 					while(mreContent.find()){
@@ -153,10 +164,19 @@ public class ArticleWebSpider implements ApplicationRunner {
 						}
 				}
 			}else{
-				System.out.println("=======================================");
-				System.out.println(article.getTitle());
-				System.out.println("该文章已存在，将不再收录！！");
-				System.out.println("=======================================");
+				if(articleTask.getRepeat() < articleTask.getMaxRepeat()){
+					logger.info("=======================================");
+					logger.info(article.getTitle());
+					logger.info("该文章已存在，将不再收录！！");
+					logger.info("=======================================");
+					articleTask.setRepeat(articleTask.getRepeat()+1);
+				}else{
+					logger.info("=======================================");
+					logger.info("超出重复数将停止此任务的全部录入");
+					logger.info("=======================================");
+					break;
+				}
+
 			}
 		}
 	}
@@ -200,13 +220,12 @@ public class ArticleWebSpider implements ApplicationRunner {
 			String secondUrlRegex3 = secondUrlRegex.split(splitStr)[3];
 
 			Pattern preSecondUrl = Pattern.compile(secondUrlRegex0);
-			System.out.println(sbPage);
 			Matcher mreSecondUrl = preSecondUrl.matcher(sbPage);
 
 			while (mreSecondUrl.find()) {
 				String indexUrlTemp = getRegContent(mreSecondUrl.group(0),ignoreStr,secondUrlRegex1,secondUrlRegex2,secondUrlRegex3,splitStr);
 				if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !secondUrlList.contains(indexUrlTemp)){
-					System.out.println(indexUrlTemp);
+					logger.info(indexUrlTemp);
 					secondUrlList.add(indexUrlTemp);
 					/*Map<String,Object> map = new HashMap<String,Object>();
 					map.put("indexUrl",indexUrlTemp);
@@ -226,9 +245,10 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 				while (mreFirstUrl.find()) {
 					String indexUrlTemp = getRegContent(mreFirstUrl.group(0),ignoreStr,firstUrlRegex1,firstUrlRegex2,firstUrlRegex3,splitStr);
-					if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !firstUrlList.contains(indexUrlTemp)){
+					if(null != indexUrlTemp && !"".equals(indexUrlTemp)
+							&& !firstUrlList.contains(indexUrlTemp) && firstUrlList.size() < articleTask.getPageSize()){
 						firstUrlList.add(indexUrlTemp);
-						System.out.println(indexUrlTemp);
+						logger.info(indexUrlTemp);
 						//if(firstUrlList.size()>2000) break;
 						getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrlTemp,ignoreStr,firstUrlRegex,secondUrlRegex);
 					}
@@ -265,7 +285,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 		Pattern p = Pattern.compile("<img\\b[^>]*\\bsrc\\b\\s*=\\s*('|\")?([^'\"\n\r\f>]+(\\.jpg|\\.bmp|\\.eps|\\.gif|\\.mif|\\.miff|\\.png|\\.tif|\\.tiff|\\.svg|\\.wmf|\\.jpe|\\.jpeg|\\.dib|\\.ico|\\.tga|\\.cut|\\.pic)\\b)[^>]*>", Pattern.CASE_INSENSITIVE);
 		Matcher ma = p.matcher(s);
 		List<String> list = new ArrayList<String>();
-		String rg = "(https|http)://(?!(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp))."
+		String rg = "((https|http):){0,1}/{1,2}(?!(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp))."
 				+ "+?(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp)";
 		Pattern p1 = Pattern.compile(rg);
 		while(ma.find()) {
@@ -281,9 +301,16 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 	private static void downLoadPic(String picUrl,String path) {
 		try {
-			System.out.println("-----------------------------------");
-			System.out.println(picUrl);
-			System.out.println("-----------------------------------");
+
+			File file = new File(path);
+
+			if(!file.exists()){
+				file.mkdirs();
+			}
+
+			logger.info("-----------------------------------");
+			logger.info(picUrl);
+			logger.info("-----------------------------------");
 			URL url = new URL(picUrl);
 			URLConnection urc =  url.openConnection();
 
@@ -311,10 +338,8 @@ public class ArticleWebSpider implements ApplicationRunner {
 			//is.close();
 			fos.close();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
