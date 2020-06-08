@@ -49,7 +49,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					logger.info(e.getMessage());
 				}
 			}
 		}
@@ -121,6 +121,18 @@ public class ArticleWebSpider implements ApplicationRunner {
 				}
 				article.setTitle(title);
 			}
+			if(null != articleTask.getIllegalStr()){
+				boolean b = false;
+				String illegalStrs[] = articleTask.getIllegalStr().split(",");
+				for(String s:illegalStrs){
+					if(article.getTitle().contains(s)){
+						b = true;
+						break;
+					}
+				}
+				if(b) continue;
+			}
+
 			List<Article> existA = articleService.getArticleList(article);
 			if(!(null != existA && existA.size() > 0)){
 
@@ -135,7 +147,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 						String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
 						downLoadPic(tempJpg,filePath);
 						int le = jpg.split("/").length;
-						sbPage = new StringBuffer(sbPage.toString().replace(jpg,replacePath+jpg.split("/")[le-1]));
+						sbPage = new StringBuffer(sbPage.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<p>&nbsp;</p>",""));
 					}
 
 					Pattern contentPre = Pattern.compile(contentRegex0);
@@ -199,12 +211,12 @@ public class ArticleWebSpider implements ApplicationRunner {
 			br.close();
 
 		}catch (IOException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}finally {
 			try{
 				if(null != br) br.close();
 			}catch(Exception e) {
-				e.printStackTrace();
+				logger.info(e.getMessage());
 			}
 		}
 		return sbPage;
@@ -338,9 +350,9 @@ public class ArticleWebSpider implements ApplicationRunner {
 			//is.close();
 			fos.close();
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 	}
 }  

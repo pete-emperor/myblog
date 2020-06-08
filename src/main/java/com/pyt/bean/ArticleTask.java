@@ -19,10 +19,9 @@ public class ArticleTask {
    private String imgPre = "";
    private String pathPre = "";
    private Integer pageSize = 10;
-
    private Integer maxRepeat = 500;
-
-    private Integer repeat = 0;
+   private Integer repeat = 0;
+   private String illegalStr;
 
     public Integer getId() {
         return id;
@@ -150,5 +149,13 @@ public class ArticleTask {
 
     public void setRepeat(Integer repeat) {
         this.repeat = repeat;
+    }
+
+    public String getIllegalStr() {
+        return illegalStr;
+    }
+
+    public void setIllegalStr(String illegalStr) {
+        this.illegalStr = illegalStr;
     }
 }

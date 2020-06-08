@@ -13,7 +13,6 @@ import java.util.List;
  * Created by peter on 2020/4/2.
  */
 @Mapper
-
 @Component
 public interface ArticleDao {
     public List<Article> getArticleList(Article article);
