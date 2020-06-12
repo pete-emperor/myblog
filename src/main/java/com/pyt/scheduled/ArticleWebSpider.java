@@ -67,10 +67,13 @@ public class ArticleWebSpider implements ApplicationRunner {
         articleTask.setIgnoreStr("0000");
         articleTask.setSplitStr("999");
 
-        StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
+       // StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
 		//logger.info(buffer);
 		//ScanSpider(articleTask);
-    }
+		StringBuffer s = new StringBuffer("<img alt=\"雷军：小米金融旗下香港虚拟银行天星银行正式开业\" src=\"https://cms-bucket.ws.126.net/2020/0611/f70958b0j00qbqzqm001cc000ga00d9c.jpg\" width=\"600\">");
+		List l = getPicUrl(s);
+		System.out.println(l.get(0));
+	}
 
 	public void ScanSpider(ArticleTask articleTask) {
 		Integer id = articleTask.getId();
@@ -145,9 +148,11 @@ public class ArticleWebSpider implements ApplicationRunner {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 						String replacePath = File.separator + "attachment" + File.separator + sdf.format(new Date())  + File.separator;
 						String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
-						downLoadPic(tempJpg,filePath);
-						int le = jpg.split("/").length;
-						sbPage = new StringBuffer(sbPage.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<p>&nbsp;</p>",""));
+						boolean b = downLoadPic(tempJpg,filePath);
+						if(b){
+							int le = jpg.split("/").length;
+							sbPage = new StringBuffer(sbPage.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<p>&nbsp;</p>",""));
+						}
 					}
 
 					Pattern contentPre = Pattern.compile(contentRegex0);
@@ -311,23 +316,18 @@ public class ArticleWebSpider implements ApplicationRunner {
 	}
 
 
-	private static void downLoadPic(String picUrl,String path) {
+	private static boolean downLoadPic(String picUrl,String path) {
 		try {
-
 			File file = new File(path);
-
 			if(!file.exists()){
 				file.mkdirs();
 			}
-
 			logger.info("-----------------------------------");
 			logger.info(picUrl);
 			logger.info("-----------------------------------");
 			URL url = new URL(picUrl);
 			URLConnection urc =  url.openConnection();
-
 			InputStream inputStream = urc.getInputStream();
-
 			ByteArrayOutputStream data = new ByteArrayOutputStream();
 			//设置接收附件最大20MB
 			byte [] fileByte = new byte[15*1024*1024];
@@ -336,8 +336,6 @@ public class ArticleWebSpider implements ApplicationRunner {
 			while((len=inputStream.read(fileByte))!=-1) {
 				data.write(fileByte,0,len);
 			}
-
-
 			FileOutputStream fos = new FileOutputStream(path+picUrl.split("/")[(picUrl.split("/").length-1)]);
 			fos.write(data.toByteArray());
 			/*InputStream is = urc.getInputStream();
@@ -351,8 +349,11 @@ public class ArticleWebSpider implements ApplicationRunner {
 			fos.close();
 		} catch (MalformedURLException e) {
 			logger.info(e.getMessage());
+			return false;
 		} catch (IOException e) {
 			logger.info(e.getMessage());
+			return false;
 		}
+		return true;
 	}
 }  
