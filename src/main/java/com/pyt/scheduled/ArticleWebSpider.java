@@ -57,20 +57,23 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 
 	public static void main(String args[]){
-        ArticleTask articleTask = new ArticleTask();
-        articleTask.setId(1);
-        articleTask.setIndexUrl("https://blog.csdn.net/qq_38963960");
-        articleTask.setFirstUrlRegex("0000999000099900009990000");
-        articleTask.setSecondUrlRegex("https://blog.csdn.net/qq_38963960/article/details/\\d{8,}999000099900009990000");
-        articleTask.setTitleRegex("<h1 class=\"title-article\">[\\s\\S]*</h1>9990000999<h1 class=\"title-article\">999</h1>");
-        articleTask.setContentRegex("<div class=\"htmledit_views\" id=\"content_views\">[\\s\\S]*<div class=\"more-toolbox\">99900009990000999<div class=\"more-toolbox\">");
-        articleTask.setIgnoreStr("0000");
-        articleTask.setSplitStr("999");
+		ArticleTask articleTask = new ArticleTask();
+		articleTask.setId(1);
+		articleTask.setIndexUrl("https://blog.csdn.net/qq_38963960");
+		articleTask.setFirstUrlRegex("0000999000099900009990000");
+		articleTask.setSecondUrlRegex("https://blog.csdn.net/qq_38963960/article/details/\\d{8,}999000099900009990000");
+		articleTask.setTitleRegex("<h1 class=\"title-article\">[\\s\\S]*</h1>9990000999<h1 class=\"title-article\">999</h1>");
+		articleTask.setContentRegex("<div class=\"htmledit_views\" id=\"content_views\">[\\s\\S]*<div class=\"more-toolbox\">99900009990000999<div class=\"more-toolbox\">");
+		articleTask.setIgnoreStr("0000");
+		articleTask.setSplitStr("999");
 
-        StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
+		// StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
 		//logger.info(buffer);
 		//ScanSpider(articleTask);
-    }
+		StringBuffer s = new StringBuffer("<img alt=\"雷军：小米金融旗下香港虚拟银行天星银行正式开业\" src=\"https://cms-bucket.ws.126.net/2020/0611/f70958b0j00qbqzqm001cc000ga00d9c.jpg\" width=\"600\">");
+		List l = getPicUrl(s);
+		System.out.println(l.get(0));
+	}
 
 	public void ScanSpider(ArticleTask articleTask) {
 		Integer id = articleTask.getId();
@@ -136,44 +139,46 @@ public class ArticleWebSpider implements ApplicationRunner {
 			List<Article> existA = articleService.getArticleList(article);
 			if(!(null != existA && existA.size() > 0)){
 
-					List<String> jpgList = getPicUrl(sbPage);
-					for(String jpg:jpgList){
-						String tempJpg = "";
-						if(!jpg.startsWith("http")){
-							tempJpg = articleTask.getImgPre() + jpg;
-						}
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-						String replacePath = File.separator + "attachment" + File.separator + sdf.format(new Date())  + File.separator;
-						String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
-						downLoadPic(tempJpg,filePath);
+				List<String> jpgList = getPicUrl(sbPage);
+				for(String jpg:jpgList){
+					String tempJpg = "";
+					if(!jpg.startsWith("http")){
+						tempJpg = articleTask.getImgPre() + jpg;
+					}
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+					String replacePath = File.separator + "attachment" + File.separator + sdf.format(new Date())  + File.separator;
+					String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
+					boolean b = downLoadPic(tempJpg,filePath);
+					if(b){
 						int le = jpg.split("/").length;
 						sbPage = new StringBuffer(sbPage.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<p>&nbsp;</p>",""));
 					}
+				}
 
-					Pattern contentPre = Pattern.compile(contentRegex0);
-					Matcher mreContent = contentPre.matcher(sbPage);
-					while(mreContent.find()){
-						String content = getRegContent(mreContent.group(0),ignoreStr,contentRegex1,contentRegex2,contentRegex3,splitStr);
-						for(WordsReplace wp:BasicData.wordsReplaceList){
-							if(content.indexOf(wp.getOldWord()) != -1){
-								content = content.replace(wp.getOldWord(),wp.getNewWord());
-							}else if(content.indexOf(wp.getNewWord()) != -1){
-								content = content.replace(wp.getOldWord(),wp.getNewWord());
-							}
+				Pattern contentPre = Pattern.compile(contentRegex0);
+				Matcher mreContent = contentPre.matcher(sbPage);
+				while(mreContent.find()){
+					String content = getRegContent(mreContent.group(0),ignoreStr,contentRegex1,contentRegex2,contentRegex3,splitStr);
+					for(WordsReplace wp:BasicData.wordsReplaceList){
+						if(content.indexOf(wp.getOldWord()) != -1){
+							content = content.replace(wp.getOldWord(),wp.getNewWord());
+						}else if(content.indexOf(wp.getNewWord()) != -1){
+							content = content.replace(wp.getOldWord(),wp.getNewWord());
 						}
-						article.setContent(content);
 					}
-					articleService.insertArticle(article);
-					Integer articleId = article.getId();
-					String articleCategory = articleTask.getArticleCategory();
-					if(null != articleCategory && !articleCategory.equals("")){
-						String typeArray []  =  articleCategory.split(",");
-						for(int a = 0; a<typeArray.length;a++){
-							ArticleCategoryMapping acm = new ArticleCategoryMapping();
-							acm.setArticle_id(articleId);
-							acm.setCategory_id(Integer.valueOf(typeArray[a]));
-							articleService.insertArCaMa(acm);
-						}
+					article.setContent(content);
+				}
+				articleService.insertArticle(article);
+				Integer articleId = article.getId();
+				String articleCategory = articleTask.getArticleCategory();
+				if(null != articleCategory && !articleCategory.equals("")){
+					String typeArray []  =  articleCategory.split(",");
+					for(int a = 0; a<typeArray.length;a++){
+						ArticleCategoryMapping acm = new ArticleCategoryMapping();
+						acm.setArticle_id(articleId);
+						acm.setCategory_id(Integer.valueOf(typeArray[a]));
+						articleService.insertArCaMa(acm);
+					}
 				}
 			}else{
 				if(articleTask.getRepeat() < articleTask.getMaxRepeat()){
@@ -225,47 +230,47 @@ public class ArticleWebSpider implements ApplicationRunner {
 	//爬取分页url
 	public static void getPageUrl(ArticleTask articleTask,List <String> firstUrlList,List<String> secondUrlList,String splitStr,String indexUrl,String ignoreStr,String firstUrlRegex,String secondUrlRegex){
 
-            StringBuffer sbPage = getPageContent(articleTask.getPageCharSet(),indexUrl);
-			String secondUrlRegex0 = secondUrlRegex.split(splitStr)[0];
-			String secondUrlRegex1 = secondUrlRegex.split(splitStr)[1];
-			String secondUrlRegex2 = secondUrlRegex.split(splitStr)[2];
-			String secondUrlRegex3 = secondUrlRegex.split(splitStr)[3];
+		StringBuffer sbPage = getPageContent(articleTask.getPageCharSet(),indexUrl);
+		String secondUrlRegex0 = secondUrlRegex.split(splitStr)[0];
+		String secondUrlRegex1 = secondUrlRegex.split(splitStr)[1];
+		String secondUrlRegex2 = secondUrlRegex.split(splitStr)[2];
+		String secondUrlRegex3 = secondUrlRegex.split(splitStr)[3];
 
-			Pattern preSecondUrl = Pattern.compile(secondUrlRegex0);
-			Matcher mreSecondUrl = preSecondUrl.matcher(sbPage);
+		Pattern preSecondUrl = Pattern.compile(secondUrlRegex0);
+		Matcher mreSecondUrl = preSecondUrl.matcher(sbPage);
 
-			while (mreSecondUrl.find()) {
-				String indexUrlTemp = getRegContent(mreSecondUrl.group(0),ignoreStr,secondUrlRegex1,secondUrlRegex2,secondUrlRegex3,splitStr);
-				if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !secondUrlList.contains(indexUrlTemp)){
-					logger.info(indexUrlTemp);
-					secondUrlList.add(indexUrlTemp);
+		while (mreSecondUrl.find()) {
+			String indexUrlTemp = getRegContent(mreSecondUrl.group(0),ignoreStr,secondUrlRegex1,secondUrlRegex2,secondUrlRegex3,splitStr);
+			if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !secondUrlList.contains(indexUrlTemp)){
+				logger.info(indexUrlTemp);
+				secondUrlList.add(indexUrlTemp);
 					/*Map<String,Object> map = new HashMap<String,Object>();
 					map.put("indexUrl",indexUrlTemp);
 					map.put("articleTask",articleTask);
 					QueueUtils.secondUrlQueue.add(map);*/
+			}
+		}
+
+		String firstUrlRegex0 = firstUrlRegex.split(splitStr)[0];
+		String firstUrlRegex1 = firstUrlRegex.split(splitStr)[1];
+		String firstUrlRegex2 = firstUrlRegex.split(splitStr)[2];
+		String firstUrlRegex3 = firstUrlRegex.split(splitStr)[3];
+
+		if(!firstUrlRegex0.equals(ignoreStr)){
+			Pattern preFirstUrl = Pattern.compile(firstUrlRegex0);
+			Matcher mreFirstUrl = preFirstUrl.matcher(sbPage);
+
+			while (mreFirstUrl.find()) {
+				String indexUrlTemp = getRegContent(mreFirstUrl.group(0),ignoreStr,firstUrlRegex1,firstUrlRegex2,firstUrlRegex3,splitStr);
+				if(null != indexUrlTemp && !"".equals(indexUrlTemp)
+						&& !firstUrlList.contains(indexUrlTemp) && firstUrlList.size() < articleTask.getPageSize()){
+					firstUrlList.add(indexUrlTemp);
+					logger.info(indexUrlTemp);
+					//if(firstUrlList.size()>2000) break;
+					getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrlTemp,ignoreStr,firstUrlRegex,secondUrlRegex);
 				}
 			}
-
-			String firstUrlRegex0 = firstUrlRegex.split(splitStr)[0];
-			String firstUrlRegex1 = firstUrlRegex.split(splitStr)[1];
-			String firstUrlRegex2 = firstUrlRegex.split(splitStr)[2];
-			String firstUrlRegex3 = firstUrlRegex.split(splitStr)[3];
-
-			if(!firstUrlRegex0.equals(ignoreStr)){
-				Pattern preFirstUrl = Pattern.compile(firstUrlRegex0);
-				Matcher mreFirstUrl = preFirstUrl.matcher(sbPage);
-
-				while (mreFirstUrl.find()) {
-					String indexUrlTemp = getRegContent(mreFirstUrl.group(0),ignoreStr,firstUrlRegex1,firstUrlRegex2,firstUrlRegex3,splitStr);
-					if(null != indexUrlTemp && !"".equals(indexUrlTemp)
-							&& !firstUrlList.contains(indexUrlTemp) && firstUrlList.size() < articleTask.getPageSize()){
-						firstUrlList.add(indexUrlTemp);
-						logger.info(indexUrlTemp);
-						//if(firstUrlList.size()>2000) break;
-						getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrlTemp,ignoreStr,firstUrlRegex,secondUrlRegex);
-					}
-				}
-			}
+		}
 
 	}
 
@@ -311,23 +316,18 @@ public class ArticleWebSpider implements ApplicationRunner {
 	}
 
 
-	private static void downLoadPic(String picUrl,String path) {
+	private static boolean downLoadPic(String picUrl,String path) {
 		try {
-
 			File file = new File(path);
-
 			if(!file.exists()){
 				file.mkdirs();
 			}
-
 			logger.info("-----------------------------------");
 			logger.info(picUrl);
 			logger.info("-----------------------------------");
 			URL url = new URL(picUrl);
 			URLConnection urc =  url.openConnection();
-
 			InputStream inputStream = urc.getInputStream();
-
 			ByteArrayOutputStream data = new ByteArrayOutputStream();
 			//设置接收附件最大20MB
 			byte [] fileByte = new byte[15*1024*1024];
@@ -336,8 +336,6 @@ public class ArticleWebSpider implements ApplicationRunner {
 			while((len=inputStream.read(fileByte))!=-1) {
 				data.write(fileByte,0,len);
 			}
-
-
 			FileOutputStream fos = new FileOutputStream(path+picUrl.split("/")[(picUrl.split("/").length-1)]);
 			fos.write(data.toByteArray());
 			/*InputStream is = urc.getInputStream();
@@ -351,8 +349,11 @@ public class ArticleWebSpider implements ApplicationRunner {
 			fos.close();
 		} catch (MalformedURLException e) {
 			logger.info(e.getMessage());
+			return false;
 		} catch (IOException e) {
 			logger.info(e.getMessage());
+			return false;
 		}
+		return true;
 	}
 }  
