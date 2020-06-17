@@ -138,23 +138,6 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 			List<Article> existA = articleService.getArticleList(article);
 			if(!(null != existA && existA.size() > 0)){
-
-				List<String> jpgList = getPicUrl(sbPage);
-				for(String jpg:jpgList){
-					String tempJpg = "";
-					if(!jpg.startsWith("http")){
-						tempJpg = articleTask.getImgPre() + jpg;
-					}
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-					String replacePath = File.separator + "attachment" + File.separator + sdf.format(new Date())  + File.separator;
-					String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
-					boolean b = downLoadPic(tempJpg,filePath);
-					if(b){
-						int le = jpg.split("/").length;
-						sbPage = new StringBuffer(sbPage.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<p>&nbsp;</p>",""));
-					}
-				}
-
 				Pattern contentPre = Pattern.compile(contentRegex0);
 				Matcher mreContent = contentPre.matcher(sbPage);
 				while(mreContent.find()){
@@ -164,6 +147,22 @@ public class ArticleWebSpider implements ApplicationRunner {
 							content = content.replace(wp.getOldWord(),wp.getNewWord());
 						}else if(content.indexOf(wp.getNewWord()) != -1){
 							content = content.replace(wp.getOldWord(),wp.getNewWord());
+						}
+					}
+					List<String> jpgList = getPicUrl(new StringBuffer(content));
+					for(String jpg:jpgList){
+						String tempJpg = "";
+						if(!jpg.startsWith("http")){
+							tempJpg = articleTask.getImgPre() + jpg;
+						}
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+						String replacePath = File.separator + "attachment" + File.separator + sdf.format(new Date())  + File.separator;
+						String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
+						boolean b = downLoadPic(tempJpg,filePath);
+						if(b){
+							int le = jpg.split("/").length;
+							content = content.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<p>&nbsp;</p>","");
+							article.setThumbnail(replacePath+jpg.split("/")[le-1]);
 						}
 					}
 					article.setContent(content);

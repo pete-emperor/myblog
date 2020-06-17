@@ -19,7 +19,7 @@ public class ArticleTask {
    private String imgPre = "";
    private String pathPre = "";
    private Integer pageSize = 10;
-   private Integer maxRepeat = 5;
+   private Integer maxRepeat = 500;
    private Integer repeat = 0;
    private String illegalStr;
 

@@ -16,7 +16,7 @@
     </select>
 
     <insert id="insertArticle" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="com.pyt.bean.Article" >
-        insert into article (title,content,status,summary,meta_keywords,meta_description,created,modified) values(#{title},#{content},'normal',#{title},#{title},#{title},sysdate(),sysdate())
+        insert into article (title,content,status,thumbnail,summary,meta_keywords,meta_description,created,modified) values(#{title},#{content},'normal',#{thumbnail},#{title},#{title},#{title},sysdate(),sysdate())
     </insert>
 
     <insert id="insertArCaMa" parameterType="com.pyt.bean.ArticleCategoryMapping" >
