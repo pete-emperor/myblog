@@ -4,6 +4,7 @@ package com.pyt.scheduled;
 import com.pyt.bean.*;
 import com.pyt.service.ArticleService;
 import com.pyt.service.BlogService;
+import com.pyt.util.IKSUtil;
 import com.pyt.util.QueueUtils;
 import com.pyt.util.RedisUtil;
 import com.pyt.util.SpringUtils;
@@ -166,6 +167,11 @@ public class ArticleWebSpider implements ApplicationRunner {
 						}
 					}
 					article.setContent(content);
+				}
+				try{
+					article.setMeta_keywords(IKSUtil.getStringList(article.getTitle()));
+				}catch (Exception e){
+					e.printStackTrace();
 				}
 				articleService.insertArticle(article);
 				Integer articleId = article.getId();
