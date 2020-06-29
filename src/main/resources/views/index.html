@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <title>箩书阁搜索</title>
+    <meta name="keywords" content="箩书阁搜索，学源网，学习源网，人工智能">
+    <meta name="description" content="箩书阁搜索，学源网，学习源网，人工智能">
     <link rel="stylesheet" href="../jquery/jquery.page.css">
     <script type="text/javascript" src="../jquery/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../jquery/jquery.page.js"></script>
     <script type="text/javascript">
         function toTargetpage(ht){
            // window.location.href="./toTargetPage?html="+ht;
-            window.open('./toTargetPage?html='+ht);
+           // window.open('./toTargetPage?html='+ht);
+            window.open(ht);
         }
         function getBlogList(pageIndex,pageSize){
             $.ajax({
@@ -54,7 +58,7 @@
     </script>
 <body>
 <div>
-    <h1>中华人民共和国万岁</h1>
+    <h1>箩书阁搜索</h1>
     <table id="tab">
 
     </table>

@@ -71,7 +71,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 		// StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
 		//logger.info(buffer);
 		//ScanSpider(articleTask);
-		StringBuffer s = new StringBuffer("<img alt=\"雷军：小米金融旗下香港虚拟银行天星银行正式开业\" src=\"https://cms-bucket.ws.126.net/2020/0611/f70958b0j00qbqzqm001cc000ga00d9c.jpg\" width=\"600\">");
+		StringBuffer s = new StringBuffer("<img alt=\"雷军：小米金融旗下香港虚拟银行天星银行正式开业\" src=\"d/file/hardware/611fde372f103f33e7018a35f2951833.jpeg?imageView&thumbnail=600x0\" width=\"600\">");
 		List l = getPicUrl(s);
 		System.out.println(l.get(0));
 	}
@@ -307,8 +307,8 @@ public class ArticleWebSpider implements ApplicationRunner {
 		Pattern p = Pattern.compile("<img\\b[^>]*\\bsrc\\b\\s*=\\s*('|\")?([^'\"\n\r\f>]+(\\.jpg|\\.bmp|\\.eps|\\.gif|\\.mif|\\.miff|\\.png|\\.tif|\\.tiff|\\.svg|\\.wmf|\\.jpe|\\.jpeg|\\.dib|\\.ico|\\.tga|\\.cut|\\.pic)\\b)[^>]*>", Pattern.CASE_INSENSITIVE);
 		Matcher ma = p.matcher(s);
 		List<String> list = new ArrayList<String>();
-		String rg = "((https|http):){0,1}/{1,2}(?!(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp))."
-				+ "+?(\\.jpg|\\.jpg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp)";
+		String rg = "((https|http):){0,1}/{1,2}(?!(\\.jpg|\\.jpeg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.raw|\\.WMF|\\.webp))."
+				+ "+?(\\.jpg|\\.jpeg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.raw|\\.WMF|\\.webp)";
 		Pattern p1 = Pattern.compile(rg);
 		while(ma.find()) {
 			Matcher ma1 = p1.matcher(ma.group(0));

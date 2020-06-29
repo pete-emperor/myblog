@@ -124,6 +124,11 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>2.1.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -194,6 +199,13 @@
 				<filtering>false</filtering>
 				<excludes>
 					<exclude>*.sh</exclude>
+					<exclude>**/*.properties</exclude>
+					<exclude>mapper/*</exclude>
+					<exclude>**/*.xml</exclude>
+					<exclude>views/page</exclude>
+					<exclude>views/**</exclude>
+					<exclude>static/jquery</exclude>
+					<exclude>static/jquery/*</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -240,8 +252,7 @@
 								<overWriteReleases>false</overWriteReleases>
 								<overWriteSnapshots>false</overWriteSnapshots>
 								<overWriteIfNewer>true</overWriteIfNewer>
-
-								</configuration>
+							</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -264,9 +275,13 @@
 									<includes>
 										<include>**/*.properties</include>
 										<include>mapper/*</include>
-										<include>static/**</include>
+										<include>mapper/*</include>
+										<include>**/*.xml</include>
 										<include>views/page</include>
 										<include>views/**</include>
+										<include>static/**</include>
+										<include>static/jquery</include>
+										<include>static/jquery/*</include>
 									</includes>
 
 									<filtering>false</filtering>

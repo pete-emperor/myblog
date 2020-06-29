@@ -41,11 +41,15 @@ public class BlogController {
         String pageIndex = request.getParameter("pageIndex");
         String pageSize = request.getParameter("pageSize");
 
+        blog.setPageIndex(Integer.valueOf(pageIndex));
+        blog.setPageSize(Integer.valueOf(pageSize));
+        list =  blogService.getBlogList(blog);
+
         if(!redisUtil.hasKey(pageIndex+"_"+pageSize)){
             blog.setPageIndex(Integer.valueOf(pageIndex));
             blog.setPageSize(Integer.valueOf(pageSize));
             list =  blogService.getBlogList(blog);
-            redisUtil.set(pageIndex+"_"+pageSize,list,30l);
+            redisUtil.set(pageIndex+"_"+pageSize,list,360000l);
         }else{
             list = (List<Blog>)redisUtil.get(pageIndex+"_"+pageSize);
         }

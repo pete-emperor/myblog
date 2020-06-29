@@ -3,10 +3,10 @@
 
 <mapper namespace="com.pyt.dao.BlogDao">
     <select id="getBlogList" parameterType="com.pyt.bean.Blog" resultType="com.pyt.bean.Blog">
-        select * from blog limit #{start},#{pageSize}
+        select id,title,CONCAT("https://wwwofai.com/article/",id) url from article limit #{start},#{pageSize}
     </select>
     <select id="getBlogCount" parameterType="com.pyt.bean.Blog" resultType="java.lang.Integer">
-        select count(1) from blog
+        select count(1) from article
     </select>
 
     <insert id="insertBlog" parameterType="com.pyt.bean.Blog">
