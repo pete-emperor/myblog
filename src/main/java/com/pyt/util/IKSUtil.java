@@ -18,13 +18,20 @@ public class IKSUtil {
         StringReader re = new StringReader(text);
         IKSegmenter ik = new IKSegmenter(re, true);
         Lexeme lex;
-        List<String> s = new ArrayList<String>();
+        String str1 = "";
         while ((lex = ik.next()) != null) {
-            s.add(lex.getLexemeText().toString());
+            str1 += lex.getLexemeText() +",";
         }
-        String ary [] = (String [])s.toArray();
-        String str1= StringUtils.join(ary, ",");
+        str1.substring(0,str1.length()-2);
         return str1;
+    }
+    public static void  main(String [] args){
+        try{
+            System.out.println(getStringList("我还是那个模样"));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }
