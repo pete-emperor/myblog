@@ -8,6 +8,8 @@ import com.pyt.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by PC on 2020/4/1.
  */
@@ -25,7 +27,7 @@ public class TaskService {
         taskDao.updateTask(task);
     }
 
-    public ArticleTask getArticleTask(ArticleTask ArticleTask){
+    public List<ArticleTask> getArticleTask(ArticleTask ArticleTask){
         return taskDao.getArticleTask(ArticleTask);
     }
 

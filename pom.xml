@@ -199,13 +199,13 @@
 				<filtering>false</filtering>
 				<excludes>
 					<exclude>*.sh</exclude>
-					<exclude>**/*.properties</exclude>
-					<exclude>mapper/*</exclude>
+					<!--<<exclude>**/*.properties</exclude>
+					exclude>mapper/*</exclude>
 					<exclude>**/*.xml</exclude>
 					<exclude>views/page</exclude>
 					<exclude>views/**</exclude>
 					<exclude>static/jquery</exclude>
-					<exclude>static/jquery/*</exclude>
+					<exclude>static/jquery/*</exclude>-->
 				</excludes>
 			</resource>
 			<resource>
@@ -274,14 +274,14 @@
 									<directory>src/main/resources</directory>
 									<includes>
 										<include>**/*.properties</include>
-										<include>mapper/*</include>
+										<!--<include>mapper/*</include>
 										<include>mapper/*</include>
 										<include>**/*.xml</include>
 										<include>views/page</include>
 										<include>views/**</include>
 										<include>static/**</include>
 										<include>static/jquery</include>
-										<include>static/jquery/*</include>
+										<include>static/jquery/*</include>-->
 									</includes>
 
 									<filtering>false</filtering>

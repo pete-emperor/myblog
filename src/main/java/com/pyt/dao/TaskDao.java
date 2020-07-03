@@ -5,6 +5,8 @@ import com.pyt.bean.ArticleTask;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by peter on 2020/4/2.
  */
@@ -16,7 +18,7 @@ public interface TaskDao {
 
     public void updateTask(Task task);
 
-    public ArticleTask getArticleTask(ArticleTask articleTask);
+    public List<ArticleTask> getArticleTask(ArticleTask articleTask);
 
     public void updateArticleTask(ArticleTask articleTask);
 }

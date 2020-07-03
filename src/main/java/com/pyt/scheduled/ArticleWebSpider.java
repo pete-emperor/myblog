@@ -71,8 +71,9 @@ public class ArticleWebSpider implements ApplicationRunner {
 		// StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
 		//logger.info(buffer);
 		//ScanSpider(articleTask);
-		StringBuffer s = new StringBuffer("<img alt=\"雷军：小米金融旗下香港虚拟银行天星银行正式开业\" src=\"d/file/hardware/611fde372f103f33e7018a35f2951833.jpeg?imageView&thumbnail=600x0\" width=\"600\">");
+		StringBuffer s = new StringBuffer("<img alt=\"雷军：小米金融旗下香港虚拟银行天星银行正式开业\" src=\"https://img2020.cnblogs.com/blog/1509369/202006/1509369-20200629103541216-34273280.png?imageView&thumbnail=600x0\" width=\"600\">");
 		List l = getPicUrl(s);
+		downLoadPic("https://img2020.cnblogs.com/blog/1509369/202006/1509369-20200629103541216-34273280.png","c:/f.png");
 		System.out.println(l.get(0));
 	}
 
@@ -125,7 +126,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 				}
 				article.setTitle(title);
 			}
-			if(null != articleTask.getIllegalStr()){
+			if(null != articleTask.getIllegalStr() && !"".equals(articleTask.getIllegalStr()) && null != article.getTitle()){
 				boolean b = false;
 				String illegalStrs[] = articleTask.getIllegalStr().split(",");
 				for(String s:illegalStrs){
@@ -162,7 +163,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 						boolean b = downLoadPic(tempJpg,filePath);
 						if(b){
 							int le = jpg.split("/").length;
-							content = content.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<p>&nbsp;</p>","");
+							content = content.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<pre","<div").replace("</pre>","</div>");
 							article.setThumbnail(replacePath+jpg.split("/")[le-1]);
 						}
 					}

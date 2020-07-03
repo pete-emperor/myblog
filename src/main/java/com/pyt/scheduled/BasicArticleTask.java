@@ -12,12 +12,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by PC on 2020/4/1.
  */
-//@PropertySource("classpath:scheduled.properties")
-//@Component
-//@EnableScheduling
+@PropertySource("classpath:scheduled.properties")
+@Component
+@EnableScheduling
 public class BasicArticleTask {
 
     private static Logger logger = LoggerFactory.getLogger(BasicArticleTask.class);
@@ -26,9 +28,11 @@ public class BasicArticleTask {
     private TaskService taskService;
 
     public  void run(){
-            ArticleTask articleTask = taskService.getArticleTask(null);
-            if(null != articleTask){
-                QueueUtils.articleTaskQueue.offer(articleTask);
+            List<ArticleTask> articleTaskList = taskService.getArticleTask(null);
+            if(null != articleTaskList){
+                for(ArticleTask articleTask:articleTaskList){
+                    QueueUtils.articleTaskQueue.offer(articleTask);
+                }
                 //taskService.updateArticleTask(articleTask);
             }
     }

@@ -11,7 +11,7 @@
     </update>
 
     <select id="getArticleTask" parameterType="com.pyt.bean.ArticleTask" resultType="com.pyt.bean.ArticleTask">
-        select * from articletask where type = 0 limit 0,1 for update
+        select * from articletask where type = 0
     </select>
 
     <update id="updateArticleTask" parameterType="com.pyt.bean.ArticleTask">

@@ -8,10 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
-@EnableEncryptableProperties
+
 @EnableAutoConfiguration
 @ComponentScan(value = "com.pyt")
 @PropertySource("classpath:application.properties")
+@EnableEncryptableProperties
 @SpringBootApplication
 public class MyblogApplication {
 
