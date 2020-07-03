@@ -1,13 +1,11 @@
 package com.pyt.scheduled;
 
 
+import com.jcraft.jsch.ChannelSftp;
 import com.pyt.bean.*;
 import com.pyt.service.ArticleService;
 import com.pyt.service.BlogService;
-import com.pyt.util.IKSUtil;
-import com.pyt.util.QueueUtils;
-import com.pyt.util.RedisUtil;
-import com.pyt.util.SpringUtils;
+import com.pyt.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -36,6 +34,8 @@ public class ArticleWebSpider implements ApplicationRunner {
 	private RedisUtil redisUtil;
 
 	private static List<String> urlList = new ArrayList<String>();
+
+	private static  SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
 	private ArticleService articleService = SpringUtils.getBean(ArticleService.class);
 
@@ -157,7 +157,6 @@ public class ArticleWebSpider implements ApplicationRunner {
 						if(!jpg.startsWith("http")){
 							tempJpg = articleTask.getImgPre() + jpg;
 						}
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 						String replacePath = File.separator + "attachment" + File.separator + sdf.format(new Date())  + File.separator;
 						String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
 						boolean b = downLoadPic(tempJpg,filePath);
@@ -360,6 +359,29 @@ public class ArticleWebSpider implements ApplicationRunner {
 			logger.info(e.getMessage());
 			return false;
 		}
+
+		{
+
+			String host="39.106.29.128";
+			String username = "sftpuser";
+			String password = "number92013";
+			// String privateKey = "ssh 私钥本地路径";
+			//   String passphrase = "";//ssh 私钥口令
+			int port = 22;//默认端口号是22
+			String directory = "/home/sftpuser/"+sdf.format(new Date())+"/";//默认地址
+			String uploadfilepath = "G:\\workspace\\yjff\\README.md";
+
+			SFTPUtil sftpUtil = new SFTPUtil(host,username,password,null,null,port);
+			ChannelSftp channelsftp =  sftpUtil.connectSFTP();
+			if(channelsftp!=null) {
+				sftpUtil.upload(directory,uploadfilepath,channelsftp);
+				//下载和删除就不写了 反正都是写一下服务器的文件路径 需要操作的文件 最后再写个channelsftp就好了
+				sftpUtil.disconnected(channelsftp);
+			}
+
+		}
+
+
 		return true;
 	}
 }  
