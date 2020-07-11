@@ -6,6 +6,7 @@ package com.pyt.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -22,15 +23,31 @@ public class SFTPUtil {
     private String password;//密码
     private String privateKey;//密钥文件路径
     private String passphrase;//密钥口令
-    private int port = 9022;//默认的sftp端口号9022
+    private static int port = 22;//默认的sftp端口号22
 
-    public SFTPUtil(String host,String username,String password,String privateKey, String passphrase, int port) {
+    private  SFTPUtil(String host,String username,String password,String privateKey, String passphrase, int port) {
         this.host = host;
         this.username = username;
         this.password = password;
         this.privateKey = privateKey;
         this.passphrase = passphrase;
         this.port = port;
+    }
+
+    private static SFTPUtil sftpUtil = new SFTPUtil("39.106.29.128","sftpuser","number92013",null,null,port);
+    private static ChannelSftp channelsftp =  sftpUtil.connectSFTP();
+
+    public static SFTPUtil  getSFTPUtil() {
+        if(null == sftpUtil){
+            sftpUtil = new SFTPUtil("39.106.29.128","sftpuser","number92013",null,null,port);
+        }
+        return sftpUtil;
+    }
+    public static ChannelSftp getChannelSftp(){
+        if(null == channelsftp){
+            channelsftp =  getSFTPUtil().connectSFTP();
+        }
+       return channelsftp;
     }
     /**
      * 获取连接
@@ -84,7 +101,6 @@ public class SFTPUtil {
      */
     public void upload(String directory, String uploadFile, ChannelSftp sftp) {
         try {
-            System.out.println(directory);
             try{
                 sftp.cd(directory);
             }catch(Exception e){
@@ -95,6 +111,28 @@ public class SFTPUtil {
             File file = new File(uploadFile);
             System.out.println(directory+","+uploadFile);
             sftp.put(new FileInputStream(file), file.getName());
+        } catch (Exception e) {
+            System.out.println("upload:"+e);
+        }
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param directory
+     *            上传的目录
+     *            要上传的文件
+     * @param sftp
+     */
+    public void upload(String directory, String fileName, InputStream inputStream, ChannelSftp sftp) {
+        try {
+            try{
+                sftp.cd(directory);
+            }catch(Exception e){
+                sftp.mkdir(directory);
+                sftp.cd(directory);
+            }
+            sftp.put(inputStream, fileName);
         } catch (Exception e) {
             System.out.println("upload:"+e);
         }
@@ -152,17 +190,9 @@ public class SFTPUtil {
     public static  void  main(String []arg){
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-
-        String host="39.106.29.128";
-        String username = "sftpuser";
-        String password = "number92013";
-       // String privateKey = "ssh 私钥本地路径";
-     //   String passphrase = "";//ssh 私钥口令
-        int port = 22;//默认端口号是22
-        String directory = "/home/sftpuser/"+sdf.format(new Date())+"/";//默认地址
-        String uploadfilepath = "G:\\workspace\\yjff\\README.md";
-
-        SFTPUtil sftpUtil = new SFTPUtil(host,username,password,null,null,port);
+        String directory = "/opt/tomcat-7/webapps/ROOT/attachment/"+sdf.format(new Date())+"/";//默认地址
+        String uploadfilepath = "C:\\迅雷下载\\low(4).mp4";
+        SFTPUtil sftpUtil = SFTPUtil.getSFTPUtil();
         ChannelSftp channelsftp =  sftpUtil.connectSFTP();
         if(channelsftp!=null) {
             sftpUtil.upload(directory,uploadfilepath,channelsftp);

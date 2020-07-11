@@ -71,10 +71,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 		// StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
 		//logger.info(buffer);
 		//ScanSpider(articleTask);
-		StringBuffer s = new StringBuffer("<img alt=\"雷军：小米金融旗下香港虚拟银行天星银行正式开业\" src=\"https://img2020.cnblogs.com/blog/1509369/202006/1509369-20200629103541216-34273280.png?imageView&thumbnail=600x0\" width=\"600\">");
-		List l = getPicUrl(s);
-		downLoadPic("https://img2020.cnblogs.com/blog/1509369/202006/1509369-20200629103541216-34273280.png","c:/f.png");
-		System.out.println(l.get(0));
+
 	}
 
 	public void ScanSpider(ArticleTask articleTask) {
@@ -153,18 +150,19 @@ public class ArticleWebSpider implements ApplicationRunner {
 					}
 					List<String> jpgList = getPicUrl(new StringBuffer(content));
 					for(String jpg:jpgList){
-						String tempJpg = "";
+						String tempJpg = jpg;
 						if(!jpg.startsWith("http")){
 							tempJpg = articleTask.getImgPre() + jpg;
 						}
-						String replacePath = File.separator + "attachment" + File.separator + sdf.format(new Date())  + File.separator;
-						String filePath = articleTask.getPathPre() + File.separator + "attachment" + File.separator + sdf.format(new Date()) + File.separator;
+						String replacePath = "/" + "attachment" + "/" + sdf.format(new Date())  + "/";
+						String filePath = articleTask.getPathPre() + "/" + "attachment" + "/" + sdf.format(new Date()) + "/";
 						boolean b = downLoadPic(tempJpg,filePath);
 						if(b){
 							int le = jpg.split("/").length;
-							content = content.toString().replace(jpg,replacePath+jpg.split("/")[le-1]).replace("<pre","<div").replace("</pre>","</div>");
+							content = content.toString().replace(jpg,replacePath+jpg.split("/")[le-1]);
 							article.setThumbnail(replacePath+jpg.split("/")[le-1]);
 						}
+						content = content.replace("<pre","<div").replace("</pre>","</div>");
 					}
 					article.setContent(content);
 				}
@@ -322,36 +320,42 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 
 	private static boolean downLoadPic(String picUrl,String path) {
+		InputStream inputStream  = null;
+		String systemName = System.getProperties().getProperty("os.name");
 		try {
 			File file = new File(path);
 			if(!file.exists()){
 				file.mkdirs();
+				Runtime.getRuntime().exec("chmod 777 -R " + path);
 			}
 			logger.info("-----------------------------------");
 			logger.info(picUrl);
 			logger.info("-----------------------------------");
 			URL url = new URL(picUrl);
 			URLConnection urc =  url.openConnection();
-			InputStream inputStream = urc.getInputStream();
-			ByteArrayOutputStream data = new ByteArrayOutputStream();
-			//设置接收附件最大20MB
-			byte [] fileByte = new byte[15*1024*1024];
-			int len =0;
+			inputStream = urc.getInputStream();
+			if(!systemName.contains("Win")){
+				ByteArrayOutputStream data = new ByteArrayOutputStream();
+				//设置接收附件最大20MB
+				byte [] fileByte = new byte[15*1024*1024];
+				int len =0;
 
-			while((len=inputStream.read(fileByte))!=-1) {
-				data.write(fileByte,0,len);
+				while((len=inputStream.read(fileByte))!=-1) {
+					data.write(fileByte,0,len);
+				}
+				FileOutputStream fos = new FileOutputStream(path+picUrl.split("/")[(picUrl.split("/").length-1)]);
+				fos.write(data.toByteArray());
+				InputStream is = urc.getInputStream();
+				byte [] b = new byte[1024];
+				int i = 0;
+				while((i = is.read(b) )!= -1) {
+					fos.write(b);
+				}
+				fos.flush();
+				//is.close();
+				fos.close();
 			}
-			FileOutputStream fos = new FileOutputStream(path+picUrl.split("/")[(picUrl.split("/").length-1)]);
-			fos.write(data.toByteArray());
-			/*InputStream is = urc.getInputStream();
-			byte [] b = new byte[1024];
-			int i = 0;
-			while((i = is.read(b) )!= -1) {
-				fos.write(b);
-			}*/
-			fos.flush();
-			//is.close();
-			fos.close();
+
 		} catch (MalformedURLException e) {
 			logger.info(e.getMessage());
 			return false;
@@ -359,24 +363,14 @@ public class ArticleWebSpider implements ApplicationRunner {
 			logger.info(e.getMessage());
 			return false;
 		}
-
-		{
-
-			String host="39.106.29.128";
-			String username = "sftpuser";
-			String password = "number92013";
-			// String privateKey = "ssh 私钥本地路径";
-			//   String passphrase = "";//ssh 私钥口令
-			int port = 22;//默认端口号是22
-			String directory = "/home/sftpuser/"+sdf.format(new Date())+"/";//默认地址
-			String uploadfilepath = "G:\\workspace\\yjff\\README.md";
-
-			SFTPUtil sftpUtil = new SFTPUtil(host,username,password,null,null,port);
-			ChannelSftp channelsftp =  sftpUtil.connectSFTP();
+		if(null != inputStream && systemName.contains("Win")){
+			String uploadfilepath =  path+picUrl.split("/")[(picUrl.split("/").length-1)];
+			ChannelSftp channelsftp =  SFTPUtil.getChannelSftp();
 			if(channelsftp!=null) {
-				sftpUtil.upload(directory,uploadfilepath,channelsftp);
+				//SFTPUtil.getSFTPUtil().upload(path,uploadfilepath,channelsftp);
+				SFTPUtil.getSFTPUtil().upload(path,picUrl.split("/")[(picUrl.split("/").length-1)],inputStream,channelsftp);
 				//下载和删除就不写了 反正都是写一下服务器的文件路径 需要操作的文件 最后再写个channelsftp就好了
-				sftpUtil.disconnected(channelsftp);
+				//SFTPUtil.getSFTPUtil().disconnected(channelsftp);
 			}
 
 		}
@@ -384,4 +378,6 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 		return true;
 	}
+
+
 }  

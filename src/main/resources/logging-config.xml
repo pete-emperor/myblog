@@ -58,6 +58,12 @@
  <pattern>%d [%thread] %-5level %logger{36} %line - %msg%n</pattern>
  </encoder>
 </appender>
+ <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder>
+   <charset>UTF-8</charset>
+   <pattern>%d [%thread] %-5level %logger{36} %line - %msg%n</pattern>
+  </encoder>
+ </appender>
  <!--邮件发送-->
  <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
   <!--smtp 服务器-->
@@ -92,6 +98,7 @@
  </appender>
 
 <root level="INFO">
+    <appender-ref ref="consoleLog"/>
 	<appender-ref ref="fileInfoLog"/>
 	<appender-ref ref="fileErrorLog"/>
     <appender-ref ref="EMAIL"/>
