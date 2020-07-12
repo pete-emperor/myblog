@@ -1,5 +1,8 @@
 package com.pyt.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by peter on 2020/4/2.
  */
@@ -22,6 +25,25 @@ public class ArticleTask {
    private Integer maxRepeat = 500;
    private Integer repeat = 0;
    private String illegalStr;
+
+   private volatile List<String> firstUrlList = new ArrayList<String>();
+   private volatile List<String> secondUrlList = new ArrayList<String>();
+
+    public List<String> getFirstUrlList() {
+        return firstUrlList;
+    }
+
+    public void setFirstUrlList(List<String> firstUrlList) {
+        this.firstUrlList = firstUrlList;
+    }
+
+    public List<String> getSecondUrlList() {
+        return secondUrlList;
+    }
+
+    public void setSecondUrlList(List<String> secondUrlList) {
+        this.secondUrlList = secondUrlList;
+    }
 
     public Integer getId() {
         return id;

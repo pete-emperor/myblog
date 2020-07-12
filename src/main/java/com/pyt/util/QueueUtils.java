@@ -1,8 +1,6 @@
 package com.pyt.util;
 
-import com.pyt.bean.ArticleTask;
-import com.pyt.bean.Task;
-import com.pyt.bean.WordsReplace;
+import com.pyt.bean.*;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +15,13 @@ public class QueueUtils {
 
     public static ConcurrentLinkedQueue<ArticleTask> articleTaskQueue = new ConcurrentLinkedQueue<ArticleTask>();
 
-    public static ConcurrentLinkedQueue<Map<String,Object>> secondUrlQueue = new ConcurrentLinkedQueue<Map<String,Object>>();
+    public static ConcurrentLinkedQueue<TaskListClass> indexUrlQueue = new ConcurrentLinkedQueue<TaskListClass>();
+
+    public static ConcurrentLinkedQueue<TaskListClass> secondUrlQueue = new ConcurrentLinkedQueue<TaskListClass>();
+
+    public static ConcurrentLinkedQueue<TaskListClass> imgDownLoadQueue = new ConcurrentLinkedQueue<TaskListClass>();
+
+    public static ConcurrentLinkedQueue<Article> articleQueue = new ConcurrentLinkedQueue<Article>();
+
 
 }

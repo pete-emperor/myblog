@@ -2,6 +2,7 @@ package com.pyt.scheduled;
 
 import com.pyt.bean.Task;
 import com.pyt.bean.ArticleTask;
+import com.pyt.bean.TaskListClass;
 import com.pyt.service.TaskService;
 import com.pyt.util.QueueUtils;
 import org.slf4j.Logger;
@@ -31,7 +32,10 @@ public class BasicArticleTask {
             List<ArticleTask> articleTaskList = taskService.getArticleTask(null);
             if(null != articleTaskList){
                 for(ArticleTask articleTask:articleTaskList){
-                    QueueUtils.articleTaskQueue.offer(articleTask);
+                    TaskListClass taskListClass= new TaskListClass();
+                    taskListClass.setArticleTask(articleTask);
+                    taskListClass.setDataString(articleTask.getIndexUrl());
+                    QueueUtils.indexUrlQueue.offer(taskListClass);
                 }
                 //taskService.updateArticleTask(articleTask);
             }

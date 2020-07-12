@@ -41,164 +41,30 @@ public class ArticleWebSpider implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments applicationArguments) throws Exception {
-		while (true) {
-			if (!QueueUtils.articleTaskQueue.isEmpty() && null != BasicData.wordsReplaceList &&
-					BasicData.wordsReplaceList.size() > 0) {
-				ArticleTask articleTask = QueueUtils.articleTaskQueue.poll();
-				this.ScanSpider(articleTask);
-			} else {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					logger.info(e.getMessage());
-				}
-			}
-		}
+		this.ScanSpider();
 	}
 
+	public static String getRegContent(String temp,String ignoreStr,String urlRegex1,String urlRegex2,String urlRegex3,String splitStr){
 
-	public static void main(String args[]){
-		ArticleTask articleTask = new ArticleTask();
-		articleTask.setId(1);
-		articleTask.setIndexUrl("https://blog.csdn.net/qq_38963960");
-		articleTask.setFirstUrlRegex("0000999000099900009990000");
-		articleTask.setSecondUrlRegex("https://blog.csdn.net/qq_38963960/article/details/\\d{8,}999000099900009990000");
-		articleTask.setTitleRegex("<h1 class=\"title-article\">[\\s\\S]*</h1>9990000999<h1 class=\"title-article\">999</h1>");
-		articleTask.setContentRegex("<div class=\"htmledit_views\" id=\"content_views\">[\\s\\S]*<div class=\"more-toolbox\">99900009990000999<div class=\"more-toolbox\">");
-		articleTask.setIgnoreStr("0000");
-		articleTask.setSplitStr("999");
-
-		// StringBuffer buffer = getPageContent("UTF-8","https://www.csdn.net/nav/java");
-		//logger.info(buffer);
-		//ScanSpider(articleTask);
-
-	}
-
-	public void ScanSpider(ArticleTask articleTask) {
-		Integer id = articleTask.getId();
-		String indexUrl = articleTask.getIndexUrl();
-		String splitStr = articleTask.getSplitStr();
-		String ignoreStr = articleTask.getIgnoreStr();
-		String pageCharSet = articleTask.getPageCharSet();
-
-		String firstUrlRegex = articleTask.getFirstUrlRegex();
-		String secondUrlRegex = articleTask.getSecondUrlRegex();
-
-
-		String titleRegex = articleTask.getTitleRegex();
-		String titleRegex0 = titleRegex.split(splitStr)[0];
-		String titleRegex1 = titleRegex.split(splitStr)[1];
-		String titleRegex2 = titleRegex.split(splitStr)[2];
-		String titleRegex3 = titleRegex.split(splitStr)[3];
-
-		String contentRegex = articleTask.getContentRegex();
-		String contentRegex0 =  contentRegex.split(splitStr)[0];
-		String contentRegex1 =  contentRegex.split(splitStr)[1];
-		String contentRegex2 =  contentRegex.split(splitStr)[2];
-		String contentRegex3 =  contentRegex.split(splitStr)[3];
-		Integer type = articleTask.getType();
-
-
-		List<String> firstUrlList = new ArrayList<String>();
-		List<String> secondUrlList = new ArrayList<String>();
-		getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrl,ignoreStr,firstUrlRegex,secondUrlRegex);
-		logger.info("secondUrlList.size:"+secondUrlList.size());
-		for(int i = 0;i<secondUrlList.size();i++){
-			String pageUrl = secondUrlList.get(i);
-			Article article = new Article();
-			StringBuffer sbPage = getPageContent(pageCharSet,pageUrl);
-			//logger.info(sbPage);
-
-			Pattern titlePre = Pattern.compile(titleRegex0);
-			Matcher mreTitle = titlePre.matcher(sbPage);
-
-			while(mreTitle.find()){
-				String title = getRegContent(mreTitle.group(0),ignoreStr,titleRegex1,titleRegex2,titleRegex3,splitStr);
-				for(WordsReplace wp:BasicData.wordsReplaceList){
-					if(title.indexOf(wp.getOldWord()) != -1){
-						title = title.replace(wp.getOldWord(),wp.getNewWord());
-					}else if(title.indexOf(wp.getNewWord()) != -1){
-						title = title.replace(wp.getOldWord(),wp.getNewWord());
-					}
-				}
-				article.setTitle(title);
+		if(urlRegex2.equals(ignoreStr)){
+			if(!urlRegex3.equals(ignoreStr)){
+				temp = temp.substring(0,temp.lastIndexOf(urlRegex3));
 			}
-			if(null != articleTask.getIllegalStr() && !"".equals(articleTask.getIllegalStr()) && null != article.getTitle()){
-				boolean b = false;
-				String illegalStrs[] = articleTask.getIllegalStr().split(",");
-				for(String s:illegalStrs){
-					if(article.getTitle().contains(s)){
-						b = true;
-						break;
-					}
-				}
-				if(b) continue;
-			}
-
-			List<Article> existA = articleService.getArticleList(article);
-			if(!(null != existA && existA.size() > 0)){
-				Pattern contentPre = Pattern.compile(contentRegex0);
-				Matcher mreContent = contentPre.matcher(sbPage);
-				while(mreContent.find()){
-					String content = getRegContent(mreContent.group(0),ignoreStr,contentRegex1,contentRegex2,contentRegex3,splitStr);
-					for(WordsReplace wp:BasicData.wordsReplaceList){
-						if(content.indexOf(wp.getOldWord()) != -1){
-							content = content.replace(wp.getOldWord(),wp.getNewWord());
-						}else if(content.indexOf(wp.getNewWord()) != -1){
-							content = content.replace(wp.getOldWord(),wp.getNewWord());
-						}
-					}
-					List<String> jpgList = getPicUrl(new StringBuffer(content));
-					for(String jpg:jpgList){
-						String tempJpg = jpg;
-						if(!jpg.startsWith("http")){
-							tempJpg = articleTask.getImgPre() + jpg;
-						}
-						String replacePath = "/" + "attachment" + "/" + sdf.format(new Date())  + "/";
-						String filePath = articleTask.getPathPre() + "/" + "attachment" + "/" + sdf.format(new Date()) + "/";
-						boolean b = downLoadPic(tempJpg,filePath);
-						if(b){
-							int le = jpg.split("/").length;
-							content = content.toString().replace(jpg,replacePath+jpg.split("/")[le-1]);
-							article.setThumbnail(replacePath+jpg.split("/")[le-1]);
-						}
-						content = content.replace("<pre","<div").replace("</pre>","</div>");
-					}
-					article.setContent(content);
-				}
-				try{
-					article.setMeta_keywords(IKSUtil.getStringList(article.getTitle()));
-				}catch (Exception e){
-					e.printStackTrace();
-				}
-				articleService.insertArticle(article);
-				Integer articleId = article.getId();
-				String articleCategory = articleTask.getArticleCategory();
-				if(null != articleCategory && !articleCategory.equals("")){
-					String typeArray []  =  articleCategory.split(",");
-					for(int a = 0; a<typeArray.length;a++){
-						ArticleCategoryMapping acm = new ArticleCategoryMapping();
-						acm.setArticle_id(articleId);
-						acm.setCategory_id(Integer.valueOf(typeArray[a]));
-						articleService.insertArCaMa(acm);
-					}
-				}
+		}else{
+			if(!urlRegex3.equals(ignoreStr)){
+				temp = temp.substring(temp.indexOf(urlRegex2) + urlRegex2.length(),temp.lastIndexOf(urlRegex3));
 			}else{
-				if(articleTask.getRepeat() < articleTask.getMaxRepeat()){
-					logger.info("=======================================");
-					logger.info(article.getTitle());
-					logger.info("该文章已存在，将不再收录！！");
-					logger.info("=======================================");
-					articleTask.setRepeat(articleTask.getRepeat()+1);
-				}else{
-					logger.info("=======================================");
-					logger.info("超出重复数将停止此任务的全部录入");
-					logger.info("=======================================");
-					break;
-				}
-
+				temp = temp.substring(temp.indexOf(urlRegex2) + urlRegex2.length(),temp.length());
 			}
 		}
+		String urlTemp = "";
+		if(!urlRegex1.equals(ignoreStr)){
+			urlTemp = urlRegex1 + temp;
+		}else {
+			urlTemp = temp;
+		}
+
+		return  urlTemp;
 	}
 
 	public static StringBuffer getPageContent(String pageCharSet,String pageUrl){
@@ -230,74 +96,206 @@ public class ArticleWebSpider implements ApplicationRunner {
 		return sbPage;
 	}
 
-	//爬取分页url
-	public static void getPageUrl(ArticleTask articleTask,List <String> firstUrlList,List<String> secondUrlList,String splitStr,String indexUrl,String ignoreStr,String firstUrlRegex,String secondUrlRegex){
+	public void ScanSpider() {
 
-		StringBuffer sbPage = getPageContent(articleTask.getPageCharSet(),indexUrl);
-		String secondUrlRegex0 = secondUrlRegex.split(splitStr)[0];
-		String secondUrlRegex1 = secondUrlRegex.split(splitStr)[1];
-		String secondUrlRegex2 = secondUrlRegex.split(splitStr)[2];
-		String secondUrlRegex3 = secondUrlRegex.split(splitStr)[3];
+		//产生indexURL及secondURL
+		new Thread(new Runnable() {
+			public void run() {
+				while(true){
 
-		Pattern preSecondUrl = Pattern.compile(secondUrlRegex0);
-		Matcher mreSecondUrl = preSecondUrl.matcher(sbPage);
+					if(!QueueUtils.indexUrlQueue.isEmpty()){
+						TaskListClass taskListClass= QueueUtils.indexUrlQueue.poll();
+						ArticleTask articleTask = taskListClass.getArticleTask();
+						StringBuffer sbPage = getPageContent(articleTask.getPageCharSet(),taskListClass.getDataString());
+						String secondUrlRegex0 = articleTask.getSecondUrlRegex().split(articleTask.getSplitStr())[0];
+						String secondUrlRegex1 = articleTask.getSecondUrlRegex().split(articleTask.getSplitStr())[1];
+						String secondUrlRegex2 = articleTask.getSecondUrlRegex().split(articleTask.getSplitStr())[2];
+						String secondUrlRegex3 = articleTask.getSecondUrlRegex().split(articleTask.getSplitStr())[3];
+						Pattern preSecondUrl = Pattern.compile(secondUrlRegex0);
+						Matcher mreSecondUrl = preSecondUrl.matcher(sbPage);
 
-		while (mreSecondUrl.find()) {
-			String indexUrlTemp = getRegContent(mreSecondUrl.group(0),ignoreStr,secondUrlRegex1,secondUrlRegex2,secondUrlRegex3,splitStr);
-			if(null != indexUrlTemp && !"".equals(indexUrlTemp) && !secondUrlList.contains(indexUrlTemp)){
-				logger.info(indexUrlTemp);
-				secondUrlList.add(indexUrlTemp);
-					/*Map<String,Object> map = new HashMap<String,Object>();
-					map.put("indexUrl",indexUrlTemp);
-					map.put("articleTask",articleTask);
-					QueueUtils.secondUrlQueue.add(map);*/
-			}
-		}
+						while (mreSecondUrl.find()) {
+							String secondUrlTemp = getRegContent(mreSecondUrl.group(0),articleTask.getIgnoreStr(),secondUrlRegex1,secondUrlRegex2,secondUrlRegex3,articleTask.getSplitStr());
+							if(null != secondUrlTemp && !"".equals(secondUrlTemp) && !articleTask.getSecondUrlList().contains(secondUrlTemp)){
+								logger.info(secondUrlTemp);
+								articleTask.getSecondUrlList().add(secondUrlTemp);
+								TaskListClass taskListClass1 = new TaskListClass();
+								taskListClass1.setArticleTask(articleTask);
+								taskListClass1.setDataString(secondUrlTemp);
+								QueueUtils.secondUrlQueue.add(taskListClass1);
+							}
+						}
 
-		String firstUrlRegex0 = firstUrlRegex.split(splitStr)[0];
-		String firstUrlRegex1 = firstUrlRegex.split(splitStr)[1];
-		String firstUrlRegex2 = firstUrlRegex.split(splitStr)[2];
-		String firstUrlRegex3 = firstUrlRegex.split(splitStr)[3];
+						String firstUrlRegex0 = articleTask.getFirstUrlRegex().split(articleTask.getSplitStr())[0];
+						String firstUrlRegex1 = articleTask.getFirstUrlRegex().split(articleTask.getSplitStr())[1];
+						String firstUrlRegex2 = articleTask.getFirstUrlRegex().split(articleTask.getSplitStr())[2];
+						String firstUrlRegex3 = articleTask.getFirstUrlRegex().split(articleTask.getSplitStr())[3];
 
-		if(!firstUrlRegex0.equals(ignoreStr)){
-			Pattern preFirstUrl = Pattern.compile(firstUrlRegex0);
-			Matcher mreFirstUrl = preFirstUrl.matcher(sbPage);
+						if(!firstUrlRegex0.equals(articleTask.getIgnoreStr())){
+							Pattern preFirstUrl = Pattern.compile(firstUrlRegex0);
+							Matcher mreFirstUrl = preFirstUrl.matcher(sbPage);
 
-			while (mreFirstUrl.find()) {
-				String indexUrlTemp = getRegContent(mreFirstUrl.group(0),ignoreStr,firstUrlRegex1,firstUrlRegex2,firstUrlRegex3,splitStr);
-				if(null != indexUrlTemp && !"".equals(indexUrlTemp)
-						&& !firstUrlList.contains(indexUrlTemp) && firstUrlList.size() < articleTask.getPageSize()){
-					firstUrlList.add(indexUrlTemp);
-					logger.info(indexUrlTemp);
-					//if(firstUrlList.size()>2000) break;
-					getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrlTemp,ignoreStr,firstUrlRegex,secondUrlRegex);
+							while (mreFirstUrl.find()) {
+								String indexUrlTemp = getRegContent(mreFirstUrl.group(0),articleTask.getIgnoreStr(),firstUrlRegex1,firstUrlRegex2,firstUrlRegex3,articleTask.getSplitStr());
+								if(null != indexUrlTemp && !"".equals(indexUrlTemp)
+										&& !articleTask.getFirstUrlList().contains(indexUrlTemp) && articleTask.getFirstUrlList().size() < articleTask.getPageSize()){
+									articleTask.getFirstUrlList().add(indexUrlTemp);
+									logger.info(indexUrlTemp);
+									//if(firstUrlList.size()>2000) break;
+									TaskListClass taskListClass2 = new TaskListClass();
+									taskListClass2.setArticleTask(articleTask);
+									taskListClass2.setDataString(indexUrlTemp);
+									QueueUtils.indexUrlQueue.offer(taskListClass2);
+									//getPageUrl(articleTask,firstUrlList,secondUrlList,splitStr,indexUrlTemp,ignoreStr,firstUrlRegex,secondUrlRegex);
+								}
+							}
+						}
+					}else{
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							logger.info(e.getMessage());
+						}
+					}
 				}
 			}
-		}
+		}).start();
 
-	}
+		//获取article
+		new Thread(new Runnable() {
+			public void run() {
+				while (true) {
+					if (!QueueUtils.secondUrlQueue.isEmpty()) {
+						TaskListClass taskListClass = QueueUtils.secondUrlQueue.poll();
+						ArticleTask articleTask = taskListClass.getArticleTask();
+						String pageUrl = taskListClass.getDataString();
+						Article article = new Article();
+						StringBuffer sbPage = getPageContent(articleTask.getPageCharSet(), pageUrl);
+						//logger.info(sbPage);
 
-	public static String getRegContent(String temp,String ignoreStr,String urlRegex1,String urlRegex2,String urlRegex3,String splitStr){
+						Pattern titlePre = Pattern.compile(articleTask.getTitleRegex().split(articleTask.getSplitStr())[0]);
+						Matcher mreTitle = titlePre.matcher(sbPage);
 
-		if(urlRegex2.equals(ignoreStr)){
-			if(!urlRegex3.equals(ignoreStr)){
-				temp = temp.substring(0,temp.lastIndexOf(urlRegex3));
+						while (mreTitle.find()) {
+							String title = getRegContent(mreTitle.group(0), articleTask.getIgnoreStr(),
+									articleTask.getTitleRegex().split(articleTask.getSplitStr())[1],
+									articleTask.getTitleRegex().split(articleTask.getSplitStr())[2],
+									articleTask.getTitleRegex().split(articleTask.getSplitStr())[3], articleTask.getSplitStr());
+							for (WordsReplace wp : BasicData.wordsReplaceList) {
+								if (title.indexOf(wp.getOldWord()) != -1) {
+									title = title.replace(wp.getOldWord(), wp.getNewWord());
+								} else if (title.indexOf(wp.getNewWord()) != -1) {
+									title = title.replace(wp.getOldWord(), wp.getNewWord());
+								}
+							}
+							article.setTitle(title);
+						}
+						if (null != articleTask.getIllegalStr() && !"".equals(articleTask.getIllegalStr()) && null != article.getTitle()) {
+							boolean b = false;
+							String illegalStrs[] = articleTask.getIllegalStr().split(",");
+							for (String s : illegalStrs) {
+								if (article.getTitle().contains(s)) {
+									b = true;
+									break;
+								}
+							}
+							if (b) continue;
+						}
+
+						List<Article> existA = articleService.getArticleList(article);
+						if (!(null != existA && existA.size() > 0)) {
+							Pattern contentPre = Pattern.compile(articleTask.getContentRegex().split(articleTask.getSplitStr())[0]);
+							Matcher mreContent = contentPre.matcher(sbPage);
+							while (mreContent.find()) {
+								String content = getRegContent(mreContent.group(0),
+										articleTask.getIgnoreStr(),
+										articleTask.getContentRegex().split(articleTask.getSplitStr())[1],
+										articleTask.getContentRegex().split(articleTask.getSplitStr())[2],
+										articleTask.getContentRegex().split(articleTask.getSplitStr())[3], articleTask.getSplitStr());
+								for (WordsReplace wp : BasicData.wordsReplaceList) {
+									if (content.indexOf(wp.getOldWord()) != -1) {
+										content = content.replace(wp.getOldWord(), wp.getNewWord());
+									} else if (content.indexOf(wp.getNewWord()) != -1) {
+										content = content.replace(wp.getOldWord(), wp.getNewWord());
+									}
+								}
+								List<String> jpgList = getPicUrl(new StringBuffer(content));
+								for (String jpg : jpgList) {
+									String tempJpg = jpg;
+									if (!jpg.startsWith("http")) {
+										tempJpg = articleTask.getImgPre() + jpg;
+									}
+									String replacePath = "/" + "attachment" + "/" + sdf.format(new Date()) + "/";
+									String filePath = articleTask.getPathPre() + "/" + "attachment" + "/" + sdf.format(new Date()) + "/";
+									boolean b = downLoadPic(tempJpg, filePath);
+									if (b) {
+										int le = jpg.split("/").length;
+										content = content.toString().replace(jpg, replacePath + jpg.split("/")[le - 1]);
+										article.setThumbnail(replacePath + jpg.split("/")[le - 1]);
+									}
+									content = content.replace("<pre", "<div").replace("</pre>", "</div>");
+								}
+								article.setContent(content);
+							}
+							article.setArticleCategory(articleTask.getArticleCategory());
+							try {
+								article.setMeta_keywords(IKSUtil.getStringList(article.getTitle()));
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							QueueUtils.articleQueue.offer(article);
+						} else {
+							if (articleTask.getRepeat() < articleTask.getMaxRepeat()) {
+								logger.info("=======================================");
+								logger.info(article.getTitle());
+								logger.info("该文章已存在，将不再收录！！");
+								logger.info("=======================================");
+								articleTask.setRepeat(articleTask.getRepeat() + 1);
+							} else {
+								logger.info("=======================================");
+								logger.info("超出重复数将停止此任务的全部录入");
+								logger.info("=======================================");
+								continue;
+							}
+						}
+					} else {
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							logger.info(e.getMessage());
+						}
+					}
+				}
 			}
-		}else{
-			if(!urlRegex3.equals(ignoreStr)){
-				temp = temp.substring(temp.indexOf(urlRegex2) + urlRegex2.length(),temp.lastIndexOf(urlRegex3));
-			}else{
-				temp = temp.substring(temp.indexOf(urlRegex2) + urlRegex2.length(),temp.length());
+		}).start();
+		//入库
+		new Thread(new Runnable() {
+			public void run() {
+				while(true){
+					if(!QueueUtils.articleQueue.isEmpty()){
+						    Article article = QueueUtils.articleQueue.poll();
+							articleService.insertArticle(article);
+							Integer articleId = article.getId();
+							String articleCategory = article.getArticleCategory();
+							if(null != articleCategory && !articleCategory.equals("")){
+								String typeArray []  =  articleCategory.split(",");
+								for(int a = 0; a<typeArray.length;a++){
+									ArticleCategoryMapping acm = new ArticleCategoryMapping();
+									acm.setArticle_id(articleId);
+									acm.setCategory_id(Integer.valueOf(typeArray[a]));
+									articleService.insertArCaMa(acm);
+								}
+							}
+						}else{
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								logger.info(e.getMessage());
+							}
+						}
+					}
 			}
-		}
-		String urlTemp = "";
-		if(!urlRegex1.equals(ignoreStr)){
-			urlTemp = urlRegex1 + temp;
-		}else {
-			urlTemp = temp;
-		}
-
-		return  urlTemp;
+		}).start();
 	}
 
 	private static List<String> getPicUrl(StringBuffer s){
@@ -318,7 +316,6 @@ public class ArticleWebSpider implements ApplicationRunner {
 		return list;
 	}
 
-
 	private static boolean downLoadPic(String picUrl,String path) {
 		InputStream inputStream  = null;
 		String systemName = System.getProperties().getProperty("os.name");
@@ -334,7 +331,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 			URL url = new URL(picUrl);
 			URLConnection urc =  url.openConnection();
 			inputStream = urc.getInputStream();
-			if(!systemName.contains("Win")){
+			if(true){
 				ByteArrayOutputStream data = new ByteArrayOutputStream();
 				//设置接收附件最大20MB
 				byte [] fileByte = new byte[15*1024*1024];
@@ -363,7 +360,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 			logger.info(e.getMessage());
 			return false;
 		}
-		if(null != inputStream && systemName.contains("Win")){
+		if(false){
 			String uploadfilepath =  path+picUrl.split("/")[(picUrl.split("/").length-1)];
 			ChannelSftp channelsftp =  SFTPUtil.getChannelSftp();
 			if(channelsftp!=null) {
@@ -374,7 +371,6 @@ public class ArticleWebSpider implements ApplicationRunner {
 			}
 
 		}
-
 
 		return true;
 	}

@@ -31,6 +31,16 @@ public class Article {
     private Integer start = 0;
     private Integer pageSize = 10;
 
+    private String articleCategory;
+
+    public String getArticleCategory() {
+        return articleCategory;
+    }
+
+    public void setArticleCategory(String articleCategory) {
+        this.articleCategory = articleCategory;
+    }
+
     public Integer getId() {
         return id;
     }
