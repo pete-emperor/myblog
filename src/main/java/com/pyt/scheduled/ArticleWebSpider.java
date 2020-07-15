@@ -75,7 +75,9 @@ public class ArticleWebSpider implements ApplicationRunner {
 		StringBuffer sbPage = new StringBuffer();
 		try {
 			url = new URL(pageUrl);
+
 			pageUrlConn = url.openConnection();
+			pageUrlConn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
 			pageUrlConn.setConnectTimeout(10000);
 			br = new BufferedReader(new InputStreamReader(pageUrlConn.getInputStream(), pageCharSet));
 			String strTemp = "";
@@ -303,8 +305,8 @@ public class ArticleWebSpider implements ApplicationRunner {
 		Pattern p = Pattern.compile("<img\\b[^>]*\\bsrc\\b\\s*=\\s*('|\")?([^'\"\n\r\f>]+(\\.jpg|\\.bmp|\\.eps|\\.gif|\\.mif|\\.miff|\\.png|\\.tif|\\.tiff|\\.svg|\\.wmf|\\.jpe|\\.jpeg|\\.dib|\\.ico|\\.tga|\\.cut|\\.pic)\\b)[^>]*>", Pattern.CASE_INSENSITIVE);
 		Matcher ma = p.matcher(s);
 		List<String> list = new ArrayList<String>();
-		String rg = "((https|http):){0,1}/{1,2}(?!(\\.jpg|\\.jpeg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.raw|\\.WMF|\\.webp))."
-				+ "+?(\\.jpg|\\.jpeg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.raw|\\.WMF|\\.webp)";
+		String rg = "((https|http):){0,1}/{1,2}(?!(\\.jpg|\\.jpeg|\\.bmp|\\.png|\\.tif|\\.gif|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp))."
+				+ "+?(\\.jpg|\\.JPG|\\.jpeg|\\.JPEG|\\.bmp|\\.png|\\.PNG|\\.tif|\\.gif|\\.GIF|\\.pcx|\\.tga|\\.exif|\\.fpx|\\.svg|\\.psd|\\.cdr|\\.pcd|\\.dxf|\\.ufo|\\.eps|\\.ai|\\.raw|\\.WMF|\\.webp)";
 		Pattern p1 = Pattern.compile(rg);
 		while(ma.find()) {
 			Matcher ma1 = p1.matcher(ma.group(0));
@@ -330,8 +332,9 @@ public class ArticleWebSpider implements ApplicationRunner {
 			logger.info("-----------------------------------");
 			URL url = new URL(picUrl);
 			URLConnection urc =  url.openConnection();
+			urc.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
 			inputStream = urc.getInputStream();
-			if(true){
+			if(false){
 				ByteArrayOutputStream data = new ByteArrayOutputStream();
 				//设置接收附件最大20MB
 				byte [] fileByte = new byte[15*1024*1024];
@@ -360,7 +363,7 @@ public class ArticleWebSpider implements ApplicationRunner {
 			logger.info(e.getMessage());
 			return false;
 		}
-		if(false){
+		if(true){
 			String uploadfilepath =  path+picUrl.split("/")[(picUrl.split("/").length-1)];
 			ChannelSftp channelsftp =  SFTPUtil.getChannelSftp();
 			if(channelsftp!=null) {
